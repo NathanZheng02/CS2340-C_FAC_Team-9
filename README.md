@@ -2,3 +2,4 @@
 Dat Mai
 David-Casanova
 Nathan Zheng
+Taylor West
