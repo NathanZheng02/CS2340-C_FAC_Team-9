@@ -3,3 +3,4 @@ Dat Mai
 David-Casanova
 Nathan Zheng
 Taylor West
+Jay Patel
