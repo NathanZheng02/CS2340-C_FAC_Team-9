@@ -4,6 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Button;
+import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.util.Log;
 
@@ -17,10 +20,28 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        EditText usernameInput = findViewById(R.id.usernameInput);
+        EditText passwordInput = findViewById(R.id.passwordInput);
+        Button loginButton = findViewById(R.id.loginButton);
+
+        loginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String username = usernameInput.getText().toString().trim();
+                String password = passwordInput.getText().toString().trim();
+
+                if (username.isEmpty() || username == null) {
+                    usernameInput.setError("Please enter a username");
+                }
+
+                if (password.isEmpty() || password == null) {
+                    passwordInput.setError("Please enter a password");
+                }
+            }
+        });
         Log.d(TAG, "onCreate called");
     }
-
-
 
 
     @Override
