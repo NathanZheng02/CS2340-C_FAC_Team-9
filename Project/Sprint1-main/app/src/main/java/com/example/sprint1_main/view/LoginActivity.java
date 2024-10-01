@@ -33,11 +33,10 @@ public class LoginActivity extends AppCompatActivity {
 
                 if (username.isEmpty() || username == null) {
                     usernameInput.setError("Please enter a username");
-                    return;
                 }
+
                 if (password.isEmpty() || password == null) {
                     passwordInput.setError("Please enter a password");
-                    return;
                 }
             }
         });
