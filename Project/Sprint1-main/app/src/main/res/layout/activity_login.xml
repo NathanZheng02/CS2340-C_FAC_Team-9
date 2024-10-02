@@ -17,20 +17,22 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Log In"
-            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textSize="30sp"
             android:gravity="center"
             android:paddingBottom="24dp"/>
 
         <EditText
             android:id="@+id/usernameInput"
-            android:layout_width="match_parent"
+            android:layout_width="350dp"
             android:layout_height="wrap_content"
+            android:backgroundTint="@color/darkgray"
             android:hint="Enter username"
             android:inputType="text"/>
 
         <EditText
             android:id="@+id/passwordInput"
-            android:layout_width="match_parent"
+            android:layout_width="350dp"
             android:layout_height="wrap_content"
             android:hint="Enter password"
             android:inputType="text"/>
@@ -39,12 +41,14 @@
             android:id="@+id/loginButton"
             android:layout_width="203dp"
             android:layout_height="wrap_content"
-            android:text="Login" />
+            android:text="Login"
+            android:backgroundTint="@color/darkgray"/>
 
         <Button
             android:id="@+id/registerButton"
             android:layout_width="203dp"
             android:layout_height="wrap_content"
+            android:backgroundTint="@color/lightgray"
             android:text="Create Account"/>
 
 
