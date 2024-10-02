@@ -4,3 +4,4 @@ David-Casanova
 Nathan Zheng
 Taylor West
 Saddiq Rupani
+Jay Patel
