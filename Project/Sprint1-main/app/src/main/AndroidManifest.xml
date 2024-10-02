@@ -21,6 +21,22 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".view.LoginActivity"/>
+        <activity
+            android:name=".view.AccomodationsActivity"/>
+        <activity
+            android:name=".view.DestinationActivity"/>
+        <activity
+            android:name=".view.DiningActivity"/>
+        <activity
+            android:name=".view.HomeActivity"/>
+        <activity
+            android:name=".view.LogisticsActivity"/>
+        <activity
+            android:name=".view.TransportationActivity"/>
+        <activity
+            android:name=".view.TravelCommunityActivity"/>
     </application>
 
 </manifest>
