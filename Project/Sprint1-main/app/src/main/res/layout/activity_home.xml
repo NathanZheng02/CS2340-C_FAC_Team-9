@@ -17,37 +17,59 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
+        android:id="@+id/button_accommodations"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:text=""
+        android:backgroundTint="@color/darkgray"
+        tools:layout_editor_absoluteX="320dp"
+        tools:layout_editor_absoluteY="828dp" />
+
+    <Button
+        android:id="@+id/button_accommodations"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:text=""
+        android:backgroundTint="@color/darkgray"
+        tools:layout_editor_absoluteX="245dp"
+        tools:layout_editor_absoluteY="828dp" />
+
+    <Button
         android:id="@+id/button_destination"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="@color/darkgray"
         android:text=""
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/bottomAppBar"
         app:layout_constraintEnd_toEndOf="@id/button_logistics"
-        tools:layout_editor_absoluteX="12dp"
-        tools:layout_editor_absoluteY="826dp" />
+        app:layout_constraintHorizontal_bias="0.228"
+        app:layout_constraintStart_toStartOf="@+id/bottomAppBar" />
 
     <Button
         android:id="@+id/button_logistics"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:text="Button"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:text=""
+        android:backgroundTint="@color/darkgray"
         tools:layout_editor_absoluteX="70dp"
         tools:layout_editor_absoluteY="825dp" />
 
     <Button
         android:id="@+id/button_dining"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:text="Button"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:text=""
+        android:backgroundTint="@color/darkgray"
         tools:layout_editor_absoluteX="132dp"
         tools:layout_editor_absoluteY="828dp" />
 
     <Button
-        android:id="@+id/button_accommodations"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:id="@+id/button_something"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
         android:text=""
+        android:backgroundTint="@color/darkgray"
         tools:layout_editor_absoluteX="195dp"
         tools:layout_editor_absoluteY="828dp" />
 
