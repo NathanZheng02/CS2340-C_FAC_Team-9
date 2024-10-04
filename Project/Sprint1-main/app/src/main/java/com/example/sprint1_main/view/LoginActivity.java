@@ -30,13 +30,19 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String username = usernameInput.getText().toString().trim();
                 String password = passwordInput.getText().toString().trim();
-
+                boolean success = true;
                 if (username.isEmpty() || username == null) {
                     usernameInput.setError("Please enter a username");
+                    success = false;
                 }
 
                 if (password.isEmpty() || password == null) {
                     passwordInput.setError("Please enter a password");
+                    success = false;
+                }
+                if (success) {
+                    Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                    startActivity(intent);
                 }
             }
         });
