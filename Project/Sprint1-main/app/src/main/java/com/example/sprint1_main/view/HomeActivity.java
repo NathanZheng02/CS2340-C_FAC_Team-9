@@ -21,6 +21,9 @@ public class HomeActivity extends AppCompatActivity {
 
         Button logistics = findViewById(R.id.button_logistics);
         Button destination = findViewById(R.id.button_destination);
+        Button dining = findViewById(R.id.button_diningEstablishments);
+        Button community = findViewById(R.id.button_travelCommunity);
+        Button accommodation = findViewById(R.id.button_accommodations);
 
         logistics.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -33,6 +36,27 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(HomeActivity.this, DestinationActivity.class);
+                startActivity(intent);
+            }
+        });
+        dining.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomeActivity.this, DiningActivity.class);
+                startActivity(intent);
+            }
+        });
+        community.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomeActivity.this, TravelCommunityActivity.class);
+                startActivity(intent);
+            }
+        });
+        accommodation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomeActivity.this, AccomodationsActivity.class);
                 startActivity(intent);
             }
         });
