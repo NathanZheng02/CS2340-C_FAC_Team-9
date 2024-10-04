@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -18,9 +19,9 @@ public class RegisterActivity extends AppCompatActivity {
     private final String TAG = "RegisterActivity";
 
     //all variables for the user class
-    EditText register_username, register_password, register_name, register_age, register_birthdate, register_contactinformation;
+    EditText register_username, register_password, register_name, register_age, register_phone_number, register_email;
 
-    Button register_button;
+    Button register_button, backToLogin;
     FirebaseDatabase database;
     DatabaseReference reference;
 
@@ -34,8 +35,14 @@ public class RegisterActivity extends AppCompatActivity {
         //TODO: add other user variables
         register_username = findViewById(R.id.register_usernameInput);
         register_password = findViewById(R.id.register_passwordInput);
+        register_name = findViewById(R.id.name);
+        register_age = findViewById(R.id.age);
+        register_phone_number = findViewById(R.id.phoneNumber);
+        register_email = findViewById(R.id.email);
 
         register_button = findViewById(R.id.register_button);
+
+        backToLogin = findViewById(R.id.loginPage);
 
         register_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,16 +53,28 @@ public class RegisterActivity extends AppCompatActivity {
                 //TODO: add other user variables + text boxes
                 String username = register_username.getText().toString();
                 String password = register_password.getText().toString();
+                String name = register_name.getText().toString();
+                String age = register_age.getText().toString();
+                String phone_number = register_phone_number.getText().toString();
+                String email = register_email.getText().toString();
 
                 UserModel user = new UserModel(2, "contact", "user x", 14, username, password);
                 reference.child(username).setValue(user);
 
                 //TODO: add feedback to confirm registration success
+                Toast.makeText(RegisterActivity.this, "Registration successful!", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                 startActivity(intent);
             }
         });
 
         //TODO: add button to redirect back to login
+        backToLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent (RegisterActivity.this, LoginActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 }
