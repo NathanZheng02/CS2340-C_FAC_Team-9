@@ -19,7 +19,7 @@
         tools:ignore="BottomAppBar" />
 
     <Button
-        android:id="@+id/button_destination"
+        android:id="@+id/button_home"
         android:layout_width="55dp"
         android:layout_height="55dp"
         android:layout_marginBottom="11dp"
@@ -27,7 +27,29 @@
         android:text=""
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/bottomAppBar"
-        android:layout_marginStart="10dp" />
+        android:layout_marginStart="12dp" />
+
+    <Button
+        android:id="@+id/button_logistics"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:layout_marginBottom="11dp"
+        android:backgroundTint="@color/darkgray"
+        android:text=""
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/button_home"
+        android:layout_marginStart="12dp" />
+
+    <Button
+        android:id="@+id/button_destination"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:layout_marginBottom="11dp"
+        android:text=""
+        android:backgroundTint="@color/darkgray"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/button_logistics"
+        android:layout_marginStart="12dp" />
 
     <Button
         android:id="@+id/button_diningEstablishments"
@@ -41,7 +63,7 @@
         android:layout_marginStart="12dp" />
 
     <Button
-        android:id="@+id/button_car"
+        android:id="@+id/button_accommodations"
         android:layout_width="55dp"
         android:layout_height="55dp"
         android:layout_marginBottom="11dp"
@@ -52,28 +74,6 @@
         android:layout_marginStart="12dp" />
 
     <Button
-        android:id="@+id/button_logistics"
-        android:layout_width="55dp"
-        android:layout_height="55dp"
-        android:layout_marginBottom="11dp"
-        android:text=""
-        android:backgroundTint="@color/darkgray"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/button_car"
-        android:layout_marginStart="12dp" />
-
-    <Button
-        android:id="@+id/button_settings"
-        android:layout_width="55dp"
-        android:layout_height="55dp"
-        android:layout_marginBottom="11dp"
-        android:text=""
-        android:backgroundTint="@color/darkgray"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/button_logistics"
-        android:layout_marginStart="12dp" />
-
-    <Button
         android:id="@+id/button_travelCommunity"
         android:layout_width="55dp"
         android:layout_height="55dp"
@@ -81,7 +81,7 @@
         android:text=""
         android:backgroundTint="@color/darkgray"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/button_settings"
+        app:layout_constraintStart_toEndOf="@+id/button_accommodations"
         android:layout_marginStart="12dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
