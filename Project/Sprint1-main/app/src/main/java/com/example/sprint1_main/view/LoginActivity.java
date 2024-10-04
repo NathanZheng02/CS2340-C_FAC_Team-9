@@ -46,10 +46,12 @@ public class LoginActivity extends AppCompatActivity {
                 //TODO: do these need to be moved to the view model?
                 if (username.isEmpty() || username == null) {
                     usernameInput.setError("Please enter a username");
+                    success = false;
                 }
 
                 if (password.isEmpty() || password == null) {
                     passwordInput.setError("Please enter a password");
+                    success = false;
                 }
 
                 validateLogin(usernameInput, passwordInput);
