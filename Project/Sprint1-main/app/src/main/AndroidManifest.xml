@@ -37,6 +37,8 @@
             android:name=".view.TransportationActivity"/>
         <activity
             android:name=".view.TravelCommunityActivity"/>
+        <activity
+            android:name=".view.RegisterActivity"/>
     </application>
 
 </manifest>

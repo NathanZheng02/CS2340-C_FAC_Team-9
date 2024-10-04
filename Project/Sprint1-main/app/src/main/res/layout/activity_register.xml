@@ -36,7 +36,7 @@
             android:inputType="text"/>
 
         <Button
-            android:id="@+id/register_registerButton"
+            android:id="@+id/register_button"
             android:layout_width="203dp"
             android:layout_height="wrap_content"
             android:text="Create Account"/>

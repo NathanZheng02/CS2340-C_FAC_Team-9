@@ -2,6 +2,7 @@ package com.example.sprint1_main.view;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,6 +15,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class RegisterActivity extends AppCompatActivity {
+    private final String TAG = "RegisterActivity";
 
     //all variables for the user class
     EditText register_username, register_password, register_name, register_age, register_birthdate, register_contactinformation;
@@ -24,6 +26,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.d(TAG, "onCreate called");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
@@ -31,6 +34,8 @@ public class RegisterActivity extends AppCompatActivity {
         //TODO: add other user variables
         register_username = findViewById(R.id.register_usernameInput);
         register_password = findViewById(R.id.register_passwordInput);
+
+        register_button = findViewById(R.id.register_button);
 
         register_button.setOnClickListener(new View.OnClickListener() {
             @Override

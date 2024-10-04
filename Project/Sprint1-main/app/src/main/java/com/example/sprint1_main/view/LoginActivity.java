@@ -30,7 +30,10 @@ public class LoginActivity extends AppCompatActivity {
 
         EditText usernameInput = findViewById(R.id.usernameInput);
         EditText passwordInput = findViewById(R.id.passwordInput);
+
         Button loginButton = findViewById(R.id.loginButton);
+        Button registerButton = findViewById(R.id.registerButton);
+
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,7 +56,14 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        //TODO: add button for registration
+        registerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(TAG, "register onClick called");
+                Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+                startActivity(intent);
+            }
+        });
 
         Log.d(TAG, "onCreate called");
     }
