@@ -62,7 +62,7 @@ public class RegisterActivity extends AppCompatActivity {
                 reference.child(username).setValue(user);
 
                 //TODO: add feedback to confirm registration success
-                Toast.makeText(RegisterActivity.this, "Registration successful!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(RegisterActivity.this, "Registration successful!!", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                 startActivity(intent);
             }
