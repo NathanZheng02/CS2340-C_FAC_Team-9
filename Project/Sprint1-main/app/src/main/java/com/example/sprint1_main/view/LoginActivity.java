@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Looper;
 import android.widget.Button;
 import android.view.View;
 import android.widget.EditText;
@@ -46,10 +47,18 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 LoginViewModel.validateLogin(usernameInput, passwordInput, tempUser);
-                if (tempUser.getLoginStatus()) {
-                    Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-                    startActivity(intent);
-                }
+
+                final android.os.Handler handler = new android.os.Handler(Looper.getMainLooper());
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (tempUser.getLoginStatus()) {
+                            Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                            startActivity(intent);
+                        }
+                    }
+                }, 500);
+
             }
         });
 
