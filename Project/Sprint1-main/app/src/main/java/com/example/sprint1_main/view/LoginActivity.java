@@ -1,5 +1,7 @@
 package com.example.sprint1_main.view;
 
+import static androidx.core.content.ContextCompat.startActivity;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -12,6 +14,8 @@ import android.widget.TextView;
 import android.util.Log;
 
 import com.example.sprint1_main.R;
+import com.example.sprint1_main.viewmodel.LoginViewModel;
+import com.example.sprint1_main.model.UserModel;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -34,29 +38,23 @@ public class LoginActivity extends AppCompatActivity {
         Button loginButton = findViewById(R.id.loginButton);
         Button registerButton = findViewById(R.id.registerButton);
 
+        //creating temp user to communicate between view and viewmodel (possibly be changed to global in the future to keep track of logged in user)
+        UserModel tempUser = new UserModel("tempEmail", "tempNumber", "tempName", 0, "tempUsername", "tempPassword");
+
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-
-                String username = usernameInput.getText().toString().trim();
-                String password = passwordInput.getText().toString().trim();
-
-                //TODO: do these need to be moved to the view model?
-                if (username.isEmpty() || username == null) {
-                    usernameInput.setError("Please enter a username");
-                    success = false;
+                LoginViewModel.validateLogin(usernameInput, passwordInput, tempUser);
+                if (tempUser.getLoginStatus()) {
+                    Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                    startActivity(intent);
                 }
-
-                if (password.isEmpty() || password == null) {
-                    passwordInput.setError("Please enter a password");
-                    success = false;
-                }
-
-                validateLogin(usernameInput, passwordInput);
             }
         });
+
+
 
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,37 +66,6 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         Log.d(TAG, "onCreate called");
-    }
-
-    public void validateLogin(EditText usernameInput, EditText passwordInput) {
-        String given_username = usernameInput.getText().toString().trim();
-        String given_password = passwordInput.getText().toString().trim();
-
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("users");
-        Query checkUserDatabase = reference.orderByChild("username").equalTo(given_username);
-
-        checkUserDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()) {
-                    String correct_password = snapshot.child(given_username).child("password").getValue(String.class);
-
-                    if (correct_password.equals(given_password)) {
-                        Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-                        startActivity(intent);
-                    } else {
-                        passwordInput.setError("Incorrect Password");
-                    }
-                } else {
-                    usernameInput.setError("User Does Not Exist");
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
     }
 
 
