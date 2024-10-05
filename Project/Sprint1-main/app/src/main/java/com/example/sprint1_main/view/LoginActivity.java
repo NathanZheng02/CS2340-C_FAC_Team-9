@@ -45,7 +45,6 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 LoginViewModel.validateLogin(usernameInput, passwordInput, tempUser);
                 if (tempUser.getLoginStatus()) {
                     Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
