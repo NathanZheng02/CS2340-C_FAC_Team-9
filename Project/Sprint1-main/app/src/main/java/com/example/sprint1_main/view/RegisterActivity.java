@@ -58,7 +58,7 @@ public class RegisterActivity extends AppCompatActivity {
                 String phone_number = register_phone_number.getText().toString();
                 String email = register_email.getText().toString();
 
-                UserModel user = new UserModel(2, "contact", "user x", 14, username, password);
+                UserModel user = new UserModel("email", "phone", "user y",14, username, password);
                 reference.child(username).setValue(user);
 
                 //TODO: add feedback to confirm registration success
