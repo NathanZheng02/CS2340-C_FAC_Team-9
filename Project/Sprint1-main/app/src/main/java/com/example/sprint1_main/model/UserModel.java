@@ -1,29 +1,31 @@
 package com.example.sprint1_main.model;
 
 public class UserModel {
-    private int birthdate;
-    private String contactInformation;
+    private String email;
+    private String phoneNumber;
     private String name;
     private int age;
     private String username;
     private String password;
+    private boolean loginStatus;
 
-    public UserModel(int birthdate, String contactInformation, String name, int age, String username, String password) {
-        this.birthdate = birthdate;
-        this.contactInformation = contactInformation;
+    public UserModel(String email, String phoneNumber, String name, int age, String username, String password) {
+        this.email = email;
+        this.phoneNumber = phoneNumber;
         this.name = name;
         this.age = age;
         this.username = username;
         this.password = password;
+        this.loginStatus = false;
     }
 
     //user getters
-    public int getBirthdate() {
-        return birthdate;
+    public String getEmail() {
+        return email;
     }
 
-    public String getContactInformation() {
-        return contactInformation;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
     public String getName() {
@@ -42,14 +44,18 @@ public class UserModel {
         return password;
     }
 
-
-    //user setters
-    public void setBirthdate(int birthdate) {
-        this.birthdate = birthdate;
+    public boolean getLoginStatus() {
+        return loginStatus;
     }
 
-    public void setContactInformation(String contactInformation) {
-        this.contactInformation = contactInformation;
+
+    //user setters
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public void setName(String name) {
@@ -66,5 +72,9 @@ public class UserModel {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public void setLoginStatus(boolean loginStatus) {
+        this.loginStatus = loginStatus;
     }
 }
