@@ -1,14 +1,10 @@
 package com.example.sprint1_main.viewmodel;
 
-import android.content.Context;
-import android.content.Intent;
 import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 
-import com.example.sprint1_main.view.HomeActivity;
-import com.example.sprint1_main.view.LoginActivity;
 import com.example.sprint1_main.model.UserModel;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -38,22 +34,24 @@ public class LoginViewModel extends ViewModel {
         }
     }
 
-    public static void validateLogin(EditText usernameInput, EditText passwordInput, UserModel tempUser) {
+    public static void validateLogin(EditText usernameInput, EditText passwordInput,
+                                     UserModel tempUser) {
         LoginViewModel.checkLoginInput(usernameInput, passwordInput);
 
-        String given_username = usernameInput.getText().toString().trim();
-        String given_password = passwordInput.getText().toString().trim();
+        String givenUsername = usernameInput.getText().toString().trim();
+        String givenPassword = passwordInput.getText().toString().trim();
 
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("users");
-        Query checkUserDatabase = reference.orderByChild("username").equalTo(given_username);
+        Query checkUserDatabase = reference.orderByChild("username").equalTo(givenUsername);
 
         checkUserDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
-                    String correct_password = snapshot.child(given_username).child("password").getValue(String.class);
+                    String correctPassword = snapshot.child(givenUsername).child("password")
+                                                            .getValue(String.class);
 
-                    if (correct_password.equals(given_password)) {
+                    if (correctPassword.equals(givenPassword)) {
                         tempUser.setLoginStatus(true);
                     } else {
                         passwordInput.setError("Incorrect Password");
