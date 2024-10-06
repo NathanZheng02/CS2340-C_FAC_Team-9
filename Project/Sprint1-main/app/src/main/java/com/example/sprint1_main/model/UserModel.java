@@ -9,7 +9,8 @@ public class UserModel {
     private String password;
     private boolean loginStatus;
 
-    public UserModel(String email, String phoneNumber, String name, int age, String username, String password) {
+    public UserModel(String email, String phoneNumber, String name, int age,
+                     String username, String password) {
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.name = name;
