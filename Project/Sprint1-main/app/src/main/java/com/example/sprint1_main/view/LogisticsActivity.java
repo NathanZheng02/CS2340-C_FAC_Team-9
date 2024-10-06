@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.util.Log;
 
@@ -17,6 +19,48 @@ public class LogisticsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_logistics);
+
+        Button accommodations = findViewById(R.id.button_accommodations);
+        Button destination = findViewById(R.id.button_destination);
+        Button dining = findViewById(R.id.button_diningEstablishments);
+        Button community = findViewById(R.id.button_travelCommunity);
+        Button home = findViewById(R.id.button_home);
+
+        accommodations.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(LogisticsActivity.this, AccomodationsActivity.class);
+                startActivity(intent);
+            }
+        });
+        destination.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LogisticsActivity.this, DestinationActivity.class);
+                startActivity(intent);
+            }
+        });
+        dining.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LogisticsActivity.this, DiningActivity.class);
+                startActivity(intent);
+            }
+        });
+        community.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LogisticsActivity.this, TravelCommunityActivity.class);
+                startActivity(intent);
+            }
+        });
+        home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LogisticsActivity.this, HomeActivity.class);
+                startActivity(intent);
+            }
+        });
         Log.d(TAG, "onCreate called");
 
     }
