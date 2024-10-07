@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.LoginActivity">
+    tools:context=".view.RegisterActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -13,44 +13,70 @@
         android:gravity="center">
 
         <TextView
-            android:id="@+id/loginHeader"
+            android:id="@+id/register_Header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Log In"
+            android:text="Register"
             android:textStyle="bold"
-            android:textSize="30sp"
+            android:textSize="24sp"
             android:gravity="center"
             android:paddingBottom="24dp"/>
 
         <EditText
-            android:id="@+id/usernameInput"
+            android:id="@+id/register_usernameInput"
             android:layout_width="350dp"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/darkgray"
             android:hint="Enter username"
             android:inputType="text"/>
 
         <EditText
-            android:id="@+id/passwordInput"
+            android:id="@+id/register_passwordInput"
             android:layout_width="350dp"
             android:layout_height="wrap_content"
             android:hint="Enter password"
             android:inputType="text"/>
 
-        <Button
-            android:id="@+id/loginButton"
-            android:layout_width="203dp"
+        <EditText
+            android:id="@+id/name"
+            android:layout_width="350dp"
             android:layout_height="wrap_content"
-            android:text="Login"
-            android:backgroundTint="@color/darkgray"
-            android:layout_marginTop="15dp"/>
+            android:hint="Enter your full name"
+            android:inputType="text"/>
+
+        <EditText
+            android:id="@+id/age"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:hint="Enter your age"
+            android:inputType="text"/>
+
+        <EditText
+            android:id="@+id/phoneNumber"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:hint="Enter your phone number"
+            android:inputType="text"/>
+
+        <EditText
+            android:id="@+id/email"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:hint="Enter your email"
+            android:inputType="text"/>
 
         <Button
-            android:id="@+id/registerButton"
+            android:id="@+id/register_button"
+            android:layout_width="203dp"
+            android:layout_height="wrap_content"
+            android:text="Create Account"
+            android:backgroundTint="@color/darkgray"/>
+
+        <Button
+            android:id="@+id/loginPage"
             android:layout_width="203dp"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/lightgray"
-            android:text="Create Account"/>
+            android:text="Back to Login Page"/>
 
 
 

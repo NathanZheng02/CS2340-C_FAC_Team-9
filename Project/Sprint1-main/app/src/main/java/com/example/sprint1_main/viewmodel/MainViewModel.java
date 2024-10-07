@@ -1,4 +1,8 @@
 package com.example.sprint1_main.viewmodel;
 
-public class MainViewModel {
+import androidx.lifecycle.ViewModel;
+
+
+public class MainViewModel extends ViewModel {
+
 }
