@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.util.Log;
+import android.widget.ImageButton;
 
 import com.example.sprint1_main.R;
 
@@ -19,11 +20,11 @@ public class TravelCommunityActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_travelcommunity);
 
-        Button logistics = findViewById(R.id.button_logistics);
-        Button destination = findViewById(R.id.button_destination);
-        Button dining = findViewById(R.id.button_diningEstablishments);
-        Button accommodations = findViewById(R.id.button_accommodations);
-        Button home = findViewById(R.id.button_home);
+        ImageButton logistics = findViewById(R.id.button_logistics);
+        ImageButton destination = findViewById(R.id.button_destination);
+        ImageButton dining = findViewById(R.id.button_diningEstablishments);
+        ImageButton accommodations = findViewById(R.id.button_accommodations);
+        ImageButton home = findViewById(R.id.button_home);
 
         logistics.setOnClickListener(new View.OnClickListener() {
             @Override
