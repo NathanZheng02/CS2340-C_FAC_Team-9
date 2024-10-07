@@ -18,142 +18,90 @@
         app:layout_constraintStart_toStartOf="parent"
         tools:ignore="BottomAppBar" />
 
-    <Button
+    <ImageButton
         android:id="@+id/button_home"
+        android:src="@drawable/home_icon_silhouette_svgrepo_com"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="Home"
         android:layout_width="55dp"
         android:layout_height="55dp"
-        android:layout_marginBottom="19dp"
-        android:backgroundTint="@color/darkgray"
-        android:text=""
+        android:layout_marginBottom="13dp"
+        android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/bottomAppBar"
-        android:layout_marginStart="12dp" />
+        android:layout_marginStart="12dp"
+        app:tint="@color/darkgray"/>
 
-    <Button
+    <ImageButton
         android:id="@+id/button_logistics"
+        android:src="@drawable/logistics_delivery_warehouse_svgrepo_com"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="Logistics"
         android:layout_width="55dp"
         android:layout_height="55dp"
-        android:layout_marginBottom="19dp"
-        android:backgroundTint="@color/darkgray"
-        android:text=""
+        android:layout_marginBottom="13dp"
+        android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/button_home"
-        android:layout_marginStart="12dp" />
+        android:layout_marginStart="12dp"
+        app:tint="@color/darkgray"/>
 
-    <Button
+    <ImageButton
         android:id="@+id/button_destination"
+        android:src="@drawable/destination_svgrepo_com"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="Destination"
         android:layout_width="55dp"
         android:layout_height="55dp"
-        android:layout_marginBottom="19dp"
-        android:text=""
-        android:backgroundTint="@color/darkgray"
+        android:layout_marginBottom="13dp"
+        android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/button_logistics"
-        android:layout_marginStart="12dp" />
+        android:layout_marginStart="12dp"
+        app:tint="@color/darkgray"/>
 
-    <Button
+    <ImageButton
         android:id="@+id/button_diningEstablishments"
+        android:src="@drawable/dining_room_svgrepo_com"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="Dining Establishments"
         android:layout_width="55dp"
         android:layout_height="55dp"
-        android:layout_marginBottom="19dp"
-        android:text=""
-        android:backgroundTint="@color/darkgray"
+        android:layout_marginBottom="13dp"
+        android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/button_destination"
-        android:layout_marginStart="12dp" />
+        android:layout_marginStart="12dp"
+        app:tint="@color/darkgray"/>
 
-    <Button
+    <ImageButton
         android:id="@+id/button_accommodations"
+        android:src="@drawable/hotel_svgrepo_com"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="Accommodations"
         android:layout_width="55dp"
         android:layout_height="55dp"
-        android:layout_marginBottom="19dp"
-        android:text=""
-        android:backgroundTint="@color/darkgray"
+        android:layout_marginBottom="13dp"
+        android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/button_diningEstablishments"
-        android:layout_marginStart="12dp" />
+        android:layout_marginStart="12dp"
+        app:tint="@color/darkgray"/>
 
-    <Button
+    <ImageButton
         android:id="@+id/button_travelCommunity"
+        android:src="@drawable/car_side_svgrepo_com"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="Travel Community"
         android:layout_width="55dp"
         android:layout_height="55dp"
-        android:layout_marginBottom="19dp"
-        android:text=""
-        android:backgroundTint="@color/darkgray"
+        android:layout_marginBottom="13dp"
+        android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/button_accommodations"
-        android:layout_marginStart="12dp" />
+        android:layout_marginStart="12dp"
+        app:tint="@color/darkgray"/>
 
-    <TextView
-        android:id="@+id/text_home"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Home"
-        android:textColor="@color/white"
-        android:gravity="center"
-        app:layout_constraintStart_toStartOf="@+id/button_home"
-        app:layout_constraintEnd_toEndOf="@id/button_home"
-        app:layout_constraintTop_toBottomOf="@id/button_home"
-        tools:textSize="8sp" />
 
-    <TextView
-        android:id="@+id/text_logistics"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Logistics"
-        android:textColor="@color/white"
-        android:gravity="center"
-        app:layout_constraintStart_toStartOf="@+id/button_logistics"
-        app:layout_constraintEnd_toEndOf="@id/button_logistics"
-        app:layout_constraintTop_toBottomOf="@id/button_logistics"
-        tools:textSize="8sp" />
-
-    <TextView
-        android:id="@+id/text_destination"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Destination"
-        android:textColor="@color/white"
-        android:gravity="center"
-        app:layout_constraintStart_toStartOf="@+id/button_destination"
-        app:layout_constraintEnd_toEndOf="@id/button_destination"
-        app:layout_constraintTop_toBottomOf="@id/button_destination"
-        tools:textSize="8sp" />
-
-    <TextView
-        android:id="@+id/text_diningEstablishments"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Dining\nEstablishments"
-        android:textColor="@color/white"
-        tools:textSize="8sp"
-        android:gravity="center"
-        app:layout_constraintStart_toStartOf="@+id/button_diningEstablishments"
-        app:layout_constraintEnd_toEndOf="@id/button_diningEstablishments"
-        app:layout_constraintTop_toBottomOf="@id/button_diningEstablishments" />
-
-    <TextView
-        android:id="@+id/text_accommodations"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Accommodations"
-        android:textColor="@color/white"
-        tools:textSize="8sp"
-        android:gravity="center"
-        app:layout_constraintStart_toStartOf="@+id/button_accommodations"
-        app:layout_constraintEnd_toEndOf="@id/button_accommodations"
-        app:layout_constraintTop_toBottomOf="@id/button_accommodations" />
-
-    <TextView
-        android:id="@+id/text_travelCommunity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Travel\nCommunity"
-        android:textColor="@color/white"
-        tools:textSize="8sp"
-        android:gravity="center"
-        app:layout_constraintStart_toStartOf="@+id/button_travelCommunity"
-        app:layout_constraintEnd_toEndOf="@id/button_travelCommunity"
-        app:layout_constraintTop_toBottomOf="@id/button_travelCommunity" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
