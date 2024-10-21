@@ -1,7 +1,7 @@
 public class WeeklyTask extends Task implements RepeatableTask {
     
 
-    public WeeklyTask(String title, String description, String priority, int dueDate, int daysToRepeatIn) {
+    public WeeklyTask(String title, String description, String priority, int dueDate) {
         this.title = title;
         this.description = description;
         this.status = "To Do";
