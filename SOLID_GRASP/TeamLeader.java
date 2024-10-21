@@ -7,7 +7,7 @@ public class TeamLeader extends TeamMember {
     }
 
     @Override
-    public void performResposibility() {
+    void performResposibility() {
         System.out.println("My responsibility is to lead the team.");
     }
 }

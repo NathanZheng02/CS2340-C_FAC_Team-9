@@ -6,7 +6,7 @@ public class BasicMember extends TeamMember {
     }
 
     @Override
-    public void performResposibility() {
+    void performResposibility() {
         System.out.println("My responsibility is to be a member of the team.");
     }
 
