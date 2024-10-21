@@ -38,8 +38,14 @@ public class Project {
         this.projectMembers.remove(member);
     }
 
+    public void nextDay() {
+        for (Task task : this.projectTasks) {
+            task.nextDay();
+        }
+    }
 
-    
+
+
 
     //getters and setters
     public String getName() {

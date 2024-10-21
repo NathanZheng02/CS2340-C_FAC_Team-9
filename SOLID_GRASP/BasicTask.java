@@ -1,11 +1,9 @@
-import java.util.Date;
-
 public class BasicTask extends Task {
-    private Date dueDate;
+    // private int dueDate;
 
     
 
-    public BasicTask(String title, String description, String priority, Date dueDate) {
+    public BasicTask(String title, String description, String priority, int dueDate) {
         this.title = title;
         this.description = description;
         this.status = "To Do";
@@ -14,11 +12,8 @@ public class BasicTask extends Task {
         this.dueDate = dueDate;
     }
 
-    public Date getDueDate() {
-        return dueDate;
-    }
-
-    public void setDueDate(Date dueDate) {
-        this.dueDate = dueDate;
+    @Override
+    void nextDay() {
+        this.dueDate -= 1;
     }
 }
