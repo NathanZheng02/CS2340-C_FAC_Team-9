@@ -1,5 +1,6 @@
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Project {
     private String name;
@@ -64,11 +65,11 @@ public class Project {
         return endDate;
     }
 
-    public ArrayList<Task> getProjectTasks() {
+    public List<Task> getProjectTasks() {
         return projectTasks;
     }
 
-    public ArrayList<TeamMember> getProjectMembers() {
+    public List<TeamMember> getProjectMembers() {
         return projectMembers;
     }
 
