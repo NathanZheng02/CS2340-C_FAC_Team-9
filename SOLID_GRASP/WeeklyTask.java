@@ -22,6 +22,9 @@ public class WeeklyTask extends Task implements RepeatableTask {
     @Override
     void nextDay() {
         this.dueDate -= 1;
+        if (dueDate == 0 && !(this.status.equals("Complete"))) {
+            this.setStatus("Overdue");
+        }
         this.rolloverTask();
     }
 }
