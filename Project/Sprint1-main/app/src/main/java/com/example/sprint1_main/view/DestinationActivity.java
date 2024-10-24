@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.util.Log;
+import android.widget.Button;
 import android.widget.ImageButton;
 
 import com.example.sprint1_main.R;
@@ -24,7 +25,8 @@ public class DestinationActivity extends AppCompatActivity {
         ImageButton dining = findViewById(R.id.button_diningEstablishments);
         ImageButton community = findViewById(R.id.button_travelCommunity);
         ImageButton home = findViewById(R.id.button_home);
-
+        Button logTravel = findViewById(R.id.button_logTravel);
+        Button calcVacation = findViewById(R.id.button_vacationTime);
         logistics.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -57,6 +59,20 @@ public class DestinationActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(DestinationActivity.this, HomeActivity.class);
+                startActivity(intent);
+            }
+        });
+        logTravel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DestinationActivity.this, LogTravelActivity.class);
+                startActivity(intent);
+            }
+        });
+        calcVacation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DestinationActivity.this, LogTravelActivity.class);
                 startActivity(intent);
             }
         });

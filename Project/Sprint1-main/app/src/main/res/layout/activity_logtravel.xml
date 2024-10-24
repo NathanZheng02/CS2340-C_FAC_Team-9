@@ -35,6 +35,43 @@
             app:layout_constraintTop_toBottomOf="@+id/destination_header_textView"
             />
 
+        <TextView
+            android:id="@+id/travellocationtext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="75dp"
+            android:text="Travel Location:"
+            android:textColor="@android:color/black"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/travellocation"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="75dp"
+            android:backgroundTint="@color/darkgray"
+            android:hint="Enter Travel Location"
+            android:inputType="text"
+            app:layout_constraintTop_toBottomOf="@+id/travellocationtext" />
+
+        <EditText
+            android:id="@+id/startDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="75dp"
+            android:hint="Enter Start"
+            android:inputType="text"
+            app:layout_constraintStart_toEndOf="@id/travellocation"/>
+
+        <EditText
+            android:id="@+id/endDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="75dp"
+            android:hint="Enter End"
+            android:inputType="text"
+            app:layout_constraintStart_toEndOf="@id/startDate" />
+
         <Button
             android:id="@+id/button_vacationTime"
             android:layout_width="250dp"
@@ -45,6 +82,7 @@
             android:textAlignment="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/button_logTravel" />
+
     </LinearLayout>
 
 
