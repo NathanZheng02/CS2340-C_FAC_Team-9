@@ -78,7 +78,4 @@ public class UserModel {
         this.password = password;
     }
 
-    public void setLoginStatus(boolean loginStatus) {
-        this.loginStatus = loginStatus;
-    }
-}
+    public vo
