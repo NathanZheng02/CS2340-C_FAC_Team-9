@@ -1,5 +1,8 @@
 package com.example.sprint1_main.view;
 
+import static androidx.core.content.ContextCompat.startActivity;
+import static androidx.databinding.DataBindingUtil.setContentView;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -11,14 +14,14 @@ import android.widget.ImageButton;
 
 import com.example.sprint1_main.R;
 
-public class DestinationActivity extends AppCompatActivity {
+public class CalculateVacationTimeActivity extends AppCompatActivity {
 
-    private static final String TAG = "DestinationActivity";
+    private static final String TAG = "LogTravelActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_destination);
+        setContentView(R.layout.activity_calculatevacationtime);
 
         ImageButton logistics = findViewById(R.id.button_logistics);
         ImageButton accommodations = findViewById(R.id.button_accommodations);
@@ -27,52 +30,61 @@ public class DestinationActivity extends AppCompatActivity {
         ImageButton home = findViewById(R.id.button_home);
         Button logTravel = findViewById(R.id.button_logTravel);
         Button calcVacation = findViewById(R.id.button_vacationTime);
+        Button calculate = findViewById(R.id.button_calculate);
+
         logistics.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(DestinationActivity.this, LogisticsActivity.class);
+                Intent intent = new Intent(CalculateVacationTimeActivity.this, LogisticsActivity.class);
                 startActivity(intent);
             }
         });
         accommodations.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(DestinationActivity.this, AccomodationsActivity.class);
+                Intent intent = new Intent(CalculateVacationTimeActivity.this, AccomodationsActivity.class);
                 startActivity(intent);
             }
         });
         dining.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(DestinationActivity.this, DiningActivity.class);
+                Intent intent = new Intent(CalculateVacationTimeActivity.this, DiningActivity.class);
                 startActivity(intent);
             }
         });
         community.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(DestinationActivity.this, TravelCommunityActivity.class);
+                Intent intent = new Intent(CalculateVacationTimeActivity.this, TravelCommunityActivity.class);
                 startActivity(intent);
             }
         });
         home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(DestinationActivity.this, HomeActivity.class);
+                Intent intent = new Intent(CalculateVacationTimeActivity.this, HomeActivity.class);
                 startActivity(intent);
             }
         });
         logTravel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(DestinationActivity.this, LogTravelActivity.class);
+                Intent intent = new Intent(CalculateVacationTimeActivity.this, LogTravelActivity.class);
                 startActivity(intent);
             }
         });
         calcVacation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(DestinationActivity.this, CalculateVacationTimeActivity.class);
+                Intent intent = new Intent(CalculateVacationTimeActivity.this, CalculateVacationTimeActivity.class);
+                startActivity(intent);
+            }
+        });
+        calculate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(CalculateVacationTimeActivity.this, LogTravelActivity.class);
                 startActivity(intent);
             }
         });
@@ -112,4 +124,5 @@ public class DestinationActivity extends AppCompatActivity {
         super.onDestroy();
         Log.d(TAG, "onDestroy called");
     }
+
 }

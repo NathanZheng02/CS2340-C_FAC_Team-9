@@ -69,7 +69,14 @@ public class LogTravelActivity extends AppCompatActivity{
             logTravel.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(LogTravelActivity.this, DiningActivity.class);
+                    Intent intent = new Intent(LogTravelActivity.this, LogTravelActivity.class);
+                    startActivity(intent);
+                }
+            });
+            calcVacation.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(LogTravelActivity.this, CalculateVacationTimeActivity.class);
                     startActivity(intent);
                 }
             });

@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.DestinationActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/destination_header_textView"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:background="@android:color/background_dark"
+            android:gravity="center"
+            android:text="Destination Screen"
+            android:textColor="@android:color/white"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/button_logTravel"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:backgroundTint="@color/lightgray"
+            android:text="Log Travel"
+            android:layout_marginHorizontal="75dp"
+            app:layout_constraintBottom_toTopOf="@id/button_vacationTime"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/destination_header_textView"
+            />
+
+        <Button
+            android:id="@+id/button_vacationTime"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="75dp"
+            android:backgroundTint="@color/lightgray"
+            android:text="Calculate Vacation Time"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/button_logTravel" />
+
+        <TextView
+            android:id="@+id/calculate"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="130dp"
+            android:text="Fill Information Below:"
+            android:textColor="@android:color/black"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/start"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="140dp"
+            android:backgroundTint="@color/darkgray"
+            android:hint="Start Date"
+            android:inputType="text"
+            app:layout_constraintTop_toBottomOf="@+id/travellocationtext" />
+
+        <EditText
+            android:id="@+id/end"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="140dp"
+            android:hint="End Date"
+            android:inputType="text"
+            app:layout_constraintStart_toEndOf="@id/travellocation" />
+
+        <EditText
+            android:id="@+id/duration"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="140dp"
+            android:hint="Duration"
+            android:inputType="text"
+            app:layout_constraintStart_toEndOf="@id/startDate" />
+
+        <Button
+            android:id="@+id/button_calculate"
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="140dp"
+            android:backgroundTint="@color/lightgray"
+            android:text="Calculate"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/button_logTravel" />
+
+    </LinearLayout>
+
+
+
+    <com.google.android.material.bottomappbar.BottomAppBar
+        android:id="@+id/bottomAppBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:backgroundTint="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="BottomAppBar" />
+
+    <ImageButton
+        android:id="@+id/button_home"
+        android:src="@drawable/home_icon_silhouette_svgrepo_com"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="Home"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:layout_marginBottom="13dp"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/bottomAppBar"
+        android:layout_marginStart="12dp"
+        app:tint="@color/darkgray"/>
+
+    <ImageButton
+        android:id="@+id/button_logistics"
+        android:src="@drawable/logistics_delivery_warehouse_svgrepo_com"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="Logistics"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:layout_marginBottom="13dp"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/button_home"
+        android:layout_marginStart="12dp"
+        app:tint="@color/darkgray"/>
+
+    <ImageButton
+        android:id="@+id/button_destination"
+        android:src="@drawable/destination_svgrepo_com"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="Destination"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:layout_marginBottom="13dp"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/button_logistics"
+        android:layout_marginStart="12dp"
+        app:tint="@color/darkgray"/>
+
+    <ImageButton
+        android:id="@+id/button_diningEstablishments"
+        android:src="@drawable/dining_room_svgrepo_com"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="Dining Establishments"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:layout_marginBottom="13dp"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/button_destination"
+        android:layout_marginStart="12dp"
+        app:tint="@color/darkgray"/>
+
+    <ImageButton
+        android:id="@+id/button_accommodations"
+        android:src="@drawable/hotel_svgrepo_com"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="Accommodations"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:layout_marginBottom="13dp"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/button_diningEstablishments"
+        android:layout_marginStart="12dp"
+        app:tint="@color/darkgray"/>
+
+    <ImageButton
+        android:id="@+id/button_travelCommunity"
+        android:src="@drawable/car_side_svgrepo_com"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="Travel Community"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:layout_marginBottom="13dp"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/button_accommodations"
+        android:layout_marginStart="12dp"
+        app:tint="@color/darkgray"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
