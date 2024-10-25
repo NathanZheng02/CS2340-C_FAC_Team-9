@@ -12,6 +12,8 @@ public class UserModel {
     private boolean loginStatus;
     private ArrayList<DestinationModel> destinations;
 
+    private DestinationModel destination;
+
     public UserModel(String email, String phoneNumber, String name, int age,
                      String username, String password) {
         this.email = email;
@@ -21,6 +23,7 @@ public class UserModel {
         this.username = username;
         this.password = password;
         this.loginStatus = false;
+        destination = new DestinationModel();
     }
 
     //user getters

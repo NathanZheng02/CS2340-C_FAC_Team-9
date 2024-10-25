@@ -102,7 +102,6 @@ public class LogTravelActivity extends AppCompatActivity {
             }
         });
         Log.d(TAG, "onCreate called");
-
     }
 
 

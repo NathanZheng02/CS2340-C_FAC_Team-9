@@ -1,6 +1,7 @@
 package com.example.sprint1_main.model;
 
 public class DestinationModel {
+
     private String destinationName;
     private String startDate;
     private String endDate;
