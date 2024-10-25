@@ -26,6 +26,8 @@
         <activity
             android:name=".view.AccomodationsActivity"/>
         <activity
+            android:name=".view.CalculateVacationTimeActivity"/>
+        <activity
             android:name=".view.DestinationActivity"/>
         <activity
             android:name=".view.DiningActivity"/>
@@ -33,6 +35,8 @@
             android:name=".view.HomeActivity"/>
         <activity
             android:name=".view.LogisticsActivity"/>
+        <activity
+            android:name=".view.LogTravelActivity"/>
         <activity
             android:name=".view.TransportationActivity"/>
         <activity
