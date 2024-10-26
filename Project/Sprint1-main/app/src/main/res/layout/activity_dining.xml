@@ -23,4 +23,100 @@
             android:textStyle="bold" />
     </LinearLayout>
 
+    <com.google.android.material.bottomappbar.BottomAppBar
+        android:id="@+id/bottomAppBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:backgroundTint="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="BottomAppBar" />
+
+    <ImageButton
+        android:id="@+id/button_home"
+        android:src="@drawable/home_icon_silhouette_svgrepo_com"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="Home"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:layout_marginBottom="13dp"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/bottomAppBar"
+        android:layout_marginStart="12dp"
+        app:tint="@color/darkgray"/>
+
+    <ImageButton
+        android:id="@+id/button_logistics"
+        android:src="@drawable/logistics_delivery_warehouse_svgrepo_com"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="Logistics"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:layout_marginBottom="13dp"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/button_home"
+        android:layout_marginStart="12dp"
+        app:tint="@color/darkgray"/>
+
+    <ImageButton
+        android:id="@+id/button_destination"
+        android:src="@drawable/destination_svgrepo_com"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="Destination"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:layout_marginBottom="13dp"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/button_logistics"
+        android:layout_marginStart="12dp"
+        app:tint="@color/darkgray"/>
+
+    <ImageButton
+        android:id="@+id/button_diningEstablishments"
+        android:src="@drawable/dining_room_svgrepo_com"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="Dining Establishments"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:layout_marginBottom="13dp"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/button_destination"
+        android:layout_marginStart="12dp"
+        app:tint="@color/darkgray"/>
+
+    <ImageButton
+        android:id="@+id/button_accommodations"
+        android:src="@drawable/hotel_svgrepo_com"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="Accommodations"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:layout_marginBottom="13dp"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/button_diningEstablishments"
+        android:layout_marginStart="12dp"
+        app:tint="@color/darkgray"/>
+
+    <ImageButton
+        android:id="@+id/button_travelCommunity"
+        android:src="@drawable/car_side_svgrepo_com"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="Travel Community"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:layout_marginBottom="13dp"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/button_accommodations"
+        android:layout_marginStart="12dp"
+        app:tint="@color/darkgray"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

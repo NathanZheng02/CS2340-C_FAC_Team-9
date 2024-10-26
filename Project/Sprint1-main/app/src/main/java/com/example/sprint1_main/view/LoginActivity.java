@@ -2,7 +2,6 @@ package com.example.sprint1_main.view;
 
 import static androidx.core.content.ContextCompat.startActivity;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -11,22 +10,15 @@ import android.os.Looper;
 import android.widget.Button;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.util.Log;
 
 import com.example.sprint1_main.R;
 import com.example.sprint1_main.viewmodel.LoginViewModel;
 import com.example.sprint1_main.model.UserModel;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private final String TAG = "LoginActivity";
+    private static final String TAG = "LoginActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,8 +31,10 @@ public class LoginActivity extends AppCompatActivity {
         Button loginButton = findViewById(R.id.loginButton);
         Button registerButton = findViewById(R.id.registerButton);
 
-        //creating temp user to communicate between view and viewmodel (possibly be changed to global in the future to keep track of logged in user)
-        UserModel tempUser = new UserModel("tempEmail", "tempNumber", "tempName", 0, "tempUsername", "tempPassword");
+        //creating temp user to communicate between view and viewmodel
+        //(possibly be changed to global in the future to keep track of logged in user)
+        UserModel tempUser = new UserModel("tempEmail", "tempNumber",
+                                    "tempName", 0, "tempUsername", "tempPassword");
 
 
         loginButton.setOnClickListener(new View.OnClickListener() {
@@ -78,31 +72,31 @@ public class LoginActivity extends AppCompatActivity {
 
 
     @Override
-    protected void onStart(){
+    protected void onStart() {
         super.onStart();
         Log.d(TAG, "onStart called");
     }
 
     @Override
-    protected void onResume(){
+    protected void onResume() {
         super.onResume();
         Log.d(TAG, "onResume called");
     }
 
     @Override
-    protected void onPause(){
+    protected void onPause() {
         super.onPause();
         Log.d(TAG, "onPause called");
     }
 
     @Override
-    protected void onStop(){
+    protected void onStop() {
         super.onStop();
         Log.d(TAG, "onStop called");
     }
 
     @Override
-    protected void onDestroy(){
+    protected void onDestroy() {
         super.onDestroy();
         Log.d(TAG, "onDestroy called");
     }
