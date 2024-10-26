@@ -1,8 +1,5 @@
 package com.example.sprint1_main.view;
 
-import static androidx.core.content.ContextCompat.startActivity;
-import static androidx.databinding.DataBindingUtil.setContentView;
-
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -18,7 +15,7 @@ import com.example.sprint1_main.viewmodel.DestinationViewModel;
 
 public class CalculateVacationTimeActivity extends AppCompatActivity {
 
-    private static final String TAG = "LogTravelActivity";
+    private static final String TAG = "CalculateTravelActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +27,7 @@ public class CalculateVacationTimeActivity extends AppCompatActivity {
         ImageButton dining = findViewById(R.id.button_diningEstablishments);
         ImageButton community = findViewById(R.id.button_travelCommunity);
         ImageButton home = findViewById(R.id.button_home);
+        ImageButton destination = findViewById(R.id.button_destination);
         Button logTravel = findViewById(R.id.button_logTravel);
         Button calcVacation = findViewById(R.id.button_vacationTime);
         Button calculate = findViewById(R.id.button_calculate);
@@ -73,6 +71,13 @@ public class CalculateVacationTimeActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        destination.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(CalculateVacationTimeActivity.this, DestinationActivity.class);
+                startActivity(intent);
+            }
+        });
         logTravel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -100,8 +105,6 @@ public class CalculateVacationTimeActivity extends AppCompatActivity {
     }
 
 
-
-
     @Override
     protected void onStart() {
         super.onStart();
@@ -115,4 +118,21 @@ public class CalculateVacationTimeActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onPause() {
+        super.onPause();
+        Log.d(TAG, "onPause called");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.d(TAG, "onStop called");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d(TAG, "onDestroy called");
+    }
+}
   

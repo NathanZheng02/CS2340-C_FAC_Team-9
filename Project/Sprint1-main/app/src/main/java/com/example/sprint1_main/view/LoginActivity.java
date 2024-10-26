@@ -59,7 +59,6 @@ public class LoginActivity extends AppCompatActivity {
         });
 
 
-
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -97,4 +96,9 @@ public class LoginActivity extends AppCompatActivity {
         Log.d(TAG, "onStop called");
     }
 
-    @Overrid
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d(TAG, "onDestroy called");
+    }
+}

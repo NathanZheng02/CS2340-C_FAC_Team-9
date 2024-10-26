@@ -1,8 +1,5 @@
 package com.example.sprint1_main.view;
 
-import static androidx.core.content.ContextCompat.startActivity;
-import static androidx.databinding.DataBindingUtil.setContentView;
-
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -38,6 +35,7 @@ public class LogTravelActivity extends AppCompatActivity {
         ImageButton dining = findViewById(R.id.button_diningEstablishments);
         ImageButton community = findViewById(R.id.button_travelCommunity);
         ImageButton home = findViewById(R.id.button_home);
+        ImageButton destinations = findViewById(R.id.button_destination);
         Button logTravelButton = findViewById(R.id.button_logTravel);
         Button calcVacation = findViewById(R.id.button_vacationTime);
         Button submit = findViewById(R.id.submitButton);
@@ -79,10 +77,24 @@ public class LogTravelActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        destinations.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LogTravelActivity.this, DestinationActivity.class);
+                startActivity(intent);
+            }
+        });
         logTravelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(LogTravelActivity.this, LogTravelActivity.class);
+                startActivity(intent);
+            }
+        });
+        calcVacation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LogTravelActivity.this, CalculateVacationTimeActivity.class);
                 startActivity(intent);
             }
         });
@@ -104,8 +116,6 @@ public class LogTravelActivity extends AppCompatActivity {
         });
         Log.d(TAG, "onCreate called");
     }
-
-
 
 
     @Override
@@ -138,4 +148,3 @@ public class LogTravelActivity extends AppCompatActivity {
         Log.d(TAG, "onDestroy called");
     }
 }
-
