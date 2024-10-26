@@ -13,6 +13,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.sprint1_main.R;
+import com.example.sprint1_main.model.ApplicationManagerModel;
 import com.example.sprint1_main.model.DateModel;
 import com.example.sprint1_main.model.DestinationModel;
 import com.example.sprint1_main.model.UserModel;
@@ -33,6 +34,8 @@ public class LogisticsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_logistics);
 
+        ApplicationManagerModel manager = ApplicationManagerModel.getInstance();
+
         Spinner destinations_spinner = (Spinner) findViewById(R.id.destinations_spinner);
 
         List<String> destination_names = new ArrayList<>();
@@ -48,13 +51,13 @@ public class LogisticsActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 Log.v("destination name", (String) parent.getItemAtPosition(position));
-                //TODO: figure out why this doesn't work
-//                for (DestinationModel destination : loggedInUser.getDestinations()) {
-//                    if (destination.getDestinationName().equals((String) parent.getItemAtPosition(position))) {
-//                        currentDestination = destination;
-//                        break;
-//                    }
-//                }
+
+                for (DestinationModel destination : loggedInUser.getDestinations()) {
+                    if (destination.getDestinationName().equals((String) parent.getItemAtPosition(position))) {
+                        manager.setCurrentDestination(destination);
+                        break;
+                    }
+                }
             }
 
             @Override
@@ -83,6 +86,9 @@ public class LogisticsActivity extends AppCompatActivity {
         }
 
         contributers.setText(notes_builder.toString());
+
+
+
 
 
 
