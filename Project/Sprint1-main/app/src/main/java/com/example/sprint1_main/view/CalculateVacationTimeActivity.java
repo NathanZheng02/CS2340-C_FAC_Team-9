@@ -105,8 +105,6 @@ public class CalculateVacationTimeActivity extends AppCompatActivity {
     }
 
 
-
-
     @Override
     protected void onStart() {
         super.onStart();
@@ -120,4 +118,21 @@ public class CalculateVacationTimeActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onPause() {
+        super.onPause();
+        Log.d(TAG, "onPause called");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.d(TAG, "onStop called");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d(TAG, "onDestroy called");
+    }
+}
   

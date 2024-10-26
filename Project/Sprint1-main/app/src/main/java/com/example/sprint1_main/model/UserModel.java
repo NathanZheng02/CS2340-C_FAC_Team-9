@@ -87,6 +87,4 @@ public class UserModel {
     public void setLoginStatus(boolean loginStatus) {
         this.loginStatus = loginStatus;
     }
-
-    public void setStartDate(String startDate) {
-        this.startDate = start
+}
