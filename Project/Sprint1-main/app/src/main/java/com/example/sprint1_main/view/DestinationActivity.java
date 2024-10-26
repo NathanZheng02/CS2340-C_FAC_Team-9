@@ -26,7 +26,7 @@ public class DestinationActivity extends AppCompatActivity {
         ImageButton community = findViewById(R.id.button_travelCommunity);
         ImageButton home = findViewById(R.id.button_home);
         Button logTravel = findViewById(R.id.button_logTravel);
-        Button calcVacation = findViewById(R.id.button_vacationTime);
+        Button vacationTime = findViewById(R.id.button_vacationTime);
         logistics.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -69,7 +69,7 @@ public class DestinationActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        calcVacation.setOnClickListener(new View.OnClickListener() {
+        vacationTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(DestinationActivity.this, CalculateVacationTimeActivity.class);

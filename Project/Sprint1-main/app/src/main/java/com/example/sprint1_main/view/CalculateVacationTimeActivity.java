@@ -7,9 +7,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.util.Log;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 
 import com.example.sprint1_main.R;
+import com.example.sprint1_main.viewmodel.DestinationViewModel;
 
 public class CalculateVacationTimeActivity extends AppCompatActivity {
 
@@ -29,6 +31,10 @@ public class CalculateVacationTimeActivity extends AppCompatActivity {
         Button logTravel = findViewById(R.id.button_logTravel);
         Button calcVacation = findViewById(R.id.button_vacationTime);
         Button calculate = findViewById(R.id.button_calculate);
+
+        EditText start = findViewById(R.id.start);
+        EditText end = findViewById(R.id.end);
+        EditText duration = findViewById(R.id.duration);
 
         logistics.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,8 +95,9 @@ public class CalculateVacationTimeActivity extends AppCompatActivity {
         calculate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(CalculateVacationTimeActivity.this, LogTravelActivity.class);
-                startActivity(intent);
+                DestinationViewModel.calculateDuration(duration, start, end);
+                //Intent intent = new Intent(CalculateVacationTimeActivity.this, LogTravelActivity.class);
+                //startActivity(intent);
             }
         });
         Log.d(TAG, "onCreate called");
@@ -113,21 +120,4 @@ public class CalculateVacationTimeActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
-        Log.d(TAG, "onPause called");
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        Log.d(TAG, "onStop called");
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        Log.d(TAG, "onDestroy called");
-    }
-
-}
+  
