@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -11,6 +12,8 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+
+
         <TextView
             android:id="@+id/logistics_header_textView"
             android:layout_width="match_parent"
@@ -21,7 +24,84 @@
             android:textColor="@android:color/white"
             android:textSize="20sp"
             android:textStyle="bold" />
+
+        <Spinner
+            android:id="@+id/destinations_spinner"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:backgroundTint="@color/darkgray" />
+
+        <TextView
+            android:id="@+id/contributer_header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Contributers"
+            android:layout_centerInParent="true"
+            android:textSize="25sp"
+            android:padding="10dp"
+            android:textColor="#fff"
+            android:background="#000"
+            android:layout_marginTop="15dp"/>
+
+        <TextView
+            android:id="@+id/contributer_body"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Add users here"
+            android:layout_centerInParent="true"
+            android:textSize="15sp"
+            android:padding="10dp"
+            android:textColor="#fff"
+            android:background="#000"/>
+
+        <TextView
+            android:id="@+id/notes_header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Notes"
+            android:layout_centerInParent="true"
+            android:textSize="25sp"
+            android:padding="10dp"
+            android:textColor="#fff"
+            android:background="#000"
+            android:layout_marginTop="15dp"/>
+
+        <TextView
+            android:id="@+id/notes_body"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Add notes here"
+            android:layout_centerInParent="true"
+            android:textSize="15sp"
+            android:padding="10dp"
+            android:textColor="#fff"
+            android:background="#000"/>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/add_user_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="16dp"
+            android:contentDescription="Add new user"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:srcCompat="@android:drawable/ic_menu_share" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/add_note_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="16dp"
+            android:contentDescription="Add new note"
+            app:srcCompat="@android:drawable/ic_input_add" />
+
+
     </LinearLayout>
+
+
 
     <com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/bottomAppBar"

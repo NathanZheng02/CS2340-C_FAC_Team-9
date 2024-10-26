@@ -1,6 +1,7 @@
 package com.example.sprint1_main.model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class UserModel {
     private String email;
@@ -10,7 +11,7 @@ public class UserModel {
     private String username;
     private String password;
     private boolean loginStatus;
-    private ArrayList<DestinationModel> destinations;
+    private List<DestinationModel> destinations;
 
     private DestinationModel destination;
 
@@ -23,7 +24,7 @@ public class UserModel {
         this.username = username;
         this.password = password;
         this.loginStatus = false;
-        destination = new DestinationModel();
+        this.destinations = new ArrayList<>();
     }
 
     //user getters
@@ -55,7 +56,7 @@ public class UserModel {
         return loginStatus;
     }
 
-    public ArrayList<DestinationModel> getDestinations() {
+    public List<DestinationModel> getDestinations() {
         return destinations;
     }
 

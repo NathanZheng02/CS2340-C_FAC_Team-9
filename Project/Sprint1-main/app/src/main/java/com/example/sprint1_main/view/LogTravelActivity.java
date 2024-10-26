@@ -93,12 +93,13 @@ public class LogTravelActivity extends AppCompatActivity {
                 reference = database.getReference("destinations");
 
                 String destinationName = destination.getText().toString();
-                String startDate = startDateField.getText().toString();
-                String endDate = endDateField.getText().toString();
+                //TODO: update with new model format
+                //String startDate = startDateField.getText().toString();
+                //String endDate = endDateField.getText().toString();
 
-                DestinationModel destination = new DestinationModel(destinationName, startDate, endDate);
+                //DestinationModel destination = new DestinationModel(destinationName, startDate, endDate);
 
-                reference.child(destinationName).setValue(destination);
+                //reference.child(destinationName).setValue(destination);
             }
         });
         Log.d(TAG, "onCreate called");
