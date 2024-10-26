@@ -39,6 +39,7 @@ public class LogTravelActivity extends AppCompatActivity {
         Button logTravelButton = findViewById(R.id.button_logTravel);
         Button calcVacation = findViewById(R.id.button_vacationTime);
         Button submit = findViewById(R.id.submitButton);
+        Button cancel = findViewById(R.id.cancelButton);
         EditText destination = findViewById(R.id.travellocation);
         EditText startDateField = findViewById(R.id.startDate);
         EditText endDateField = findViewById(R.id.endDate);
@@ -95,6 +96,13 @@ public class LogTravelActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(LogTravelActivity.this, CalculateVacationTimeActivity.class);
+                startActivity(intent);
+            }
+        });
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LogTravelActivity.this, DestinationActivity.class);
                 startActivity(intent);
             }
         });
