@@ -45,6 +45,55 @@
             android:textAlignment="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/button_logTravel" />
+
+        <TextView
+            android:id="@+id/calculate"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="130dp"
+            android:text="Fill Information Below:"
+            android:textColor="@android:color/black"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/start"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="140dp"
+            android:backgroundTint="@color/darkgray"
+            android:hint="Start Date"
+            android:inputType="text"
+            app:layout_constraintTop_toBottomOf="@+id/travellocationtext" />
+
+        <EditText
+            android:id="@+id/end"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="140dp"
+            android:hint="End Date"
+            android:inputType="text"
+            app:layout_constraintStart_toEndOf="@id/travellocation" />
+
+        <EditText
+            android:id="@+id/duration"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="140dp"
+            android:hint="Duration"
+            android:inputType="text"
+            app:layout_constraintStart_toEndOf="@id/startDate" />
+
+        <Button
+            android:id="@+id/button_calculate"
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="140dp"
+            android:backgroundTint="@color/lightgray"
+            android:text="Calculate"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/button_logTravel" />
+
     </LinearLayout>
 
 

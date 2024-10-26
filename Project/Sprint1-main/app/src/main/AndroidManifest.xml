@@ -34,6 +34,8 @@
         <activity
             android:name=".view.LogisticsActivity"/>
         <activity
+            android:name=".view.LogTravelActivity"/>
+        <activity
             android:name=".view.TransportationActivity"/>
         <activity
             android:name=".view.TravelCommunityActivity"/>
