@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.util.Log;
 
 import com.example.sprint1_main.R;
+import com.example.sprint1_main.viewmodel.DestinationViewModel;
 import com.example.sprint1_main.viewmodel.LoginViewModel;
 import com.example.sprint1_main.model.UserModel;
 
@@ -34,13 +35,14 @@ public class LoginActivity extends AppCompatActivity {
         //creating temp user to communicate between view and viewmodel
         //(possibly be changed to global in the future to keep track of logged in user)
         UserModel tempUser = new UserModel("tempEmail", "tempNumber",
-                                    "tempName", 0, "tempUsername", "tempPassword");
+                "tempName", 0, "tempUsername", "tempPassword");
 
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 LoginViewModel.validateLogin(usernameInput, passwordInput, tempUser);
+                DestinationViewModel.updateCurrentUser(tempUser);
 
                 final android.os.Handler handler = new android.os.Handler(Looper.getMainLooper());
                 handler.postDelayed(new Runnable() {
@@ -95,9 +97,4 @@ public class LoginActivity extends AppCompatActivity {
         Log.d(TAG, "onStop called");
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        Log.d(TAG, "onDestroy called");
-    }
-}
+    @Overrid
