@@ -14,4 +14,4 @@ import com.google.firebase.database.ValueEventListener;
 
 public class DestinationViewModel extends ViewModel {
     MutableLiveData<Integer> duration;
-    Mu
+}
