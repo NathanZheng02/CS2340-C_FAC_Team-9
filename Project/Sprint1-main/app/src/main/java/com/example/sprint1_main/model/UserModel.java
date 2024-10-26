@@ -11,8 +11,9 @@ public class UserModel {
     private String password;
     private boolean loginStatus;
     private ArrayList<DestinationModel> destinations;
+    private String startDate;
+    private String endDate;
 
-    private DestinationModel destination;
 
     public UserModel(String email, String phoneNumber, String name, int age,
                      String username, String password) {
@@ -23,7 +24,9 @@ public class UserModel {
         this.username = username;
         this.password = password;
         this.loginStatus = false;
-        destination = new DestinationModel();
+        destinations = new ArrayList<>();
+        startDate = "MM/DD/YYYY";
+        endDate = "MM/DD/YYYY";
     }
 
     //user getters
@@ -89,8 +92,5 @@ public class UserModel {
         this.loginStatus = loginStatus;
     }
 
-    //adds destination to list of destinations
-    public void addDestination(DestinationModel destination) {
-        destinations.add(destination);
-    }
-}
+    public void setStartDate(String startDate) {
+        this.startDate = start
