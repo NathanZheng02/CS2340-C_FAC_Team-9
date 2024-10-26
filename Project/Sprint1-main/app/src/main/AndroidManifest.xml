@@ -26,6 +26,8 @@
         <activity
             android:name=".view.AccomodationsActivity"/>
         <activity
+            android:name=".view.CalculateVacationTimeActivity"/>
+        <activity
             android:name=".view.DestinationActivity"/>
         <activity
             android:name=".view.DiningActivity"/>
