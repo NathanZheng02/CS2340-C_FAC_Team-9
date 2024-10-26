@@ -6,22 +6,18 @@ import java.util.List;
 public class DestinationModel {
 
     private String destinationName;
-    private String startDate;
-    private String endDate;
+    private DateModel startDate;
+    private DateModel endDate;
     private int estimatedDays;
-
-
-
     private List<UserModel> contributingUsers;
     private List<String> notes;
 
 
-
-
-    public DestinationModel(String destinationName, String startDate, String endDate) {
+    public DestinationModel(String destinationName, DateModel startDate, DateModel endDate) {
         this.destinationName = destinationName;
         this.startDate = startDate;
         this.endDate = endDate;
+        //calculate estimated days based on start and end date
         this.contributingUsers = new ArrayList<>();
         this.notes = new ArrayList<>();
     }
@@ -31,11 +27,11 @@ public class DestinationModel {
         return destinationName;
     }
 
-    public String getStartDate() {
+    public DateModel getStartDate() {
         return startDate;
     }
 
-    public String getEndDate() {
+    public DateModel getEndDate() {
         return endDate;
     }
 
@@ -45,11 +41,11 @@ public class DestinationModel {
         this.destinationName = destinationName;
     }
 
-    public void setStartDate(String startDate) {
+    public void setStartDate(DateModel startDate) {
         this.startDate = startDate;
     }
 
-    public void setEndDate(String endDate) {
+    public void setEndDate(DateModel endDate) {
         this.endDate = endDate;
     }
 

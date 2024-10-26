@@ -13,6 +13,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.sprint1_main.R;
+import com.example.sprint1_main.model.DateModel;
 import com.example.sprint1_main.model.DestinationModel;
 import com.example.sprint1_main.model.UserModel;
 import com.google.android.material.navigation.NavigationBarView;
@@ -27,7 +28,7 @@ public class LogisticsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         UserModel loggedInUser = new UserModel("email", "number", "name", 10, "username", "password");
-        DestinationModel currentDestination = new DestinationModel("Thailand", "05/22/2001", "06/01/2001");
+        DestinationModel currentDestination = new DestinationModel("Thailand", new DateModel(5, 22, 2001), new DateModel(6,1,2001));
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_logistics);
@@ -47,12 +48,13 @@ public class LogisticsActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 Log.v("destination name", (String) parent.getItemAtPosition(position));
-                for (DestinationModel destination : loggedInUser.getDestinations()) {
-                    if (destination.getDestinationName().equals((String) parent.getItemAtPosition(position))) {
-                        currentDestination = destination;
-                        break;
-                    }
-                }
+                //TODO: figure out why this doesn't work
+//                for (DestinationModel destination : loggedInUser.getDestinations()) {
+//                    if (destination.getDestinationName().equals((String) parent.getItemAtPosition(position))) {
+//                        currentDestination = destination;
+//                        break;
+//                    }
+//                }
             }
 
             @Override

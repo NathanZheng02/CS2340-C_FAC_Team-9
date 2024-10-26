@@ -1,15 +1,17 @@
 package com.example.sprint1_main.model;
 
 public class DateModel {
-    private int day;
-    private int month;
-    private int year;
+    private final int day;
+    private final int month;
+    private final int year;
 
-    public DateModel(int day, int month, int year) {
-        this.day = day;
+    public DateModel(int month, int day, int year) {
         this.month = month;
+        this.day = day;
         this.year = year;
     }
+
+    //methods need to be moved to viewmodel
 
     public int getDaysInMonth(int month) {
         if (month == 1) {
@@ -57,7 +59,13 @@ public class DateModel {
         int yearsBetween = endDate.year - startDate.year;
         daysBetween += (yearsBetween * 365);
 
-        //figure out what goes here. possibly use dictionary?
-        daysBetween += (yearsBetween * 365);
+        for (int i = startDate.month; i < endDate.month; i++) {
+            int daysInMonth = getDaysInMonth(i);
+            daysBetween += daysInMonth;
+        }
+
+        daysBetween += endDate.day - startDate.day;
+
+        return daysBetween;
     }
 }
