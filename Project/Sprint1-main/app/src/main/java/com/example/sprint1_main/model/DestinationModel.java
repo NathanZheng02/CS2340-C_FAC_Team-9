@@ -12,15 +12,75 @@ public class DestinationModel {
     private List<UserModel> contributingUsers;
     private List<String> notes;
 
+    public DestinationModel() {}
+
+
 
     public DestinationModel(String destinationName, DateModel startDate, DateModel endDate) {
         this.destinationName = destinationName;
         this.startDate = startDate;
         this.endDate = endDate;
-        //calculate estimated days based on start and end date
+        this.estimatedDays = getDaysBetween(startDate, endDate);
         this.contributingUsers = new ArrayList<>();
         this.notes = new ArrayList<>();
     }
+
+    public int getDaysInMonth(int month) {
+        if (month == 1) {
+            return 31;
+        }
+        else if (month == 2) {
+            return 28;
+        }
+        else if (month == 3) {
+            return 31;
+        }
+        else if (month == 4) {
+            return 30;
+        }
+        else if (month == 5) {
+            return 31;
+        }
+        else if (month == 6) {
+            return 30;
+        }
+        else if (month == 7) {
+            return 31;
+        }
+        else if (month == 8) {
+            return 31;
+        }
+        else if (month == 9) {
+            return 30;
+        }
+        else if (month == 10) {
+            return 31;
+        }
+        else if (month == 11) {
+            return 30;
+        }
+        else if (month == 12) {
+            return 31;
+        }
+        return 0;
+    }
+
+    public int getDaysBetween(DateModel startDate, DateModel endDate) {
+        int daysBetween = 0;
+
+        int yearsBetween = endDate.getYear() - startDate.getYear();
+        daysBetween += (yearsBetween * 365);
+
+        for (int i = startDate.getMonth(); i < endDate.getMonth(); i++) {
+            int daysInMonth = getDaysInMonth(i);
+            daysBetween += daysInMonth;
+        }
+
+        daysBetween += endDate.getDay() - startDate.getDay();
+
+        return daysBetween;
+    }
+
 
     //user getters
     public String getDestinationName() {
@@ -63,5 +123,13 @@ public class DestinationModel {
 
     public void setContributingUsers(List<UserModel> contributingUsers) {
         this.contributingUsers = contributingUsers;
+    }
+
+    public int getEstimatedDays() {
+        return estimatedDays;
+    }
+
+    public void setEstimatedDays(int estimatedDays) {
+        this.estimatedDays = estimatedDays;
     }
 }

@@ -48,21 +48,20 @@ public class LoginViewModel extends ViewModel {
         checkUserDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()) {
-                    String correctPassword = snapshot.child(givenUsername).child("password")
-                                                            .getValue(String.class);
 
-                    if (correctPassword.equals(givenPassword)) {
-                        //TODO: figure out how to get usermodel object from database
-
-                        manager.getCurrentUser().setLoginStatus(true);
+                for (DataSnapshot userSnapshot : snapshot.getChildren()) {
+                    UserModel user = userSnapshot.getValue(UserModel.class);
+                    if (user != null) {
+                        if (user.getPassword().equals(givenPassword)) {
+                            user.setLoginStatus(true);
+                            manager.setCurrentUser(user);
+                        } else {
+                            passwordInput.setError("Incorrect Password");
+                        }
                     } else {
-                        passwordInput.setError("Incorrect Password");
+                        usernameInput.setError("User Does Not Exist");
                     }
-                } else {
-                    usernameInput.setError("User Does Not Exist");
                 }
-
             }
 
             @Override

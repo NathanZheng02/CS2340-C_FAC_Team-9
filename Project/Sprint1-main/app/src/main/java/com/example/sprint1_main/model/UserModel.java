@@ -12,9 +12,14 @@ public class UserModel {
     private String password;
     private boolean loginStatus;
     private List<DestinationModel> destinations;
-    private String startDate;
-    private String endDate;
-    private String duration;
+    private DateModel startDate;
+    private DateModel endDate;
+    private int duration;
+
+
+    public UserModel() {}
+
+
 
     public UserModel(String email, String phoneNumber, String name, int age,
                      String username, String password) {
@@ -26,7 +31,11 @@ public class UserModel {
         this.password = password;
         this.loginStatus = false;
         this.destinations = new ArrayList<>();
+        this.startDate = null;
+        this.endDate = null;
+        this.duration = 0;
     }
+
 
     //user getters
     public String getEmail() {
@@ -61,11 +70,10 @@ public class UserModel {
         return destinations;
     }
 
-    public String getStartDate() { return startDate; }
+    public void setDestinations(List<DestinationModel> destinations) {
+        this.destinations = destinations;
+    }
 
-    public String getEndDate() { return endDate; }
-
-    public String getDuration() { return duration; }
 
 
     //user setters
@@ -97,9 +105,29 @@ public class UserModel {
         this.loginStatus = loginStatus;
     }
 
-    public void setStartDate(String startDate) { this.startDate = startDate; }
 
-    public void setEndDate(String endDate) { this.endDate = endDate; }
+    public DateModel getStartDate() {
+        return startDate;
+    }
 
-    public void setDuration(String duration) { this.duration = duration; }
+    public void setStartDate(DateModel startDate) {
+        this.startDate = startDate;
+    }
+
+    public DateModel getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(DateModel endDate) {
+        this.endDate = endDate;
+    }
+
+    public int getDuration() {
+        return duration;
+    }
+
+    public void setDuration(int duration) {
+        this.duration = duration;
+    }
+
 }
