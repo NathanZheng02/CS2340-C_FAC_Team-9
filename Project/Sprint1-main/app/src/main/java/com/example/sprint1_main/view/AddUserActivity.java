@@ -49,6 +49,8 @@ public class AddUserActivity extends AppCompatActivity {
                             UserModel user = snapshot.child(username).getValue(UserModel.class);
                             //TODO: update firebase (both destination and user), add check to make sure user isn't double added
                             manager.getCurrentDestination().getContributingUsers().add(user);
+                            Intent intent = new Intent(AddUserActivity.this, LogisticsActivity.class);
+                            startActivity(intent);
                         } else {
                             userInput.setError("User Does Not Exist");
                         }
@@ -61,8 +63,7 @@ public class AddUserActivity extends AppCompatActivity {
                     }
                 });
 
-                Intent intent = new Intent(AddUserActivity.this, LogisticsActivity.class);
-                startActivity(intent);
+
             }
         });
 
