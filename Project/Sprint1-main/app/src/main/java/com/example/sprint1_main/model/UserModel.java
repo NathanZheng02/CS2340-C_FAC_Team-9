@@ -14,7 +14,7 @@ public class UserModel {
     private List<DestinationModel> destinations;
     private String startDate;
     private String endDate;
-    private int duration;
+    private String duration;
 
     public UserModel(String email, String phoneNumber, String name, int age,
                      String username, String password) {
@@ -65,7 +65,7 @@ public class UserModel {
 
     public String getEndDate() { return endDate; }
 
-    public int getDuration() { return duration; }
+    public String getDuration() { return duration; }
 
 
     //user setters
@@ -101,5 +101,5 @@ public class UserModel {
 
     public void setEndDate(String endDate) { this.endDate = endDate; }
 
-    public void setDuration(int duration) { this.duration = duration; }
+    public void setDuration(String duration) { this.duration = duration; }
 }

@@ -1,5 +1,7 @@
 package com.example.sprint1_main.view;
 
+import static java.lang.Integer.parseInt;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -11,11 +13,20 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 
 import com.example.sprint1_main.R;
+import com.example.sprint1_main.model.ApplicationManagerModel;
+import com.example.sprint1_main.model.DateModel;
+import com.example.sprint1_main.model.DestinationModel;
+import com.example.sprint1_main.model.UserModel;
 import com.example.sprint1_main.viewmodel.DestinationViewModel;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class CalculateVacationTimeActivity extends AppCompatActivity {
 
     private static final String TAG = "CalculateTravelActivity";
+
+    private FirebaseDatabase database;
+    private DatabaseReference reference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,7 +133,14 @@ public class CalculateVacationTimeActivity extends AppCompatActivity {
                     }
                 }
                 //TODO: Update Firebase with new Start, End, and duration times
+                database = FirebaseDatabase.getInstance();
+                reference = database.getReference("users");
+                ApplicationManagerModel manager = ApplicationManagerModel.getInstance();
+                UserModel currentUser = manager.getCurrentUser();
 
+                reference.child(currentUser.getUsername()).child(currentUser.getStartDate()).setValue(startDate);
+                reference.child(currentUser.getUsername()).child(currentUser.getEndDate()).setValue(endDate);
+                reference.child(currentUser.getUsername()).child(currentUser.getDuration()).setValue(time);
 
             }
         });
