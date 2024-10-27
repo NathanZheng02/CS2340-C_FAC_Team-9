@@ -14,6 +14,8 @@
 
 
 
+
+
         <TextView
             android:id="@+id/logistics_header_textView"
             android:layout_width="match_parent"
@@ -25,12 +27,31 @@
             android:textSize="20sp"
             android:textStyle="bold" />
 
+
+
         <Spinner
             android:id="@+id/destinations_spinner"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:padding="10dp"
             android:backgroundTint="@color/darkgray" />
+
+        <Button
+            android:id="@+id/add_user_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add new user"
+            app:layout_constraintTop_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/add_note_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add new note"
+            app:layout_constraintEnd_toEndOf="@+id/add_user_button"
+            app:layout_constraintStart_toStartOf="@+id/add_user_button" />
 
         <TextView
             android:id="@+id/contributer_header"
@@ -78,25 +99,9 @@
             android:textColor="#fff"
             android:background="#000"/>
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/add_user_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
-            android:layout_margin="16dp"
-            android:contentDescription="Add new user"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:srcCompat="@android:drawable/ic_menu_share" />
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/add_note_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_gravity="bottom|end"
-            android:layout_margin="16dp"
-            android:contentDescription="Add new note"
-            app:srcCompat="@android:drawable/ic_input_add" />
+
+
 
 
     </LinearLayout>
