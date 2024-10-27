@@ -42,7 +42,6 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 LoginViewModel.validateLogin(usernameInput, passwordInput, tempUser);
-                DestinationViewModel.updateCurrentUser(tempUser);
 
                 final android.os.Handler handler = new android.os.Handler(Looper.getMainLooper());
                 handler.postDelayed(new Runnable() {
