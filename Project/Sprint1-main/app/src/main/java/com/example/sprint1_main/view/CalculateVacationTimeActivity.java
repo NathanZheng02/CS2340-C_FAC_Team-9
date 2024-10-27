@@ -95,15 +95,40 @@ public class CalculateVacationTimeActivity extends AppCompatActivity {
         calculate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DestinationViewModel.calculateDuration(duration, start, end);
-                //Intent intent = new Intent(CalculateVacationTimeActivity.this, LogTravelActivity.class);
-                //startActivity(intent);
+                String time = duration.getText().toString().trim();
+                String startDate = start.getText().toString().trim();
+                String endDate = end.getText().toString().trim();
+                String emptyUpdates = "";
+                if (time.isEmpty() || time == null) {
+                    if (startDate == null || endDate == null) {
+                        duration.setError("Please input at least 2 conditions");
+                    } else {
+                        DestinationViewModel.calculateDuration(startDate, endDate);
+                        emptyUpdates = "time";
+                    }
+                } else if (startDate.isEmpty() || startDate == null) {
+                    if (time == null || endDate == null) {
+                        start.setError("Please input at least 2 conditions");
+                    } else {
+                        DestinationViewModel.calculateStartDate(time, endDate);
+                        emptyUpdates = "startDate";
+                    }
+                } else if (endDate.isEmpty() || endDate == null) {
+                    if (startDate == null || time == null) {
+                        end.setError("Please input at least 2 conditions");
+                    } else {
+                        DestinationViewModel.calculateEndDate(time, startDate);
+                        emptyUpdates = "endDate";
+                    }
+                }
+                //TODO: Update Firebase with new Start, End, and duration times
+
+
             }
         });
         Log.d(TAG, "onCreate called");
 
     }
-
 
     @Override
     protected void onStart() {
@@ -135,4 +160,3 @@ public class CalculateVacationTimeActivity extends AppCompatActivity {
         Log.d(TAG, "onDestroy called");
     }
 }
-  
