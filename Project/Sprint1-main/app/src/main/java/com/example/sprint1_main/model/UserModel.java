@@ -13,6 +13,10 @@ public class UserModel {
     private boolean loginStatus;
     private List<DestinationModel> destinations;
 
+    public UserModel() {}
+
+
+
     public UserModel(String email, String phoneNumber, String name, int age,
                      String username, String password) {
         this.email = email;
@@ -24,6 +28,7 @@ public class UserModel {
         this.loginStatus = false;
         this.destinations = new ArrayList<>();
     }
+
 
     //user getters
     public String getEmail() {
@@ -58,6 +63,11 @@ public class UserModel {
         return destinations;
     }
 
+    public void setDestinations(List<DestinationModel> destinations) {
+        this.destinations = destinations;
+    }
+
+
 
     //user setters
     public void setEmail(String email) {
@@ -87,4 +97,5 @@ public class UserModel {
     public void setLoginStatus(boolean loginStatus) {
         this.loginStatus = loginStatus;
     }
+
 }

@@ -1,5 +1,7 @@
 package com.example.sprint1_main.view;
 
+import static java.lang.Integer.parseInt;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -9,13 +11,23 @@ import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.example.sprint1_main.R;
+import com.example.sprint1_main.model.ApplicationManagerModel;
+import com.example.sprint1_main.model.DateModel;
+import com.example.sprint1_main.model.DestinationModel;
+import com.example.sprint1_main.model.UserModel;
 import com.example.sprint1_main.viewmodel.DestinationViewModel;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class CalculateVacationTimeActivity extends AppCompatActivity {
 
     private static final String TAG = "CalculateTravelActivity";
+
+    private FirebaseDatabase database;
+    private DatabaseReference reference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,15 +107,47 @@ public class CalculateVacationTimeActivity extends AppCompatActivity {
         calculate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DestinationViewModel.calculateDuration(duration, start, end);
-                //Intent intent = new Intent(CalculateVacationTimeActivity.this, LogTravelActivity.class);
-                //startActivity(intent);
+                String time = duration.getText().toString().trim();
+                String startDate = start.getText().toString().trim();
+                String endDate = end.getText().toString().trim();
+                String emptyUpdates = "";
+                if (time.isEmpty() && startDate.isEmpty() && endDate.isEmpty()) {
+                    duration.setError("Please input at least 2 conditions");
+                } else if (time.isEmpty() && startDate.isEmpty()) {
+                    duration.setError("Please input at least 2 conditions");
+                } else if (time.isEmpty() && endDate.isEmpty()) {
+                    duration.setError("Please input at least 2 conditions");
+                } else if (startDate.isEmpty() && endDate.isEmpty()) {
+                    start.setError("Please input at least 2 conditions");
+                } else if (time.isEmpty()) {
+                    time = DestinationViewModel.calculateDuration(startDate, endDate);
+                    emptyUpdates = "time";
+                } else if (startDate.isEmpty()) {
+                    startDate = DestinationViewModel.calculateStartDate(time, endDate);
+                    emptyUpdates = "startDate";
+                } else if (endDate.isEmpty()) {
+                    endDate = DestinationViewModel.calculateEndDate(time, startDate);
+                    emptyUpdates = "endDate";
+                }
+                database = FirebaseDatabase.getInstance();
+                reference = database.getReference("users");
+                ApplicationManagerModel manager = ApplicationManagerModel.getInstance();
+                UserModel currentUser = manager.getCurrentUser();
+
+                reference.child(currentUser.getUsername()).child("startDate").setValue(startDate);
+                reference.child(currentUser.getUsername()).child("endDate").setValue(endDate);
+                reference.child(currentUser.getUsername()).child("duration").setValue(time);
+
+                Toast.makeText(CalculateVacationTimeActivity.this, "Calculation successful and duration was stored!",
+                        Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(CalculateVacationTimeActivity.this, LogisticsActivity.class);
+                startActivity(intent);
+
             }
         });
         Log.d(TAG, "onCreate called");
 
     }
-
 
     @Override
     protected void onStart() {
@@ -135,4 +179,3 @@ public class CalculateVacationTimeActivity extends AppCompatActivity {
         Log.d(TAG, "onDestroy called");
     }
 }
-  
