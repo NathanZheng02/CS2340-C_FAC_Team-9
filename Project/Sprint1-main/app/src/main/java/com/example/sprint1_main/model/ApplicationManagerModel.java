@@ -8,7 +8,7 @@ public class ApplicationManagerModel {
 
 
     private ApplicationManagerModel() {
-        this.currentUser = null;
+        this.currentUser = new UserModel("email", "number", "name", 10, "tempUser", "password");
         this.currentDestination = null;
     }
 

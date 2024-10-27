@@ -53,9 +53,8 @@ public class LoginViewModel extends ViewModel {
                                                             .getValue(String.class);
 
                     if (correctPassword.equals(givenPassword)) {
-                        //TODO: check if this works
-                        UserModel user = snapshot.child(givenUsername).getValue(UserModel.class);
-                        manager.setCurrentUser(user);
+                        //TODO: figure out how to get usermodel object from database
+
                         manager.getCurrentUser().setLoginStatus(true);
                     } else {
                         passwordInput.setError("Incorrect Password");

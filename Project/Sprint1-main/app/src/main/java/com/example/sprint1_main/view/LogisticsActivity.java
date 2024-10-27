@@ -8,6 +8,7 @@ import android.view.View;
 import android.util.Log;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -86,6 +87,25 @@ public class LogisticsActivity extends AppCompatActivity {
         }
 
         contributers.setText(notes_builder.toString());
+
+        Button addNote = findViewById(R.id.add_note_button);
+        addNote.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(LogisticsActivity.this, AddNoteActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
+        Button addUser = findViewById(R.id.add_user_button);
+        addUser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(LogisticsActivity.this, AddUserActivity.class);
+                startActivity(intent);
+            }
+        });
 
 
 

@@ -7,8 +7,10 @@ import android.util.Log;
 import android.view.View;
 import android.content.Intent;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.example.sprint1_main.R;
+import com.example.sprint1_main.model.ApplicationManagerModel;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -18,6 +20,15 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        ApplicationManagerModel manager = ApplicationManagerModel.getInstance();
+
+        TextView welcome = findViewById(R.id.welcome);
+        welcome.setText("Hello " + manager.getCurrentUser().getUsername() + "!");
+
+
+
+
 
         ImageButton logistics = findViewById(R.id.button_logistics);
         ImageButton destination = findViewById(R.id.button_destination);

@@ -34,8 +34,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
         ApplicationManagerModel manager = ApplicationManagerModel.getInstance();
-//        UserModel tempUser = new UserModel("tempEmail", "tempNumber",
-//                                    "tempName", 0, "tempUsername", "tempPassword");
+//
 
 
         loginButton.setOnClickListener(new View.OnClickListener() {
@@ -47,7 +46,7 @@ public class LoginActivity extends AppCompatActivity {
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        if (manager.getCurrentUser().getLoginStatus()) {
+                        if (manager.getCurrentUser() != null && manager.getCurrentUser().getLoginStatus()) {
                             Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                             startActivity(intent);
                         }
