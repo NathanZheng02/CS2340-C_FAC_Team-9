@@ -25,6 +25,7 @@ public class UserModel {
         this.destinations = new ArrayList<>();
     }
 
+
     //user getters
     public String getEmail() {
         return email;
@@ -59,6 +60,7 @@ public class UserModel {
     }
 
 
+
     //user setters
     public void setEmail(String email) {
         this.email = email;
@@ -87,4 +89,5 @@ public class UserModel {
     public void setLoginStatus(boolean loginStatus) {
         this.loginStatus = loginStatus;
     }
+
 }
