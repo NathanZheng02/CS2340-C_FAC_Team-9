@@ -5,6 +5,7 @@ import android.widget.EditText;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 
+import com.example.sprint1_main.model.ApplicationManagerModel;
 import com.example.sprint1_main.model.UserModel;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -35,7 +36,7 @@ public class LoginViewModel extends ViewModel {
     }
 
     public static void validateLogin(EditText usernameInput, EditText passwordInput,
-                                     UserModel tempUser) {
+                                     ApplicationManagerModel manager) {
         LoginViewModel.checkLoginInput(usernameInput, passwordInput);
 
         String givenUsername = usernameInput.getText().toString().trim();
@@ -52,7 +53,9 @@ public class LoginViewModel extends ViewModel {
                                                             .getValue(String.class);
 
                     if (correctPassword.equals(givenPassword)) {
-                        tempUser.setLoginStatus(true);
+                        //TODO: figure out how to get usermodel object from database
+
+                        manager.getCurrentUser().setLoginStatus(true);
                     } else {
                         passwordInput.setError("Incorrect Password");
                     }

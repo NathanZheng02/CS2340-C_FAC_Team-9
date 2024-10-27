@@ -8,11 +8,13 @@ import android.view.View;
 import android.util.Log;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.sprint1_main.R;
+import com.example.sprint1_main.model.ApplicationManagerModel;
 import com.example.sprint1_main.model.DateModel;
 import com.example.sprint1_main.model.DestinationModel;
 import com.example.sprint1_main.model.UserModel;
@@ -33,6 +35,8 @@ public class LogisticsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_logistics);
 
+        ApplicationManagerModel manager = ApplicationManagerModel.getInstance();
+
         Spinner destinations_spinner = (Spinner) findViewById(R.id.destinations_spinner);
 
         List<String> destination_names = new ArrayList<>();
@@ -48,13 +52,13 @@ public class LogisticsActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 Log.v("destination name", (String) parent.getItemAtPosition(position));
-                //TODO: figure out why this doesn't work
-//                for (DestinationModel destination : loggedInUser.getDestinations()) {
-//                    if (destination.getDestinationName().equals((String) parent.getItemAtPosition(position))) {
-//                        currentDestination = destination;
-//                        break;
-//                    }
-//                }
+
+                for (DestinationModel destination : loggedInUser.getDestinations()) {
+                    if (destination.getDestinationName().equals((String) parent.getItemAtPosition(position))) {
+                        manager.setCurrentDestination(destination);
+                        break;
+                    }
+                }
             }
 
             @Override
@@ -83,6 +87,28 @@ public class LogisticsActivity extends AppCompatActivity {
         }
 
         contributers.setText(notes_builder.toString());
+
+        Button addNote = findViewById(R.id.add_note_button);
+        addNote.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(LogisticsActivity.this, AddNoteActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
+        Button addUser = findViewById(R.id.add_user_button);
+        addUser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(LogisticsActivity.this, AddUserActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
+
 
 
 

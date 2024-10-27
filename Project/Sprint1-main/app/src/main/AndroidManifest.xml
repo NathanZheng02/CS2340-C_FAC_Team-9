@@ -43,6 +43,12 @@
             android:name=".view.TravelCommunityActivity"/>
         <activity
             android:name=".view.RegisterActivity"/>
+        <activity
+            android:name=".view.AddNoteActivity"/>
+        <activity
+            android:name=".view.AddUserActivity"/>
+        <activity
+            android:name=".view.CalculateVacationTimeActivity"/>
     </application>
 
 </manifest>
