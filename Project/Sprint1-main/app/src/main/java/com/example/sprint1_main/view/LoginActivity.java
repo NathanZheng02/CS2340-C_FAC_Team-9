@@ -14,6 +14,7 @@ import android.util.Log;
 
 import com.example.sprint1_main.R;
 import com.example.sprint1_main.model.ApplicationManagerModel;
+import com.example.sprint1_main.viewmodel.DestinationViewModel;
 import com.example.sprint1_main.viewmodel.LoginViewModel;
 import com.example.sprint1_main.model.UserModel;
 
@@ -34,13 +35,15 @@ public class LoginActivity extends AppCompatActivity {
 
 
         ApplicationManagerModel manager = ApplicationManagerModel.getInstance();
-//
+
 
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 LoginViewModel.validateLogin(usernameInput, passwordInput, manager);
+
 
                 final android.os.Handler handler = new android.os.Handler(Looper.getMainLooper());
                 handler.postDelayed(new Runnable() {
@@ -55,7 +58,6 @@ public class LoginActivity extends AppCompatActivity {
 
             }
         });
-
 
 
         registerButton.setOnClickListener(new View.OnClickListener() {

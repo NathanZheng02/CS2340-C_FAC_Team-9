@@ -13,8 +13,6 @@ public class UserModel {
     private boolean loginStatus;
     private List<DestinationModel> destinations;
 
-    private DestinationModel destination;
-
     public UserModel(String email, String phoneNumber, String name, int age,
                      String username, String password) {
         this.email = email;
@@ -88,10 +86,5 @@ public class UserModel {
 
     public void setLoginStatus(boolean loginStatus) {
         this.loginStatus = loginStatus;
-    }
-
-    //adds destination to list of destinations
-    public void addDestination(DestinationModel destination) {
-        destinations.add(destination);
     }
 }
