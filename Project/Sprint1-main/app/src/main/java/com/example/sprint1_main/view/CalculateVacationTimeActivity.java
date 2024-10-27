@@ -134,6 +134,8 @@ public class CalculateVacationTimeActivity extends AppCompatActivity {
                 ApplicationManagerModel manager = ApplicationManagerModel.getInstance();
                 UserModel currentUser = manager.getCurrentUser();
 
+                manager.getCurrentUser().setDuration(parseInt(time));
+
                 reference.child(currentUser.getUsername()).child("startDate").setValue(startDate);
                 reference.child(currentUser.getUsername()).child("endDate").setValue(endDate);
                 reference.child(currentUser.getUsername()).child("duration").setValue(time);
