@@ -12,9 +12,6 @@ public class UserModel {
     private String password;
     private boolean loginStatus;
     private List<DestinationModel> destinations;
-    private String startDate;
-    private String endDate;
-    private String duration;
 
     public UserModel(String email, String phoneNumber, String name, int age,
                      String username, String password) {
@@ -27,6 +24,7 @@ public class UserModel {
         this.loginStatus = false;
         this.destinations = new ArrayList<>();
     }
+
 
     //user getters
     public String getEmail() {
@@ -61,11 +59,6 @@ public class UserModel {
         return destinations;
     }
 
-    public String getStartDate() { return startDate; }
-
-    public String getEndDate() { return endDate; }
-
-    public String getDuration() { return duration; }
 
 
     //user setters
@@ -97,9 +90,4 @@ public class UserModel {
         this.loginStatus = loginStatus;
     }
 
-    public void setStartDate(String startDate) { this.startDate = startDate; }
-
-    public void setEndDate(String endDate) { this.endDate = endDate; }
-
-    public void setDuration(String duration) { this.duration = duration; }
 }
