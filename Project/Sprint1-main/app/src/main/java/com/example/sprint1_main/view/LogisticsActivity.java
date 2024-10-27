@@ -19,6 +19,12 @@ import com.example.sprint1_main.model.DateModel;
 import com.example.sprint1_main.model.DestinationModel;
 import com.example.sprint1_main.model.UserModel;
 import com.example.sprint1_main.viewmodel.LogisticsViewModel;
+import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
 import com.google.android.material.navigation.NavigationBarView;
 
 import java.util.ArrayList;
@@ -49,10 +55,12 @@ public class LogisticsActivity extends AppCompatActivity {
         }
 
         manager.setCurrentDestination(currentDestination);
+        manager.getCurrentUser().setDuration(4);
 
 
         TextView notes = findViewById(R.id.notes_body);
         TextView contributers = findViewById(R.id.contributer_body);
+        TextView total_days = findViewById(R.id.total_days_text);
 
         Spinner destinations_spinner = (Spinner) findViewById(R.id.destinations_spinner);
 
@@ -89,6 +97,7 @@ public class LogisticsActivity extends AppCompatActivity {
 
         LogisticsViewModel.updateNotes(notes);
         LogisticsViewModel.updateUsers(contributers);
+        LogisticsViewModel.updateDays(total_days);
 
 
 
@@ -110,6 +119,12 @@ public class LogisticsActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+
+        //find the chart creation button to create the graph
+        Button graphButton = findViewById(R.id.graph_button);
+        //Draw a bar chart when clicked
+        graphButton.setOnClickListener((l) -> drawGraph(manager.getCurrentUser().getDuration(), LogisticsViewModel.getDays()));
 
 
 
@@ -163,6 +178,38 @@ public class LogisticsActivity extends AppCompatActivity {
         });
         Log.d(TAG, "onCreate called");
 
+    }
+
+    public void drawGraph(int allottedTime, int plannedTime) {
+        //prepare the data for the chart
+        List<BarEntry> valuesAllotted = new ArrayList<>();
+        List<BarEntry> valuesPlanned = new ArrayList<>();
+
+        valuesAllotted.add(new BarEntry(0f, allottedTime));
+        valuesPlanned.add(new BarEntry(2f, plannedTime));
+
+        //create a bardataset from the data entries
+
+        BarDataSet setAllotted = new BarDataSet(valuesAllotted, "Allotted Time");
+        BarDataSet setPlanned = new BarDataSet(valuesPlanned, "Planned Time");
+
+
+        BarChart barChart = findViewById(R.id.barChart);
+        BarData data = new BarData(setAllotted, setPlanned);
+        barChart.setData(data);
+
+        //optional chart customization
+        YAxis rightAxis = barChart.getAxisRight();
+        rightAxis.setEnabled(false); //hiding the right axis
+        barChart.getDescription().setEnabled(false); //hiding the description label
+
+        XAxis xAxis = barChart.getXAxis();
+        xAxis.setDrawAxisLine(false);
+        xAxis.setDrawGridLines(false);
+        xAxis.setDrawLabels(false);
+
+        //redraw the chart
+        barChart.invalidate(); //refresh the chart
     }
 
 
