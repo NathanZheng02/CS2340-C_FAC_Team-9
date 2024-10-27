@@ -11,6 +11,7 @@ import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.example.sprint1_main.R;
 import com.example.sprint1_main.model.ApplicationManagerModel;
@@ -110,37 +111,37 @@ public class CalculateVacationTimeActivity extends AppCompatActivity {
                 String startDate = start.getText().toString().trim();
                 String endDate = end.getText().toString().trim();
                 String emptyUpdates = "";
-                if (time.isEmpty() || time == null) {
-                    if (startDate == null || endDate == null) {
-                        duration.setError("Please input at least 2 conditions");
-                    } else {
-                        DestinationViewModel.calculateDuration(startDate, endDate);
-                        emptyUpdates = "time";
-                    }
-                } else if (startDate.isEmpty() || startDate == null) {
-                    if (time == null || endDate == null) {
-                        start.setError("Please input at least 2 conditions");
-                    } else {
-                        DestinationViewModel.calculateStartDate(time, endDate);
-                        emptyUpdates = "startDate";
-                    }
-                } else if (endDate.isEmpty() || endDate == null) {
-                    if (startDate == null || time == null) {
-                        end.setError("Please input at least 2 conditions");
-                    } else {
-                        DestinationViewModel.calculateEndDate(time, startDate);
-                        emptyUpdates = "endDate";
-                    }
+                if (time.isEmpty() && startDate.isEmpty() && endDate.isEmpty()) {
+                    duration.setError("Please input at least 2 conditions");
+                } else if (time.isEmpty() && startDate.isEmpty()) {
+                    duration.setError("Please input at least 2 conditions");
+                } else if (time.isEmpty() && endDate.isEmpty()) {
+                    duration.setError("Please input at least 2 conditions");
+                } else if (startDate.isEmpty() && endDate.isEmpty()) {
+                    start.setError("Please input at least 2 conditions");
+                } else if (time.isEmpty()) {
+                    time = DestinationViewModel.calculateDuration(startDate, endDate);
+                    emptyUpdates = "time";
+                } else if (startDate.isEmpty()) {
+                    startDate = DestinationViewModel.calculateStartDate(time, endDate);
+                    emptyUpdates = "startDate";
+                } else if (endDate.isEmpty()) {
+                    endDate = DestinationViewModel.calculateEndDate(time, startDate);
+                    emptyUpdates = "endDate";
                 }
-                //TODO: Update Firebase with new Start, End, and duration times
                 database = FirebaseDatabase.getInstance();
                 reference = database.getReference("users");
                 ApplicationManagerModel manager = ApplicationManagerModel.getInstance();
                 UserModel currentUser = manager.getCurrentUser();
 
-                reference.child(currentUser.getUsername()).child(currentUser.getStartDate()).setValue(startDate);
-                reference.child(currentUser.getUsername()).child(currentUser.getEndDate()).setValue(endDate);
-                reference.child(currentUser.getUsername()).child(currentUser.getDuration()).setValue(time);
+                reference.child(currentUser.getUsername()).child("startDate").setValue(startDate);
+                reference.child(currentUser.getUsername()).child("endDate").setValue(endDate);
+                reference.child(currentUser.getUsername()).child("duration").setValue(time);
+
+                Toast.makeText(CalculateVacationTimeActivity.this, "Calculation successful and duration was stored!",
+                        Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(CalculateVacationTimeActivity.this, LogisticsActivity.class);
+                startActivity(intent);
 
             }
         });

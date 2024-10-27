@@ -41,7 +41,7 @@ public class DestinationViewModel extends ViewModel {
             }
             totalDays += getDaysInMonth(startMonth) - startDay - getDaysInMonth(finalMonth) + endDay;
         }
-        totalDays += parseInt(end.substring(6)) - parseInt(end.substring(6));
+        totalDays += 365 * (parseInt(end.substring(6)) - parseInt(start.substring(6)));
         return totalDays + "";
     }
     public static String calculateStartDate(String duration, String end) {
