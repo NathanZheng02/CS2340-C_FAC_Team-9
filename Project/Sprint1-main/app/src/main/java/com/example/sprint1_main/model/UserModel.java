@@ -1,6 +1,7 @@
 package com.example.sprint1_main.model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class UserModel {
     private String email;
@@ -10,9 +11,10 @@ public class UserModel {
     private String username;
     private String password;
     private boolean loginStatus;
-    private ArrayList<DestinationModel> destinations;
-
-    private DestinationModel destination;
+    private List<DestinationModel> destinations;
+    private String startDate;
+    private String endDate;
+    private String duration;
 
     public UserModel(String email, String phoneNumber, String name, int age,
                      String username, String password) {
@@ -23,7 +25,7 @@ public class UserModel {
         this.username = username;
         this.password = password;
         this.loginStatus = false;
-        destination = new DestinationModel();
+        this.destinations = new ArrayList<>();
     }
 
     //user getters
@@ -55,9 +57,15 @@ public class UserModel {
         return loginStatus;
     }
 
-    public ArrayList<DestinationModel> getDestinations() {
+    public List<DestinationModel> getDestinations() {
         return destinations;
     }
+
+    public String getStartDate() { return startDate; }
+
+    public String getEndDate() { return endDate; }
+
+    public String getDuration() { return duration; }
 
 
     //user setters
@@ -89,8 +97,9 @@ public class UserModel {
         this.loginStatus = loginStatus;
     }
 
-    //adds destination to list of destinations
-    public void addDestination(DestinationModel destination) {
-        destinations.add(destination);
-    }
+    public void setStartDate(String startDate) { this.startDate = startDate; }
+
+    public void setEndDate(String endDate) { this.endDate = endDate; }
+
+    public void setDuration(String duration) { this.duration = duration; }
 }

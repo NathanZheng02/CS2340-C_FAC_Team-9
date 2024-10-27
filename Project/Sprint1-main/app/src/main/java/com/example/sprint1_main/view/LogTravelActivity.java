@@ -1,7 +1,6 @@
 package com.example.sprint1_main.view;
 
-import static androidx.core.content.ContextCompat.startActivity;
-import static androidx.databinding.DataBindingUtil.setContentView;
+import static java.lang.Integer.parseInt;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -14,6 +13,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 
 import com.example.sprint1_main.R;
+import com.example.sprint1_main.model.DateModel;
 import com.example.sprint1_main.model.UserModel;
 import com.example.sprint1_main.model.DestinationModel;
 import com.example.sprint1_main.view.LoginActivity;
@@ -41,6 +41,7 @@ public class LogTravelActivity extends AppCompatActivity {
         Button logTravelButton = findViewById(R.id.button_logTravel);
         Button calcVacation = findViewById(R.id.button_vacationTime);
         Button submit = findViewById(R.id.submitButton);
+        Button cancel = findViewById(R.id.cancelButton);
         EditText destination = findViewById(R.id.travellocation);
         EditText startDateField = findViewById(R.id.startDate);
         EditText endDateField = findViewById(R.id.endDate);
@@ -86,6 +87,20 @@ public class LogTravelActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        calcVacation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LogTravelActivity.this, CalculateVacationTimeActivity.class);
+                startActivity(intent);
+            }
+        });
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LogTravelActivity.this, DestinationActivity.class);
+                startActivity(intent);
+            }
+        });
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -93,19 +108,19 @@ public class LogTravelActivity extends AppCompatActivity {
                 reference = database.getReference("destinations");
 
                 String destinationName = destination.getText().toString();
-                String startDate = startDateField.getText().toString();
-                String endDate = endDateField.getText().toString();
+                String startDate = startDateField.getText().toString().trim();
+                String endDate = endDateField.getText().toString().trim();
+                //MM/DD/YYYY
+                DateModel beginning = new DateModel(parseInt(startDate.substring(0, 2)), parseInt(startDate.substring(3, 5)), parseInt(startDate.substring(6)));
+                DateModel ending = new DateModel(parseInt(endDate.substring(0, 2)), parseInt(endDate.substring(3, 5)), parseInt(endDate.substring(6)));
 
-                DestinationModel destination = new DestinationModel(destinationName, startDate, endDate);
+                DestinationModel destination = new DestinationModel(destinationName, beginning, ending);
 
                 reference.child(destinationName).setValue(destination);
             }
         });
         Log.d(TAG, "onCreate called");
     }
-
-
-
 
     @Override
     protected void onStart() {
@@ -137,4 +152,3 @@ public class LogTravelActivity extends AppCompatActivity {
         Log.d(TAG, "onDestroy called");
     }
 }
-
