@@ -1,5 +1,8 @@
 package com.example.sprint1_main.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class UserModel {
     private String email;
     private String phoneNumber;
@@ -8,6 +11,15 @@ public class UserModel {
     private String username;
     private String password;
     private boolean loginStatus;
+    private List<DestinationModel> destinations;
+    private DateModel startDate;
+    private DateModel endDate;
+    private int duration;
+
+
+    public UserModel() {}
+
+
 
     public UserModel(String email, String phoneNumber, String name, int age,
                      String username, String password) {
@@ -18,7 +30,12 @@ public class UserModel {
         this.username = username;
         this.password = password;
         this.loginStatus = false;
+        this.destinations = new ArrayList<>();
+        this.startDate = null;
+        this.endDate = null;
+        this.duration = 0;
     }
+
 
     //user getters
     public String getEmail() {
@@ -49,6 +66,15 @@ public class UserModel {
         return loginStatus;
     }
 
+    public List<DestinationModel> getDestinations() {
+        return destinations;
+    }
+
+    public void setDestinations(List<DestinationModel> destinations) {
+        this.destinations = destinations;
+    }
+
+
 
     //user setters
     public void setEmail(String email) {
@@ -78,4 +104,30 @@ public class UserModel {
     public void setLoginStatus(boolean loginStatus) {
         this.loginStatus = loginStatus;
     }
+
+
+    public DateModel getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(DateModel startDate) {
+        this.startDate = startDate;
+    }
+
+    public DateModel getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(DateModel endDate) {
+        this.endDate = endDate;
+    }
+
+    public int getDuration() {
+        return duration;
+    }
+
+    public void setDuration(int duration) {
+        this.duration = duration;
+    }
+
 }

@@ -26,6 +26,8 @@
         <activity
             android:name=".view.AccomodationsActivity"/>
         <activity
+            android:name=".view.CalculateVacationTimeActivity"/>
+        <activity
             android:name=".view.DestinationActivity"/>
         <activity
             android:name=".view.DiningActivity"/>
@@ -34,11 +36,19 @@
         <activity
             android:name=".view.LogisticsActivity"/>
         <activity
+            android:name=".view.LogTravelActivity"/>
+        <activity
             android:name=".view.TransportationActivity"/>
         <activity
             android:name=".view.TravelCommunityActivity"/>
         <activity
             android:name=".view.RegisterActivity"/>
+        <activity
+            android:name=".view.AddNoteActivity"/>
+        <activity
+            android:name=".view.AddUserActivity"/>
+        <activity
+            android:name=".view.CalculateVacationTimeActivity"/>
     </application>
 
 </manifest>

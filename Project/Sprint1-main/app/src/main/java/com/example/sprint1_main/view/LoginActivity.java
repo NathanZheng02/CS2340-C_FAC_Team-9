@@ -13,6 +13,13 @@ import android.widget.EditText;
 import android.util.Log;
 
 import com.example.sprint1_main.R;
+import com.example.sprint1_main.model.ApplicationManagerModel;
+
+import com.example.sprint1_main.viewmodel.DestinationViewModel;
+
+import com.example.sprint1_main.model.DateModel;
+import com.example.sprint1_main.model.DestinationModel;
+
 import com.example.sprint1_main.viewmodel.LoginViewModel;
 import com.example.sprint1_main.model.UserModel;
 
@@ -31,22 +38,25 @@ public class LoginActivity extends AppCompatActivity {
         Button loginButton = findViewById(R.id.loginButton);
         Button registerButton = findViewById(R.id.registerButton);
 
-        //creating temp user to communicate between view and viewmodel
-        //(possibly be changed to global in the future to keep track of logged in user)
-        UserModel tempUser = new UserModel("tempEmail", "tempNumber",
-                                    "tempName", 0, "tempUsername", "tempPassword");
+
+        ApplicationManagerModel manager = ApplicationManagerModel.getInstance();
+//        DestinationModel newDestination = new DestinationModel("tempDestination", new DateModel(5,29,2007), new DateModel(6,1,2008));
+//        newDestination.getContributingUsers().add(manager.getCurrentUser());
+//        manager.getCurrentUser().addDestination(newDestination);
+
 
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                LoginViewModel.validateLogin(usernameInput, passwordInput, tempUser);
+
+                LoginViewModel.validateLogin(usernameInput, passwordInput, manager);
 
                 final android.os.Handler handler = new android.os.Handler(Looper.getMainLooper());
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        if (tempUser.getLoginStatus()) {
+                        if (manager.getCurrentUser() != null && manager.getCurrentUser().getLoginStatus()) {
                             Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                             startActivity(intent);
                         }
@@ -55,7 +65,6 @@ public class LoginActivity extends AppCompatActivity {
 
             }
         });
-
 
 
         registerButton.setOnClickListener(new View.OnClickListener() {

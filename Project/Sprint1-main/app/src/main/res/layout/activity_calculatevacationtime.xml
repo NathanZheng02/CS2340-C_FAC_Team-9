@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.LogTravelActivity">
+    tools:context=".view.CalculateVacationTimeActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -35,67 +35,6 @@
             app:layout_constraintTop_toBottomOf="@+id/destination_header_textView"
             />
 
-        <TextView
-            android:id="@+id/travellocationtext"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="120dp"
-            android:text="Enter Information Below:"
-            android:textColor="@android:color/black"
-            android:textSize="14sp" />
-
-        <EditText
-            android:id="@+id/travellocation"
-            android:layout_width="250dp"
-            android:layout_height="65dp"
-            android:layout_marginHorizontal="75dp"
-            android:backgroundTint="@color/darkgray"
-            android:hint="Enter Travel Location"
-            android:inputType="text"
-            app:layout_constraintTop_toBottomOf="@+id/travellocationtext" />
-
-        <EditText
-            android:id="@+id/startDate"
-            android:layout_width="213dp"
-            android:layout_height="63dp"
-            android:layout_marginHorizontal="75dp"
-            android:hint="Enter Start"
-            android:inputType="text"
-            app:layout_constraintStart_toEndOf="@id/travellocation" />
-
-        <EditText
-            android:id="@+id/endDate"
-            android:layout_width="245dp"
-            android:layout_height="60dp"
-            android:layout_marginHorizontal="75dp"
-            android:hint="Enter End"
-            android:inputType="text"
-            app:layout_constraintStart_toEndOf="@id/startDate" />
-
-        <Button
-            android:id="@+id/submitButton"
-            android:layout_width="120dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="140dp"
-            android:backgroundTint="@color/lightgray"
-            android:text="Submit"
-            android:textAlignment="center"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/button_logTravel" />
-
-        <Button
-            android:id="@+id/cancelButton"
-            android:layout_width="120dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="140dp"
-            android:backgroundTint="@color/lightgray"
-            android:text="Cancel"
-            android:textAlignment="center"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/button_logTravel"
-            app:layout_constraintStart_toEndOf="@+id/submitButton"
-            />
-
         <Button
             android:id="@+id/button_vacationTime"
             android:layout_width="250dp"
@@ -103,6 +42,54 @@
             android:layout_marginHorizontal="75dp"
             android:backgroundTint="@color/lightgray"
             android:text="Calculate Vacation Time"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/button_logTravel" />
+
+        <TextView
+            android:id="@+id/calculate"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="130dp"
+            android:text="Fill Information Below:"
+            android:textColor="@android:color/black"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/start"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="140dp"
+            android:backgroundTint="@color/darkgray"
+            android:hint="Start Date"
+            android:inputType="text"
+            app:layout_constraintTop_toBottomOf="@+id/travellocationtext" />
+
+        <EditText
+            android:id="@+id/end"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="140dp"
+            android:hint="End Date"
+            android:inputType="text"
+            app:layout_constraintStart_toEndOf="@id/travellocation" />
+
+        <EditText
+            android:id="@+id/duration"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="140dp"
+            android:hint="Duration"
+            android:inputType="text"
+            app:layout_constraintStart_toEndOf="@id/startDate" />
+
+        <Button
+            android:id="@+id/button_calculate"
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="140dp"
+            android:backgroundTint="@color/lightgray"
+            android:text="Calculate"
             android:textAlignment="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/button_logTravel" />
