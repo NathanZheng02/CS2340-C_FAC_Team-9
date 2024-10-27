@@ -14,7 +14,12 @@ import android.util.Log;
 
 import com.example.sprint1_main.R;
 import com.example.sprint1_main.model.ApplicationManagerModel;
+
 import com.example.sprint1_main.viewmodel.DestinationViewModel;
+
+import com.example.sprint1_main.model.DateModel;
+import com.example.sprint1_main.model.DestinationModel;
+
 import com.example.sprint1_main.viewmodel.LoginViewModel;
 import com.example.sprint1_main.model.UserModel;
 
@@ -35,6 +40,9 @@ public class LoginActivity extends AppCompatActivity {
 
 
         ApplicationManagerModel manager = ApplicationManagerModel.getInstance();
+//        DestinationModel newDestination = new DestinationModel("tempDestination", new DateModel(5,29,2007), new DateModel(6,1,2008));
+//        newDestination.getContributingUsers().add(manager.getCurrentUser());
+//        manager.getCurrentUser().addDestination(newDestination);
 
 
 
