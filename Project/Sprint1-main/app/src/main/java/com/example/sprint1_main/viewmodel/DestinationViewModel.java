@@ -18,7 +18,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class DestinationViewModel extends ViewModel {
+
+    private FirebaseDatabase databaseReference;
+
     public DestinationViewModel() {
+        databaseReference = FirebaseDatabase.getInstance().getReference();
 
     }
     public static String calculateDuration(String start, String end) {

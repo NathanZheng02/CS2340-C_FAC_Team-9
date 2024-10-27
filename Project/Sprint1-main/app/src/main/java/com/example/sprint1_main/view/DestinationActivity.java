@@ -9,11 +9,17 @@ import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageButton;
 
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+
 import com.example.sprint1_main.R;
 
 public class DestinationActivity extends AppCompatActivity {
 
     private static final String TAG = "DestinationActivity";
+
+    private ListView listView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +33,14 @@ public class DestinationActivity extends AppCompatActivity {
         ImageButton home = findViewById(R.id.button_home);
         Button logTravel = findViewById(R.id.button_logTravel);
         Button vacationTime = findViewById(R.id.button_vacationTime);
+
+        listView = findViewById(R.id.destinationList);
+
+
+
+        ArrayAdapter<> arr = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, destinations);
+        listView.setAdapter(arr);
+
         logistics.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
