@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 
 import com.example.sprint1_main.R;
+import com.example.sprint1_main.model.ApplicationManagerModel;
 import com.example.sprint1_main.model.DateModel;
 import com.example.sprint1_main.model.UserModel;
 import com.example.sprint1_main.model.DestinationModel;
@@ -105,7 +106,9 @@ public class LogTravelActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 database = FirebaseDatabase.getInstance();
-                reference = database.getReference("destinations");
+                reference = database.getReference("Destination Database");
+
+
 
                 String destinationName = destination.getText().toString();
                 String startDate = startDateField.getText().toString().trim();
@@ -117,6 +120,15 @@ public class LogTravelActivity extends AppCompatActivity {
                 DestinationModel destination = new DestinationModel(destinationName, beginning, ending);
 
                 reference.child(destinationName).setValue(destination);
+
+
+
+
+                ApplicationManagerModel manager = ApplicationManagerModel.getInstance();
+
+                manager.getCurrentUser().getDestinations().add(destination);
+
+                FirebaseDatabase.getInstance().getReference("User Database").child(manager.getCurrentUser().getUsername()).child("destinations").child("" + manager.getCurrentUser().getDestinations().size()).setValue(destination);
             }
         });
         Log.d(TAG, "onCreate called");

@@ -46,10 +46,7 @@ public class LogisticsActivity extends AppCompatActivity {
 
         ApplicationManagerModel manager = ApplicationManagerModel.getInstance();
         UserDatabaseModel userDatabase = UserDatabaseModel.getInstance();
-        DestinationDatabaseModel destinationDatabaseModel = DestinationDatabaseModel.getInstance();
-
-//        DestinationModel currentDestination = new DestinationModel("Thailand", new DateModel(5, 22, 2001), new DateModel(6,1,2001));
-//        currentDestination.getContributingUsers().add(manager.getCurrentUser());
+        DestinationDatabaseModel destinationDatabase = DestinationDatabaseModel.getInstance();
 
 
 //        if (manager.getCurrentUser().getDestinations() != null) {
