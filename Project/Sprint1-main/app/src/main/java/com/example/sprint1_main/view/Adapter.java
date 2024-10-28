@@ -16,12 +16,32 @@ import java.util.ArrayList;
 
 public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
 
-    Context context;
 
-    ArrayList<DestinationModel> destinationList;
+
+    private Context context;
+
+
+
+    private ArrayList<DestinationModel> destinationList;
 
     public Adapter(Context context, ArrayList<DestinationModel> destinationList) {
         this.context = context;
+        this.destinationList = destinationList;
+    }
+
+    public Context getContext() {
+        return context;
+    }
+
+    public void setContext(Context context) {
+        this.context = context;
+    }
+
+    public ArrayList<DestinationModel> getDestinationList() {
+        return destinationList;
+    }
+
+    public void setDestinationList(ArrayList<DestinationModel> destinationList) {
         this.destinationList = destinationList;
     }
 
@@ -37,9 +57,13 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
 
         DestinationModel destination = destinationList.get(position);
         holder.destinationName.setText(destination.getDestinationName());
-        holder.startDate.setText("" + destination.getStartDate().getMonth() + "/" + destination.getStartDate().getDay() + "/" + + destination.getStartDate().getYear());
-        holder.endDate.setText("" + destination.getEndDate().getMonth() + "/" + destination.getEndDate().getDay() + "/" + + destination.getEndDate().getYear());
-        holder.duration.setText(""+ destination.getEstimatedDays());
+        holder.startDate.setText("" + destination.getStartDate().getMonth() + "/"
+                + destination.getStartDate().getDay() + "/"
+                + destination.getStartDate().getYear());
+        holder.endDate.setText("" + destination.getEndDate().getMonth() + "/"
+                + destination.getEndDate().getDay() + "/"
+                + destination.getEndDate().getYear());
+        holder.duration.setText("" + destination.getEstimatedDays());
 
     }
 
@@ -50,7 +74,45 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
 
-        TextView destinationName, startDate, endDate, duration;
+        public TextView getDestinationName() {
+            return destinationName;
+        }
+
+        public void setDestinationName(TextView destinationName) {
+            this.destinationName = destinationName;
+        }
+
+        private TextView destinationName;
+
+        public TextView getStartDate() {
+            return startDate;
+        }
+
+        public void setStartDate(TextView startDate) {
+            this.startDate = startDate;
+        }
+
+        private TextView startDate;
+
+        public TextView getEndDate() {
+            return endDate;
+        }
+
+        public void setEndDate(TextView endDate) {
+            this.endDate = endDate;
+        }
+
+        private TextView endDate;
+
+        public TextView getDuration() {
+            return duration;
+        }
+
+        public void setDuration(TextView duration) {
+            this.duration = duration;
+        }
+
+        private TextView duration;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
