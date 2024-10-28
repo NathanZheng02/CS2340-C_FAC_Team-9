@@ -19,6 +19,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+
 public class AddUserActivity extends AppCompatActivity {
 
     private static final String TAG = "AddUserActivity";
@@ -40,6 +42,14 @@ public class AddUserActivity extends AppCompatActivity {
                 String username = userInput.getText().toString();
 
                 DatabaseReference reference = FirebaseDatabase.getInstance().getReference("User Database");
+
+                if (manager.getCurrentDestination().getContributingUsers() == null) {
+                    manager.getCurrentDestination().setContributingUsers(new ArrayList<>());
+//                    manager.getCurrentDestination().getContributingUsers().add(manager.getCurrentUser());
+                }
+
+
+
                 Query checkUserDatabase = reference.orderByChild("username").equalTo(username);
 
                 checkUserDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -49,6 +59,8 @@ public class AddUserActivity extends AppCompatActivity {
                             UserModel user = snapshot.child(username).getValue(UserModel.class);
                             //TODO: update firebase (both destination and user), add check to make sure user isn't double added
                             manager.getCurrentDestination().getContributingUsers().add(user);
+
+                            FirebaseDatabase.getInstance().getReference("User Database").child(user.getUsername()).child("destinations").child("" + manager.getCurrentUser().getDestinations().size()).setValue(manager.getCurrentDestination());
 
 
                             Intent intent = new Intent(AddUserActivity.this, LogisticsActivity.class);
