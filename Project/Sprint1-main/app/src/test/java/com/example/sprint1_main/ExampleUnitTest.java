@@ -7,7 +7,10 @@ import static org.junit.Assert.*;
 import com.example.sprint1_main.model.ApplicationManagerModel;
 import com.example.sprint1_main.model.DateModel;
 import com.example.sprint1_main.model.DestinationModel;
+import com.example.sprint1_main.model.UserDatabaseModel;
 import com.example.sprint1_main.model.UserModel;
+
+import java.util.ArrayList;
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -87,5 +90,33 @@ public class ExampleUnitTest {
 
     }
 
+    @Test
+    public void destinationModelDateTester() {
+        DestinationModel dm = new DestinationModel("Paris", new DateModel(1, 1, 2024), new DateModel(2, 2, 2024));
+        int September = 9;
+        int October = 10;
+        int November = 11;
+        int December = 12;
+        int invalidDate = 30;
+        //Testing amount of days in a month
+        assertEquals(dm.getDaysInMonth(September), 30);
+        assertEquals(dm.getDaysInMonth(October), 31);
+        assertEquals(dm.getDaysInMonth(November), 30);
+        assertEquals(dm.getDaysInMonth(December), 31);
+        assertEquals(dm.getDaysInMonth(invalidDate), 0);
+    }
 
+    @Test
+    public void destinationModelGetTester() {
+        DestinationModel dm = new DestinationModel("Paris", new DateModel(1, 1, 2024), new DateModel(2, 2, 2024));
+
+        assertEquals(dm.getDestinationName(), "Paris");
+        assertEquals(dm.getStartDate().getMonth(), 1);
+        assertEquals(dm.getEndDate().getMonth(), 2);
+
+        dm.setDestinationName("BeiJing");
+        dm.setEndDate(new DateModel(3, 3, 2024));
+        assertEquals(dm.getDestinationName(), "BeiJing");
+        assertEquals(dm.getEndDate().getMonth(), 3);
+    }
 }
