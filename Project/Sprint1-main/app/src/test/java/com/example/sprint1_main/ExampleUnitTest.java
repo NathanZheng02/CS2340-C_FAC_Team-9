@@ -119,4 +119,44 @@ public class ExampleUnitTest {
         assertEquals(dm.getDestinationName(), "BeiJing");
         assertEquals(dm.getEndDate().getMonth(), 3);
     }
+    @Test
+    public void testSetAndGetUsername() {
+        UserModel user = new UserModel("test@example.com", "555-1234", "Jane Doe", 30, "janeDoe", "password");
+        user.setUsername("newUsername");
+        assertEquals("newUsername", user.getUsername());
+    }
+
+    @Test
+    public void testLoginStatus() {
+        UserModel user = new UserModel("test@example.com", "555-1234", "Jane Doe", 30, "janeDoe", "password");
+        user.setLoginStatus(true);
+        assertTrue(user.getLoginStatus());
+    }
+
+    @Test
+    public void testGetDestinationName() {
+        DestinationModel destination = new DestinationModel("London", new DateModel(5, 10, 2022), new DateModel(5, 20, 2022));
+        assertEquals("London", destination.getDestinationName());
+    }
+
+    @Test
+    public void testSetEstimatedDays() {
+        DestinationModel destination = new DestinationModel("London", new DateModel(5, 10, 2022), new DateModel(5, 20, 2022));
+
+        destination.setEstimatedDays(10);
+        assertEquals(10, destination.getEstimatedDays());
+    }
+
+    @Test
+    public void testGetMonth() {
+        DateModel date = new DateModel(12, 25, 2024);
+        assertEquals(12, date.getMonth());
+    }
+
+    @Test
+    public void testGetDay() {
+        DateModel date = new DateModel(10, 30, 2027);
+        assertEquals(30, date.getDay());
+    }
+
 }
