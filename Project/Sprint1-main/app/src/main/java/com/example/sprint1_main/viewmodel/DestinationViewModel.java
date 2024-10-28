@@ -18,6 +18,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class DestinationViewModel extends ViewModel {
+
+
     public DestinationViewModel() {
 
     }

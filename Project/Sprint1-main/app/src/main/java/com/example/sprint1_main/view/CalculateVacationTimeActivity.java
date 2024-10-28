@@ -138,7 +138,7 @@ public class CalculateVacationTimeActivity extends AppCompatActivity {
 
                 reference.child(currentUser.getUsername()).child("startDate").setValue(startDate);
                 reference.child(currentUser.getUsername()).child("endDate").setValue(endDate);
-                reference.child(currentUser.getUsername()).child("duration").setValue(time);
+                reference.child(currentUser.getUsername()).child("duration").setValue(parseInt(time));
 
                 Toast.makeText(CalculateVacationTimeActivity.this, "Calculation successful and duration was stored!",
                         Toast.LENGTH_SHORT).show();

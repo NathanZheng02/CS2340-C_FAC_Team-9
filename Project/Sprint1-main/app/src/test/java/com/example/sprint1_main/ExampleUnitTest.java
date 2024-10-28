@@ -4,6 +4,9 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
+import com.example.sprint1_main.model.ApplicationManagerModel;
+import com.example.sprint1_main.model.DateModel;
+import com.example.sprint1_main.model.DestinationModel;
 import com.example.sprint1_main.model.UserModel;
 
 /**
@@ -37,4 +40,52 @@ public class ExampleUnitTest {
         assertEquals(jonDoe.getEmail(), "jonDoe@gmail.com");
         assertEquals(jonDoe.getUsername(), "JonDoe12");
     }
+
+    @Test
+    public void correctDestinationName() {
+        DestinationModel newDestination = new DestinationModel("Cornwall", new DateModel(5,5,2005), new DateModel(5,5,2006));
+
+        assertEquals("Cornwall", newDestination.getDestinationName());
+        System.out.println("Test correctDestinationName passed");
+    }
+
+    @Test
+    public void correctEstimatedDays() {
+        DestinationModel newDestination = new DestinationModel("Cornwall", new DateModel(5,5,2005), new DateModel(5,5,2006));
+
+        assertEquals(365, newDestination.getEstimatedDays());
+        System.out.println("Test correctEstimatedDays passed");
+    }
+
+    @Test
+    public void correctManagerSingletonUser() {
+        ApplicationManagerModel manager = ApplicationManagerModel.getInstance();
+
+        UserModel newUser = new UserModel("email", "number", "name", 8,
+        "username", "password");
+
+        manager.setCurrentUser(newUser);
+        assertEquals("username", manager.getCurrentUser().getUsername());
+
+        ApplicationManagerModel manager2 = ApplicationManagerModel.getInstance();
+        assertEquals("username", manager2.getCurrentUser().getUsername());
+
+    }
+
+    @Test
+    public void correctManagerSingletonDestination() {
+        ApplicationManagerModel manager = ApplicationManagerModel.getInstance();
+
+        DestinationModel newDestination = new DestinationModel("Cornwall", new DateModel(5,5,2005), new DateModel(5,5,2006));
+
+
+        manager.setCurrentDestination(newDestination);
+        assertEquals("Cornwall", manager.getCurrentDestination().getDestinationName());
+
+        ApplicationManagerModel manager2 = ApplicationManagerModel.getInstance();
+        assertEquals("Cornwall", manager2.getCurrentDestination().getDestinationName());
+
+    }
+
+
 }

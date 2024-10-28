@@ -1,9 +1,11 @@
 package com.example.sprint1_main.model;
 
 public class DateModel {
-    private final int day;
-    private final int month;
-    private final int year;
+    private int day;
+    private int month;
+    private int year;
+
+    public DateModel() {}
 
 
 

@@ -12,8 +12,6 @@ public class UserModel {
     private String password;
     private boolean loginStatus;
     private List<DestinationModel> destinations;
-    private DateModel startDate;
-    private DateModel endDate;
     private int duration;
 
 
@@ -31,9 +29,16 @@ public class UserModel {
         this.password = password;
         this.loginStatus = false;
         this.destinations = new ArrayList<>();
-        this.startDate = null;
-        this.endDate = null;
         this.duration = 0;
+
+        //default destinations
+        DestinationModel paris = new DestinationModel("Paris", new DateModel(3, 10, 2009), new DateModel(4,10,2009));
+        DestinationModel dublin = new DestinationModel("Dublin", new DateModel(8, 16, 2015), new DateModel(8,20,2015));
+        DestinationModel new_york = new DestinationModel("New York", new DateModel(1, 1, 2023), new DateModel(2,30,2023));
+
+        this.destinations.add(paris);
+        this.destinations.add(dublin);
+        this.destinations.add(new_york);
     }
 
 
@@ -103,23 +108,6 @@ public class UserModel {
 
     public void setLoginStatus(boolean loginStatus) {
         this.loginStatus = loginStatus;
-    }
-
-
-    public DateModel getStartDate() {
-        return startDate;
-    }
-
-    public void setStartDate(DateModel startDate) {
-        this.startDate = startDate;
-    }
-
-    public DateModel getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(DateModel endDate) {
-        this.endDate = endDate;
     }
 
     public int getDuration() {

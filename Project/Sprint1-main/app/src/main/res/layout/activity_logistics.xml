@@ -46,28 +46,32 @@
             android:layout_height="wrap_content"
             android:padding="10dp"
             android:backgroundTint="@color/darkgray" />
-
-
-
-        <Button
-            android:id="@+id/add_user_button"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Add new user"
-            app:layout_constraintTop_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <Button
-            android:id="@+id/add_note_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Add new note"
-            app:layout_constraintEnd_toEndOf="@+id/add_user_button"
-            app:layout_constraintStart_toStartOf="@+id/add_user_button" />
+            android:orientation="horizontal"
+            android:layout_marginTop="15dp"
+            android:gravity="center">
 
 
+            <Button
+                android:id="@+id/add_user_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Add new user"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="parent" />
 
+            <Button
+                android:id="@+id/add_note_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Add new note"
+                app:layout_constraintEnd_toEndOf="@+id/add_user_button"
+                app:layout_constraintStart_toStartOf="@+id/add_user_button"
+                android:layout_marginStart="70dp" />
+        </LinearLayout>
         <TextView
             android:id="@+id/contributer_header"
             android:layout_width="wrap_content"
@@ -125,20 +129,12 @@
         <com.github.mikephil.charting.charts.BarChart
             android:id="@+id/barChart"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="145dp"
             android:layout_marginTop="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/graph_button"/>
-
-
-
-
-
-
-
-
-
+            app:layout_constraintTop_toBottomOf="@id/graph_button"
+            app:layout_constraintBottom_toTopOf="@id/bottomAppBar" />
     </LinearLayout>
 
 
