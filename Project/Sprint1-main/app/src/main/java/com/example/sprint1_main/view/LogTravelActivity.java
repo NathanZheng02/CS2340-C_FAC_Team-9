@@ -117,6 +117,9 @@ public class LogTravelActivity extends AppCompatActivity {
                 DestinationModel destination = new DestinationModel(destinationName, beginning, ending);
 
                 reference.child(destinationName).setValue(destination);
+
+                Intent intent = new Intent(LogTravelActivity.this, DestinationActivity.class);
+                startActivity(intent);
             }
         });
         Log.d(TAG, "onCreate called");
