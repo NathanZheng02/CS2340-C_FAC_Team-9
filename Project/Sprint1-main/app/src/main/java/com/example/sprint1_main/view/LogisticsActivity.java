@@ -16,7 +16,9 @@ import android.widget.TextView;
 import com.example.sprint1_main.R;
 import com.example.sprint1_main.model.ApplicationManagerModel;
 import com.example.sprint1_main.model.DateModel;
+import com.example.sprint1_main.model.DestinationDatabaseModel;
 import com.example.sprint1_main.model.DestinationModel;
+import com.example.sprint1_main.model.UserDatabaseModel;
 import com.example.sprint1_main.model.UserModel;
 import com.example.sprint1_main.viewmodel.LogisticsViewModel;
 import com.github.mikephil.charting.charts.BarChart;
@@ -43,19 +45,22 @@ public class LogisticsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_logistics);
 
         ApplicationManagerModel manager = ApplicationManagerModel.getInstance();
-        DestinationModel currentDestination = new DestinationModel("Thailand", new DateModel(5, 22, 2001), new DateModel(6,1,2001));
-        currentDestination.getContributingUsers().add(manager.getCurrentUser());
+        UserDatabaseModel userDatabase = UserDatabaseModel.getInstance();
+        DestinationDatabaseModel destinationDatabaseModel = DestinationDatabaseModel.getInstance();
+
+//        DestinationModel currentDestination = new DestinationModel("Thailand", new DateModel(5, 22, 2001), new DateModel(6,1,2001));
+//        currentDestination.getContributingUsers().add(manager.getCurrentUser());
 
 
-        if (manager.getCurrentUser().getDestinations() != null) {
-            manager.getCurrentUser().getDestinations().add(currentDestination);
-        } else {
-            manager.getCurrentUser().setDestinations(new ArrayList<>());
-            manager.getCurrentUser().getDestinations().add(currentDestination);
-        }
+//        if (manager.getCurrentUser().getDestinations() != null) {
+//            manager.getCurrentUser().getDestinations().add(currentDestination);
+//        } else {
+//            manager.getCurrentUser().setDestinations(new ArrayList<>());
+//            manager.getCurrentUser().getDestinations().add(currentDestination);
+//        }
 
-        manager.setCurrentDestination(currentDestination);
-        manager.getCurrentUser().setDuration(4);
+        manager.setCurrentDestination(manager.getCurrentUser().getDestinations().get(0));
+//        manager.getCurrentUser().setDuration(4);
 
 
         TextView notes = findViewById(R.id.notes_body);

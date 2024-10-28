@@ -1,5 +1,7 @@
 package com.example.sprint1_main.view;
 
+import static java.lang.Integer.parseInt;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,6 +13,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.sprint1_main.R;
+import com.example.sprint1_main.model.UserDatabaseModel;
 import com.example.sprint1_main.model.UserModel;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -52,8 +55,12 @@ public class RegisterActivity extends AppCompatActivity {
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+//
+
+                UserDatabaseModel userDatabase = UserDatabaseModel.getInstance();
+
                 database = FirebaseDatabase.getInstance();
-                reference = database.getReference("users");
+                reference = database.getReference("User Database");
 
                 String username = registerUsername.getText().toString();
                 String password = registerPassword.getText().toString();
@@ -62,7 +69,10 @@ public class RegisterActivity extends AppCompatActivity {
                 String phoneNumber = registerPhoneNumber.getText().toString();
                 String email = registerEmail.getText().toString();
 
-                UserModel user = new UserModel("email", "phone", "user y", 14, username, password);
+                UserModel user = new UserModel(email, phoneNumber, name, parseInt(age), username, password);
+//                reference.child(username).setValue(user);
+
+                userDatabase.getUsers().add(user);
                 reference.child(username).setValue(user);
 
                 Toast.makeText(RegisterActivity.this, "Registration successful!!",
