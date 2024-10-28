@@ -22,10 +22,13 @@ public class LogisticsViewModel extends ViewModel {
         ApplicationManagerModel manager = ApplicationManagerModel.getInstance();
 
         StringBuilder notes_builder = new StringBuilder();
-        for (String note : manager.getCurrentDestination().getNotes()) {
-            notes_builder.append(note);
-            notes_builder.append("\n");
+        if (manager.getCurrentDestination().getNotes() != null) {
+            for (String note : manager.getCurrentDestination().getNotes()) {
+                notes_builder.append(note);
+                notes_builder.append("\n");
+            }
         }
+
 
         notes.setText(notes_builder.toString());
 
@@ -36,10 +39,13 @@ public class LogisticsViewModel extends ViewModel {
         ApplicationManagerModel manager = ApplicationManagerModel.getInstance();
 
         StringBuilder contributer_builder = new StringBuilder();
-        for (UserModel user : manager.getCurrentDestination().getContributingUsers()) {
-            contributer_builder.append(user.getUsername());
-            contributer_builder.append("\n");
+        if (manager.getCurrentDestination().getContributingUsers() != null) {
+            for (UserModel user : manager.getCurrentDestination().getContributingUsers()) {
+                contributer_builder.append(user.getUsername());
+                contributer_builder.append("\n");
+            }
         }
+
 
         contributers.setText(contributer_builder.toString());
 
