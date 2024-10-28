@@ -15,8 +15,6 @@ import android.widget.Toast;
 
 import com.example.sprint1_main.R;
 import com.example.sprint1_main.model.ApplicationManagerModel;
-import com.example.sprint1_main.model.DateModel;
-import com.example.sprint1_main.model.DestinationModel;
 import com.example.sprint1_main.model.UserModel;
 import com.example.sprint1_main.viewmodel.DestinationViewModel;
 import com.google.firebase.database.DatabaseReference;
@@ -51,29 +49,31 @@ public class CalculateVacationTimeActivity extends AppCompatActivity {
         logistics.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(CalculateVacationTimeActivity.this, LogisticsActivity.class);
-                startActivity(intent);
+                Intent i = new Intent(CalculateVacationTimeActivity.this, LogisticsActivity.class);
+                startActivity(i);
             }
         });
         accommodations.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(CalculateVacationTimeActivity.this, AccomodationsActivity.class);
-                startActivity(intent);
+                Intent i = new Intent(CalculateVacationTimeActivity.this,
+                        AccomodationsActivity.class);
+                startActivity(i);
             }
         });
         dining.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(CalculateVacationTimeActivity.this, DiningActivity.class);
-                startActivity(intent);
+                Intent i = new Intent(CalculateVacationTimeActivity.this, DiningActivity.class);
+                startActivity(i);
             }
         });
         community.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(CalculateVacationTimeActivity.this, TravelCommunityActivity.class);
-                startActivity(intent);
+                Intent i = new Intent(CalculateVacationTimeActivity.this,
+                        TravelCommunityActivity.class);
+                startActivity(i);
             }
         });
         home.setOnClickListener(new View.OnClickListener() {
@@ -86,22 +86,24 @@ public class CalculateVacationTimeActivity extends AppCompatActivity {
         destination.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(CalculateVacationTimeActivity.this, DestinationActivity.class);
-                startActivity(intent);
+                Intent i = new Intent(CalculateVacationTimeActivity.this,
+                        DestinationActivity.class);
+                startActivity(i);
             }
         });
         logTravel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(CalculateVacationTimeActivity.this, LogTravelActivity.class);
-                startActivity(intent);
+                Intent i = new Intent(CalculateVacationTimeActivity.this, LogTravelActivity.class);
+                startActivity(i);
             }
         });
         calcVacation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(CalculateVacationTimeActivity.this, CalculateVacationTimeActivity.class);
-                startActivity(intent);
+                Intent i = new Intent(CalculateVacationTimeActivity.this,
+                        CalculateVacationTimeActivity.class);
+                startActivity(i);
             }
         });
         calculate.setOnClickListener(new View.OnClickListener() {
@@ -130,20 +132,23 @@ public class CalculateVacationTimeActivity extends AppCompatActivity {
                     emptyUpdates = "endDate";
                 }
                 database = FirebaseDatabase.getInstance();
-                reference = database.getReference("users");
+                reference = database.getReference("User Database");
                 ApplicationManagerModel manager = ApplicationManagerModel.getInstance();
                 UserModel currentUser = manager.getCurrentUser();
 
                 manager.getCurrentUser().setDuration(parseInt(time));
 
-                reference.child(currentUser.getUsername()).child("startDate").setValue(startDate);
-                reference.child(currentUser.getUsername()).child("endDate").setValue(endDate);
-                reference.child(currentUser.getUsername()).child("duration").setValue(parseInt(time));
+                DatabaseReference ref = reference.child(currentUser.getUsername());
 
-                Toast.makeText(CalculateVacationTimeActivity.this, "Calculation successful and duration was stored!",
+                ref.child("startDate").setValue(startDate);
+                ref.child("endDate").setValue(endDate);
+                ref.child("duration").setValue(parseInt(time));
+
+                Toast.makeText(CalculateVacationTimeActivity.this,
+                        "Calculation successful and duration was stored!",
                         Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(CalculateVacationTimeActivity.this, LogisticsActivity.class);
-                startActivity(intent);
+                Intent i = new Intent(CalculateVacationTimeActivity.this, LogisticsActivity.class);
+                startActivity(i);
 
             }
         });

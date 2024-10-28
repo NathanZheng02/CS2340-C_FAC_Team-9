@@ -13,7 +13,7 @@ import java.util.List;
 
 public class DestinationDatabaseModel {
 
-    private volatile static DestinationDatabaseModel destinationDatabase;
+    private static volatile DestinationDatabaseModel destinationDatabase;
 
 
 
@@ -26,24 +26,35 @@ public class DestinationDatabaseModel {
 
     public static DestinationDatabaseModel getInstance() {
 
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Destination Database");
+        FirebaseDatabase firebase = FirebaseDatabase.getInstance();
+        DatabaseReference databaseReference = firebase.getReference("Destination Database");
 
 
         if (destinationDatabase == null) {
 
             destinationDatabase = new DestinationDatabaseModel();
 
-            DestinationModel paris = new DestinationModel("Paris", new DateModel(3, 10, 2009), new DateModel(4,10,2009));
-            DestinationModel dublin = new DestinationModel("Dublin", new DateModel(8, 16, 2015), new DateModel(8,20,2015));
-            DestinationModel new_york = new DestinationModel("New York", new DateModel(1, 1, 2023), new DateModel(2,30,2023));
+            DateModel date1 = new DateModel(3, 10, 2009);
+            DateModel date2 = new DateModel(4, 10, 2009);
+
+            DateModel date3 = new DateModel(8, 16, 2015);
+            DateModel date4 = new DateModel(8, 20, 2015);
+
+            DateModel date5 = new DateModel(1, 1, 2023);
+            DateModel date6 = new DateModel(2, 30, 2023);
+
+
+            DestinationModel paris = new DestinationModel("Paris", date1, date2);
+            DestinationModel dublin = new DestinationModel("Dublin", date3, date4);
+            DestinationModel newYork = new DestinationModel("New York", date5, date6);
 
             destinationDatabase.getDestinations().add(paris);
             destinationDatabase.getDestinations().add(dublin);
-            destinationDatabase.getDestinations().add(new_york);
+            destinationDatabase.getDestinations().add(newYork);
 
             databaseReference.child("Paris").setValue(paris);
             databaseReference.child("Dublin").setValue(dublin);
-            databaseReference.child("New York").setValue(new_york);
+            databaseReference.child("New York").setValue(newYork);
 
         } else {
             databaseReference.addValueEventListener(new ValueEventListener() {
@@ -51,8 +62,8 @@ public class DestinationDatabaseModel {
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     if (snapshot.exists()) {
                         List<DestinationModel> destinationList = new ArrayList<>();
-                        for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                            DestinationModel destination = dataSnapshot.getValue(DestinationModel.class);
+                        for (DataSnapshot ds : snapshot.getChildren()) {
+                            DestinationModel destination = ds.getValue(DestinationModel.class);
                             destinationList.add(destination);
                         }
                         destinationDatabase.setDestinations(destinationList);
