@@ -1,6 +1,9 @@
 package com.example.sprint1_main.view;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,12 +17,24 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.example.sprint1_main.R;
+import com.example.sprint1_main.model.DestinationModel;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 public class DestinationActivity extends AppCompatActivity {
 
     private static final String TAG = "DestinationActivity";
 
-    private ListView listView;
+    RecyclerView recyclerView;
+    DatabaseReference database;
+    Adapter adapter;
+    ArrayList<DestinationModel> list;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,12 +49,34 @@ public class DestinationActivity extends AppCompatActivity {
         Button logTravel = findViewById(R.id.button_logTravel);
         Button vacationTime = findViewById(R.id.button_vacationTime);
 
-        listView = findViewById(R.id.destinationList);
+        recyclerView = findViewById(R.id.destinationList);
+        database = FirebaseDatabase.getInstance().getReference("Destination Database");
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        list = new ArrayList<>();
+        adapter = new Adapter(this,list);
+        recyclerView.setAdapter(adapter);
+
+        database.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
 
 
+                for (DataSnapshot dataSnapShot : snapshot.getChildren()) {
 
-        ArrayAdapter<> arr = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, destinations);
-        listView.setAdapter(arr);
+                    DestinationModel destination = dataSnapShot.getValue(DestinationModel.class);
+                    list.add(destination);
+                }
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
 
         logistics.setOnClickListener(new View.OnClickListener() {
             @Override
