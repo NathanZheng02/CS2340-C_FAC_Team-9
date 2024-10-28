@@ -55,25 +55,24 @@ public class RegisterActivity extends AppCompatActivity {
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//
+
 
                 UserDatabaseModel userDatabase = UserDatabaseModel.getInstance();
 
                 database = FirebaseDatabase.getInstance();
                 reference = database.getReference("User Database");
 
-                String username = registerUsername.getText().toString();
-                String password = registerPassword.getText().toString();
+                String un = registerUsername.getText().toString();
+                String pw = registerPassword.getText().toString();
                 String name = registerName.getText().toString();
                 String age = registerAge.getText().toString();
                 String phoneNumber = registerPhoneNumber.getText().toString();
                 String email = registerEmail.getText().toString();
 
-                UserModel user = new UserModel(email, phoneNumber, name, parseInt(age), username, password);
-//                reference.child(username).setValue(user);
+                UserModel user = new UserModel(email, phoneNumber, name, parseInt(age), un, pw);
 
                 userDatabase.getUsers().add(user);
-                reference.child(username).setValue(user);
+                reference.child(un).setValue(user);
 
                 Toast.makeText(RegisterActivity.this, "Registration successful!!",
                                 Toast.LENGTH_SHORT).show();

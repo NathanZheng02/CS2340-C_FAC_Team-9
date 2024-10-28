@@ -15,13 +15,8 @@ import android.util.Log;
 import com.example.sprint1_main.R;
 import com.example.sprint1_main.model.ApplicationManagerModel;
 
-import com.example.sprint1_main.viewmodel.DestinationViewModel;
-
-import com.example.sprint1_main.model.DateModel;
-import com.example.sprint1_main.model.DestinationModel;
-
-import com.example.sprint1_main.viewmodel.LoginViewModel;
 import com.example.sprint1_main.model.UserModel;
+import com.example.sprint1_main.viewmodel.LoginViewModel;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -40,9 +35,6 @@ public class LoginActivity extends AppCompatActivity {
 
 
         ApplicationManagerModel manager = ApplicationManagerModel.getInstance();
-//        DestinationModel newDestination = new DestinationModel("tempDestination", new DateModel(5,29,2007), new DateModel(6,1,2008));
-//        newDestination.getContributingUsers().add(manager.getCurrentUser());
-//        manager.getCurrentUser().addDestination(newDestination);
 
 
 
@@ -56,7 +48,8 @@ public class LoginActivity extends AppCompatActivity {
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        if (manager.getCurrentUser() != null && manager.getCurrentUser().getLoginStatus()) {
+                        UserModel currUser = manager.getCurrentUser();
+                        if (currUser != null && currUser.getLoginStatus()) {
                             Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                             startActivity(intent);
                         }

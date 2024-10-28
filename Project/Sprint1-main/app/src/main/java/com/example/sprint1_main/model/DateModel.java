@@ -5,7 +5,9 @@ public class DateModel {
     private int month;
     private int year;
 
-    public DateModel() {}
+    public DateModel() {
+
+    }
 
 
 
