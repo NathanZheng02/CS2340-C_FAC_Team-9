@@ -132,6 +132,7 @@ public class LogTravelActivity extends AppCompatActivity {
 
                 Intent intent = new Intent(LogTravelActivity.this, DestinationActivity.class);
                 startActivity(intent);
+
             }
         });
         Log.d(TAG, "onCreate called");

@@ -22,6 +22,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+
 public class AddNoteActivity extends AppCompatActivity {
 
     private static final String TAG = "AddNoteActivity";
@@ -45,27 +47,17 @@ public class AddNoteActivity extends AppCompatActivity {
                 //TODO: update in firebase
                 String note = noteInput.getText().toString();
 
-                DestinationDatabaseModel destinationDatabase = DestinationDatabaseModel.getInstance();
-
-                for (DestinationModel destination : destinationDatabase.getDestinations()) {
-                    if (manager.getCurrentDestination().equals(destination)) {
-                        destination.getNotes().add(note);
-                    }
+                if (manager.getCurrentDestination().getNotes() == null) {
+                    manager.getCurrentDestination().setNotes(new ArrayList<>());
                 }
+                manager.getCurrentDestination().getNotes().add(note);
 
                 DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Destination Database");
                 reference.child(manager.getCurrentDestination().getDestinationName()).child("notes").setValue(manager.getCurrentDestination().getNotes());
 
-//                manager.getCurrentDestination().getNotes().add(note);
-//
-//                DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Destination Database");
-//                reference.child(manager.getCurrentDestination().getDestinationName()).child("notes").setValue(manager.getCurrentDestination().getNotes());
+                DatabaseReference reference2 = FirebaseDatabase.getInstance().getReference("User Database");
+                reference2.child(manager.getCurrentUser().getUsername()).child("destinations").child("" + manager.getCurrentUser().getDestinations().indexOf(manager.getCurrentDestination())).child("notes").setValue(manager.getCurrentDestination().getNotes());
 
-
-
-
-//                DatabaseReference reference = FirebaseDatabase.getInstance().getReference("destinations");
-//                reference.child(manager.getCurrentDestination()).child("notes").setValue(manager.getCurrentDestination().getNotes());
 
                 Intent intent = new Intent(AddNoteActivity.this, LogisticsActivity.class);
                 startActivity(intent);
