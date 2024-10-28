@@ -11,6 +11,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.sprint1_main.R;
 import com.example.sprint1_main.model.ApplicationManagerModel;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class AddNoteActivity extends AppCompatActivity {
 
@@ -32,7 +34,12 @@ public class AddNoteActivity extends AppCompatActivity {
             public void onClick(View view) {
                 //TODO: update in firebase
                 String note = noteInput.getText().toString();
+
                 manager.getCurrentDestination().getNotes().add(note);
+
+//                DatabaseReference reference = FirebaseDatabase.getInstance().getReference("destinations");
+//                reference.child(manager.getCurrentDestination()).child("notes").setValue(manager.getCurrentDestination().getNotes());
+
                 Intent intent = new Intent(AddNoteActivity.this, LogisticsActivity.class);
                 startActivity(intent);
             }
