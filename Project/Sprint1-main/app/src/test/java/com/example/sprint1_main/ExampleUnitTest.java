@@ -123,8 +123,8 @@ public class ExampleUnitTest {
 
     @Test
     public void testGetDay() {
-        DateModel date = new DateModel(12, 25, 2024);
-        assertEquals(25, date.getDay());
+        DateModel date = new DateModel(10, 30, 2027);
+        assertEquals(30, date.getDay());
     }
 
 }
