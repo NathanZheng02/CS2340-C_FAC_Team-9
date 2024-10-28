@@ -129,6 +129,10 @@ public class LogTravelActivity extends AppCompatActivity {
                 manager.getCurrentUser().getDestinations().add(destination);
 
                 FirebaseDatabase.getInstance().getReference("User Database").child(manager.getCurrentUser().getUsername()).child("destinations").child("" + manager.getCurrentUser().getDestinations().size()).setValue(destination);
+
+                Intent intent = new Intent(LogTravelActivity.this, DestinationActivity.class);
+                startActivity(intent);
+
             }
         });
         Log.d(TAG, "onCreate called");
