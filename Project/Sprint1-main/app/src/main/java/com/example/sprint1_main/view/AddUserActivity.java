@@ -39,7 +39,7 @@ public class AddUserActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String username = userInput.getText().toString();
 
-                DatabaseReference reference = FirebaseDatabase.getInstance().getReference("users");
+                DatabaseReference reference = FirebaseDatabase.getInstance().getReference("User Database");
                 Query checkUserDatabase = reference.orderByChild("username").equalTo(username);
 
                 checkUserDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -49,6 +49,8 @@ public class AddUserActivity extends AppCompatActivity {
                             UserModel user = snapshot.child(username).getValue(UserModel.class);
                             //TODO: update firebase (both destination and user), add check to make sure user isn't double added
                             manager.getCurrentDestination().getContributingUsers().add(user);
+
+
                             Intent intent = new Intent(AddUserActivity.this, LogisticsActivity.class);
                             startActivity(intent);
                         } else {

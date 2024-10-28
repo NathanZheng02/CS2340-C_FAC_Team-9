@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 
 import com.example.sprint1_main.model.ApplicationManagerModel;
+import com.example.sprint1_main.model.UserDatabaseModel;
 import com.example.sprint1_main.model.UserModel;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -37,37 +38,29 @@ public class LoginViewModel extends ViewModel {
 
     public static void validateLogin(EditText usernameInput, EditText passwordInput,
                                      ApplicationManagerModel manager) {
+
         LoginViewModel.checkLoginInput(usernameInput, passwordInput);
 
         String givenUsername = usernameInput.getText().toString().trim();
         String givenPassword = passwordInput.getText().toString().trim();
 
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("users");
-        Query checkUserDatabase = reference.orderByChild("username").equalTo(givenUsername);
 
-        checkUserDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
+        UserDatabaseModel userDatabase = UserDatabaseModel.getInstance();
 
-                for (DataSnapshot userSnapshot : snapshot.getChildren()) {
-                    UserModel user = userSnapshot.getValue(UserModel.class);
-                    if (user != null) {
-                        if (user.getPassword().equals(givenPassword)) {
-                            user.setLoginStatus(true);
-                            manager.setCurrentUser(user);
-                        } else {
-                            passwordInput.setError("Incorrect Password");
-                        }
-                    } else {
-                        usernameInput.setError("User Does Not Exist");
-                    }
+
+        for (UserModel user : userDatabase.getUsers()) {
+            if (user.getUsername().equals(givenUsername)) {
+                if (user.getPassword().equals(givenPassword)) {
+                    user.setLoginStatus(true);
+                    manager.setCurrentUser(user);
+                } else {
+                    passwordInput.setError("Incorrect Password");
                 }
+            } else {
+                usernameInput.setError("User Does Not Exist");
             }
+        }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
 
-            }
-        });
     }
 }
