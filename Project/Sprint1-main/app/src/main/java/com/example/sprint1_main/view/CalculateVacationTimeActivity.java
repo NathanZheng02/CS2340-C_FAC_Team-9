@@ -130,7 +130,7 @@ public class CalculateVacationTimeActivity extends AppCompatActivity {
                     emptyUpdates = "endDate";
                 }
                 database = FirebaseDatabase.getInstance();
-                reference = database.getReference("users");
+                reference = database.getReference("User Database");
                 ApplicationManagerModel manager = ApplicationManagerModel.getInstance();
                 UserModel currentUser = manager.getCurrentUser();
 
