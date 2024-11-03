@@ -2,20 +2,7 @@ package com.example.sprint1_main.viewmodel;
 
 import static java.lang.Integer.parseInt;
 
-import android.widget.EditText;
-
-import androidx.annotation.NonNull;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
-
-import com.example.sprint1_main.model.DestinationModel;
-import com.example.sprint1_main.model.UserModel;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 public class DestinationViewModel extends ViewModel {
 
@@ -41,7 +28,8 @@ public class DestinationViewModel extends ViewModel {
                 }
                 totalDays += getDaysInMonth(temp);
             }
-            totalDays += getDaysInMonth(startMonth) - startDay - getDaysInMonth(finalMonth) + endDay;
+            totalDays += getDaysInMonth(startMonth) - startDay;
+            totalDays -= getDaysInMonth(finalMonth) + endDay;
         }
         totalDays += 365 * (parseInt(end.substring(6)) - parseInt(start.substring(6)));
         return totalDays + "";
@@ -67,7 +55,6 @@ public class DestinationViewModel extends ViewModel {
                 newTime--;
             }
         }
-        //TODO: Still need to create checks for overflow
         String startMonth =  parseInt(end.substring(0, 2)) - mdy[0] + "";
         String startYear = parseInt(end.substring(6)) - mdy[2] + "";
         String startDate = parseInt(end.substring(3, 5)) - mdy[1] + "";
@@ -94,7 +81,6 @@ public class DestinationViewModel extends ViewModel {
                 newTime--;
             }
         }
-        //TODO: Still need to create checks for overflow
         String startMonth =  parseInt(start.substring(0, 2)) + mdy[0] + "";
         String startYear = parseInt(start.substring(6)) + mdy[2] + "";
         String startDate = parseInt(start.substring(3, 5)) + mdy[1] + "";
@@ -104,38 +90,27 @@ public class DestinationViewModel extends ViewModel {
     private static int getDaysInMonth(int month) {
         if (month == 1) {
             return 31;
-        }
-        else if (month == 2) {
+        } else if (month == 2) {
             return 28;
-        }
-        else if (month == 3) {
+        } else if (month == 3) {
             return 31;
-        }
-        else if (month == 4) {
+        } else if (month == 4) {
             return 30;
-        }
-        else if (month == 5) {
+        } else if (month == 5) {
             return 31;
-        }
-        else if (month == 6) {
+        } else if (month == 6) {
             return 30;
-        }
-        else if (month == 7) {
+        } else if (month == 7) {
             return 31;
-        }
-        else if (month == 8) {
+        } else if (month == 8) {
             return 31;
-        }
-        else if (month == 9) {
+        } else if (month == 9) {
             return 30;
-        }
-        else if (month == 10) {
+        } else if (month == 10) {
             return 31;
-        }
-        else if (month == 11) {
+        } else if (month == 11) {
             return 30;
-        }
-        else if (month == 12) {
+        } else if (month == 12) {
             return 31;
         }
         return 0;

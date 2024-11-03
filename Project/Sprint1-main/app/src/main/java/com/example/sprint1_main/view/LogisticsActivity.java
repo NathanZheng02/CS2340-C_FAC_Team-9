@@ -15,11 +15,9 @@ import android.widget.TextView;
 
 import com.example.sprint1_main.R;
 import com.example.sprint1_main.model.ApplicationManagerModel;
-import com.example.sprint1_main.model.DateModel;
 import com.example.sprint1_main.model.DestinationDatabaseModel;
 import com.example.sprint1_main.model.DestinationModel;
 import com.example.sprint1_main.model.UserDatabaseModel;
-import com.example.sprint1_main.model.UserModel;
 import com.example.sprint1_main.viewmodel.LogisticsViewModel;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.XAxis;
@@ -27,7 +25,6 @@ import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
-import com.google.android.material.navigation.NavigationBarView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,41 +45,34 @@ public class LogisticsActivity extends AppCompatActivity {
         UserDatabaseModel userDatabase = UserDatabaseModel.getInstance();
         DestinationDatabaseModel destinationDatabase = DestinationDatabaseModel.getInstance();
 
-
-//        if (manager.getCurrentUser().getDestinations() != null) {
-//            manager.getCurrentUser().getDestinations().add(currentDestination);
-//        } else {
-//            manager.getCurrentUser().setDestinations(new ArrayList<>());
-//            manager.getCurrentUser().getDestinations().add(currentDestination);
-//        }
-
         manager.setCurrentDestination(manager.getCurrentUser().getDestinations().get(0));
-//        manager.getCurrentUser().setDuration(4);
 
 
         TextView notes = findViewById(R.id.notes_body);
         TextView contributers = findViewById(R.id.contributer_body);
-        TextView total_days = findViewById(R.id.total_days_text);
+        TextView totalDays = findViewById(R.id.total_days_text);
 
-        Spinner destinations_spinner = (Spinner) findViewById(R.id.destinations_spinner);
+        Spinner destinationsSpinner = (Spinner) findViewById(R.id.destinations_spinner);
 
-        List<String> destination_names = new ArrayList<>();
+        List<String> dN = new ArrayList<>();
         for (DestinationModel destination : manager.getCurrentUser().getDestinations()) {
-            destination_names.add(destination.getDestinationName());
+            dN.add(destination.getDestinationName());
         }
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, destination_names);
+        ArrayAdapter<String> a = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, dN);
 
-        destinations_spinner.setAdapter(adapter);
+        destinationsSpinner.setAdapter(a);
 
-        destinations_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        destinationsSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 Log.v("destination name", (String) parent.getItemAtPosition(position));
 
-                for (DestinationModel destination : manager.getCurrentUser().getDestinations()) {
-                    if (destination.getDestinationName().equals((String) parent.getItemAtPosition(position))) {
-                        manager.setCurrentDestination(destination);
+                for (DestinationModel d : manager.getCurrentUser().getDestinations()) {
+                    String check = (String) parent.getItemAtPosition(position);
+                    if (d.getDestinationName().equals(check)) {
+                        manager.setCurrentDestination(d);
                         LogisticsViewModel.updateNotes(notes);
                         LogisticsViewModel.updateUsers(contributers);
                         break;
@@ -99,7 +89,7 @@ public class LogisticsActivity extends AppCompatActivity {
 
         LogisticsViewModel.updateNotes(notes);
         LogisticsViewModel.updateUsers(contributers);
-        LogisticsViewModel.updateDays(total_days);
+        LogisticsViewModel.updateDays(totalDays);
 
 
 
@@ -126,7 +116,8 @@ public class LogisticsActivity extends AppCompatActivity {
         //find the chart creation button to create the graph
         Button graphButton = findViewById(R.id.graph_button);
         //Draw a bar chart when clicked
-        graphButton.setOnClickListener((l) -> drawGraph(manager.getCurrentUser().getDuration(), LogisticsViewModel.getDays()));
+        graphButton.setOnClickListener((l) -> drawGraph(manager.getCurrentUser().getDuration(),
+                LogisticsViewModel.getDays()));
 
 
 

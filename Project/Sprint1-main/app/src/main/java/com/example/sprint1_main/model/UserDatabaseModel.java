@@ -6,8 +6,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.GenericTypeIndicator;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -15,7 +13,7 @@ import java.util.List;
 
 public class UserDatabaseModel {
 
-    private volatile static UserDatabaseModel userDatabase;
+    private static volatile UserDatabaseModel userDatabase;
 
 
 
@@ -28,13 +26,14 @@ public class UserDatabaseModel {
 
     public static UserDatabaseModel getInstance() {
 
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("User Database");
+        DatabaseReference dF = FirebaseDatabase.getInstance().getReference("User Database");
+
 
 
         if (userDatabase == null) {
             userDatabase = new UserDatabaseModel();
         } else {
-            databaseReference.addValueEventListener(new ValueEventListener() {
+            dF.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     if (snapshot.exists()) {
@@ -47,7 +46,7 @@ public class UserDatabaseModel {
 
                         userDatabase.setUsers(userList);
                     } else {
-                        databaseReference.setValue(new ArrayList<>());
+                        dF.setValue(new ArrayList<>());
                     }
                 }
 

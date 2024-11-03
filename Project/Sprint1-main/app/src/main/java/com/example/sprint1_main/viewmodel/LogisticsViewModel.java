@@ -1,6 +1,5 @@
 package com.example.sprint1_main.viewmodel;
 
-import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.lifecycle.ViewModel;
@@ -21,16 +20,16 @@ public class LogisticsViewModel extends ViewModel {
     public static void updateNotes(TextView notes) {
         ApplicationManagerModel manager = ApplicationManagerModel.getInstance();
 
-        StringBuilder notes_builder = new StringBuilder();
+        StringBuilder notesBuilder = new StringBuilder();
         if (manager.getCurrentDestination().getNotes() != null) {
             for (String note : manager.getCurrentDestination().getNotes()) {
-                notes_builder.append(note);
-                notes_builder.append("\n");
+                notesBuilder.append(note);
+                notesBuilder.append("\n");
             }
         }
 
 
-        notes.setText(notes_builder.toString());
+        notes.setText(notesBuilder.toString());
 
         return;
     }
@@ -38,16 +37,16 @@ public class LogisticsViewModel extends ViewModel {
     public static void updateUsers(TextView contributers) {
         ApplicationManagerModel manager = ApplicationManagerModel.getInstance();
 
-        StringBuilder contributer_builder = new StringBuilder();
+        StringBuilder contributerBuilder = new StringBuilder();
         if (manager.getCurrentDestination().getContributingUsers() != null) {
             for (UserModel user : manager.getCurrentDestination().getContributingUsers()) {
-                contributer_builder.append(user.getUsername());
-                contributer_builder.append("\n");
+                contributerBuilder.append(user.getUsername());
+                contributerBuilder.append("\n");
             }
         }
 
 
-        contributers.setText(contributer_builder.toString());
+        contributers.setText(contributerBuilder.toString());
 
         return;
     }
@@ -56,8 +55,8 @@ public class LogisticsViewModel extends ViewModel {
 
         int days = getDays();
 
-        String days_string = "Total Days on Vacation: " + days;
-        totalDays.setText(days_string);
+        String daysString = "Total Days on Vacation: " + days;
+        totalDays.setText(daysString);
     }
 
     public static int getDays() {
