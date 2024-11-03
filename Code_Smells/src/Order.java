@@ -32,11 +32,11 @@ public class Order {
     }
     
     private double applyDiscount(Item item) {
-        switch (item.getDiscountType()) {
+        switch (item.getDiscount().getType()) {
             case PERCENTAGE:
-                return item.getDiscountAmount() * item.getPrice();
+                return item.getDiscount().getAmount() * item.getPrice();
             case AMOUNT:
-                return item.getDiscountAmount();
+                return item.getDiscount().getAmount();
             default:
                 return 0.0;
         }
@@ -103,7 +103,7 @@ public class Order {
     public boolean hasGiftCard() {
         boolean has_gift_card = false;
         for (Item item : items) {
-            if (item instanceof GiftCardItem) {
+            if (item.getName().equals("Gift Card")) {
                 has_gift_card = true;
                 break;
             }
