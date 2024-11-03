@@ -8,6 +8,11 @@ public class Discount {
         this.amount = amount;
     }
 
+    public enum DiscountType {
+        PERCENTAGE,
+        AMOUNT;
+    }
+
     public double getAmount() {
         return amount;
     }
