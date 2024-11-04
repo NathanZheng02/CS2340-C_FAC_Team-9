@@ -9,8 +9,20 @@ public class Discount {
     }
 
     public enum DiscountType {
-        PERCENTAGE,
-        AMOUNT;
+        PERCENTAGE {
+            @Override
+            public double applyDiscount(Item item) {
+                return item.getDiscount().getAmount() * item.getPrice();
+            } 
+        },
+        AMOUNT {
+            @Override
+            public double applyDiscount(Item item) {
+                return item.getDiscount().getAmount();
+            }
+        };
+
+        public abstract double applyDiscount(Item item);
     }
 
     public double getAmount() {
