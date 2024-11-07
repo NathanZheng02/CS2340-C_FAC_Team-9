@@ -23,23 +23,12 @@ public class Order {
     
     private double calculateItemTotal(Item item) {
         double price = item.getPrice();
-        price -= applyDiscount(item);
+        price -= item.getDiscount().getType().applyDiscount(item);
         price *= item.getQuantity();
         if (item instanceof TaxableItem) {
             price += calculateTax((TaxableItem) item);
         }
         return price;
-    }
-    
-    private double applyDiscount(Item item) {
-        switch (item.getDiscountType()) {
-            case PERCENTAGE:
-                return item.getDiscountAmount() * item.getPrice();
-            case AMOUNT:
-                return item.getDiscountAmount();
-            default:
-                return 0.0;
-        }
     }
     
     private double calculateTax(TaxableItem item) {
@@ -103,7 +92,7 @@ public class Order {
     public boolean hasGiftCard() {
         boolean has_gift_card = false;
         for (Item item : items) {
-            if (item instanceof GiftCardItem) {
+            if (item.getName().equals("Gift Card")) {
                 has_gift_card = true;
                 break;
             }

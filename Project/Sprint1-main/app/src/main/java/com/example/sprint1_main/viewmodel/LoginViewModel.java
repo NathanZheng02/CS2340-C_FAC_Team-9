@@ -42,7 +42,7 @@ public class LoginViewModel extends ViewModel {
 
 
         for (UserModel user : userDatabase.getUsers()) {
-            if (user.getUsername().equals(givenUsername)) {
+            if (user.getUsername() != null && user.getUsername().equals(givenUsername)) {
                 if (user.getPassword().equals(givenPassword)) {
                     user.setLoginStatus(true);
                     manager.setCurrentUser(user);
