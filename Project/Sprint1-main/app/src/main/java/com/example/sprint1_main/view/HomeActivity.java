@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.content.Intent;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -25,6 +26,21 @@ public class HomeActivity extends AppCompatActivity {
 
         TextView welcome = findViewById(R.id.welcome);
         welcome.setText("Hello " + manager.getCurrentUser().getUsername() + "!");
+
+        Button logoutButton = findViewById(R.id.logoutButton);
+
+        logoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                manager.getCurrentUser().setLoginStatus(false);
+
+                Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
+                startActivity(intent);
+
+            }
+        });
+
+
 
 
 
