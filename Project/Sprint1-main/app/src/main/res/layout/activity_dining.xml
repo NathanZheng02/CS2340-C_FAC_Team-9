@@ -17,11 +17,25 @@
             android:layout_height="56dp"
             android:background="@android:color/background_dark"
             android:gravity="center"
-            android:text="Dining Establishments Screen"
+            android:text="Dining Screen"
             android:textColor="@android:color/white"
             android:textSize="20sp"
             android:textStyle="bold" />
     </LinearLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/addDining"
+        android:layout_width="75dp"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        app:backgroundTint="@color/darkgray"
+        app:srcCompat="@android:drawable/ic_input_add"
+        app:layout_constraintBottom_toTopOf="@id/bottomAppBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginBottom="15dp"
+        android:layout_marginRight="15dp"/>
 
     <com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/bottomAppBar"
