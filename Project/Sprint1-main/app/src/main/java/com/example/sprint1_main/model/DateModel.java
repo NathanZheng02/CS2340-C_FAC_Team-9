@@ -5,7 +5,10 @@ public class DateModel {
     private int month;
     private int year;
 
-    public DateModel() {}
+    public DateModel() {
+
+    }
+
 
 
 
@@ -25,6 +28,18 @@ public class DateModel {
 
     public int getYear() {
         return year;
+    }
+
+    public void setDay(int day) {
+        this.day = day;
+    }
+
+    public void setMonth(int month) {
+        this.month = month;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
     }
 
 

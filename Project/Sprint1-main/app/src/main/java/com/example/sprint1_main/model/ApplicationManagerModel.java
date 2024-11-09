@@ -1,7 +1,7 @@
 package com.example.sprint1_main.model;
 
 public class ApplicationManagerModel {
-    private volatile static ApplicationManagerModel applicationManager;
+    private static volatile ApplicationManagerModel applicationManager;
 
     private UserModel currentUser;
     private DestinationModel currentDestination;

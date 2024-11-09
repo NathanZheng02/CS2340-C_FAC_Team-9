@@ -2,15 +2,15 @@ package com.example.sprint1_main.view;
 
 import static java.lang.Integer.parseInt;
 
-import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.sprint1_main.R;
 import com.example.sprint1_main.model.ApplicationManagerModel;
@@ -19,10 +19,8 @@ import com.example.sprint1_main.model.DestinationModel;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class LogTravelActivity extends AppCompatActivity {
-
-
-    private static final String TAG = "LogTravelActivity";
+public class AddAccomodationsActivity extends AppCompatActivity {
+    private static final String TAG = "AddAccomodationsActivity";
 
     private FirebaseDatabase database;
     private DatabaseReference reference;
@@ -30,102 +28,79 @@ public class LogTravelActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_logtravel);
+        setContentView(R.layout.activity_addaccomodations);
 
         ImageButton logistics = findViewById(R.id.button_logistics);
         ImageButton accommodations = findViewById(R.id.button_accommodations);
         ImageButton dining = findViewById(R.id.button_diningEstablishments);
         ImageButton community = findViewById(R.id.button_travelCommunity);
         ImageButton home = findViewById(R.id.button_home);
-        Button logTravelButton = findViewById(R.id.button_logTravel);
-        Button calcVacation = findViewById(R.id.button_vacationTime);
-        Button submit = findViewById(R.id.submitButton);
-        Button cancel = findViewById(R.id.cancelButton);
-        EditText destination = findViewById(R.id.travellocation);
-        EditText startDateField = findViewById(R.id.startDate);
-        EditText endDateField = findViewById(R.id.endDate);
+        Button add = findViewById(R.id.button_addAccomodation);
+        EditText location = findViewById(R.id.location);
+        EditText checkInField = findViewById(R.id.checkIn);
+        EditText checkOutField = findViewById(R.id.checkOut);
         logistics.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(LogTravelActivity.this, LogisticsActivity.class);
+                Intent intent = new Intent(AddAccomodationsActivity.this, LogisticsActivity.class);
                 startActivity(intent);
             }
         });
         accommodations.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LogTravelActivity.this, AccomodationsActivity.class);
+                Intent intent = new Intent(AddAccomodationsActivity.this, AccomodationsActivity.class);
                 startActivity(intent);
             }
         });
         dining.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LogTravelActivity.this, DiningActivity.class);
+                Intent intent = new Intent(AddAccomodationsActivity.this, DiningActivity.class);
                 startActivity(intent);
             }
         });
         community.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LogTravelActivity.this, TravelCommunityActivity.class);
+                Intent intent = new Intent(AddAccomodationsActivity.this, TravelCommunityActivity.class);
                 startActivity(intent);
             }
         });
         home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LogTravelActivity.this, HomeActivity.class);
+                Intent intent = new Intent(AddAccomodationsActivity.this, HomeActivity.class);
                 startActivity(intent);
             }
         });
-        logTravelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(LogTravelActivity.this, LogTravelActivity.class);
-                startActivity(intent);
-            }
-        });
-        calcVacation.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(LogTravelActivity.this, CalculateVacationTimeActivity.class);
-                startActivity(i);
-            }
-        });
-        cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(LogTravelActivity.this, DestinationActivity.class);
-                startActivity(intent);
-            }
-        });
-        submit.setOnClickListener(new View.OnClickListener() {
+
+        add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 database = FirebaseDatabase.getInstance();
-                reference = database.getReference("Destination Database");
+                reference = database.getReference("Accomodation Database");
 
 
 
-                String destinationName = destination.getText().toString();
-                String startDate = startDateField.getText().toString().trim();
-                String endDate = endDateField.getText().toString().trim();
+                String accomodationName = location.getText().toString();
+                String checkInDate = checkInField.getText().toString().trim();
+                String checkOutDate = checkOutField.getText().toString().trim();
                 //MM/DD/YYYY
-                int m1 = parseInt(startDate.substring(0, 2));
-                int d1 = parseInt(startDate.substring(3, 5));
-                int y1 = parseInt(startDate.substring(6));
+                int m1 = parseInt(checkInDate.substring(0, 2));
+                int d1 = parseInt(checkInDate.substring(3, 5));
+                int y1 = parseInt(checkInDate.substring(6));
 
-                int m2 = parseInt(endDate.substring(0, 2));
-                int d2 = parseInt(endDate.substring(3, 5));
-                int y2 = parseInt(endDate.substring(6));
+                int m2 = parseInt(checkOutDate.substring(0, 2));
+                int d2 = parseInt(checkOutDate.substring(3, 5));
+                int y2 = parseInt(checkOutDate.substring(6));
 
                 DateModel beginning = new DateModel(m1, d1, y1);
                 DateModel ending = new DateModel(m2, d2, y2);
 
-                DestinationModel dest = new DestinationModel(destinationName, beginning, ending);
+                DestinationModel dest = new DestinationModel(accomodationName, beginning, ending);
 
-                reference.child(destinationName).setValue(dest);
+                reference.child(accomodationName).setValue(dest);
 
 
 
@@ -141,7 +116,7 @@ public class LogTravelActivity extends AppCompatActivity {
                 DatabaseReference r3 = r2.child("destinations");
                 r3.child("" + manager.getCurrentUser().getDestinations().size()).setValue(dest);
 
-                Intent intent = new Intent(LogTravelActivity.this, DestinationActivity.class);
+                Intent intent = new Intent(AddAccomodationsActivity.this, AccomodationsActivity.class);
                 startActivity(intent);
 
             }

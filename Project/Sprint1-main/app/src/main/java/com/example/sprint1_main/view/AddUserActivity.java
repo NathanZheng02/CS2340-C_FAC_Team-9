@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.sprint1_main.R;
 import com.example.sprint1_main.model.ApplicationManagerModel;
+import com.example.sprint1_main.model.DestinationModel;
 import com.example.sprint1_main.model.UserModel;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -20,6 +21,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class AddUserActivity extends AppCompatActivity {
 
@@ -41,11 +43,11 @@ public class AddUserActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String username = userInput.getText().toString();
 
-                DatabaseReference reference = FirebaseDatabase.getInstance().getReference("User Database");
+                FirebaseDatabase fb = FirebaseDatabase.getInstance();
+                DatabaseReference reference = fb.getReference("User Database");
 
                 if (manager.getCurrentDestination().getContributingUsers() == null) {
                     manager.getCurrentDestination().setContributingUsers(new ArrayList<>());
-//                    manager.getCurrentDestination().getContributingUsers().add(manager.getCurrentUser());
                 }
 
 
@@ -57,14 +59,19 @@ public class AddUserActivity extends AppCompatActivity {
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         if (snapshot.exists()) {
                             UserModel user = snapshot.child(username).getValue(UserModel.class);
-                            //TODO: update firebase (both destination and user), add check to make sure user isn't double added
                             manager.getCurrentDestination().getContributingUsers().add(user);
 
-                            FirebaseDatabase.getInstance().getReference("User Database").child(user.getUsername()).child("destinations").child("" + manager.getCurrentUser().getDestinations().size()).setValue(manager.getCurrentDestination());
+                            DatabaseReference ref1 =
+                                    fb.getReference("User Database").child(user.getUsername());
+                            DatabaseReference ref2 =
+                                    ref1.child("destinations");
+                            List<DestinationModel> dL = manager.getCurrentUser().getDestinations();
+                            DestinationModel currDes = manager.getCurrentDestination();
+                            ref2.child("" + dL.size()).setValue(currDes);
 
 
-                            Intent intent = new Intent(AddUserActivity.this, LogisticsActivity.class);
-                            startActivity(intent);
+                            Intent i = new Intent(AddUserActivity.this, LogisticsActivity.class);
+                            startActivity(i);
                         } else {
                             userInput.setError("User Does Not Exist");
                         }
