@@ -27,7 +27,7 @@ public class AddDiningActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_dining);
+        setContentView(R.layout.activity_adddining);
 
         ImageButton logistics = findViewById(R.id.button_logistics);
         ImageButton destination = findViewById(R.id.button_destination);
