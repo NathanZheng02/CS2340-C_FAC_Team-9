@@ -15,8 +15,9 @@ import android.widget.Toast;
 
 import com.example.sprint1_main.R;
 import com.example.sprint1_main.model.ApplicationManagerModel;
+import com.example.sprint1_main.model.DateCalculatorModel;
+import com.example.sprint1_main.model.DateModel;
 import com.example.sprint1_main.model.UserModel;
-import com.example.sprint1_main.viewmodel.DestinationViewModel;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -109,40 +110,71 @@ public class CalculateVacationTimeActivity extends AppCompatActivity {
         calculate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String time = duration.getText().toString().trim();
-                String startDate = start.getText().toString().trim();
-                String endDate = end.getText().toString().trim();
+                DateCalculatorModel dateCalculator = new DateCalculatorModel();
+
+                String durationString = duration.getText().toString().trim();
+                String startString = start.getText().toString().trim();
+                String endString = end.getText().toString().trim();
                 String emptyUpdates = "";
-                if (time.isEmpty() && startDate.isEmpty() && endDate.isEmpty()) {
+
+                DateModel startDate = null;
+                DateModel endDate = null;
+                int durationInt = 0;
+
+                if (durationString.isEmpty() && startString.isEmpty() && endString.isEmpty()) {
                     duration.setError("Please input at least 2 conditions");
-                } else if (time.isEmpty() && startDate.isEmpty()) {
+                } else if (durationString.isEmpty() && startString.isEmpty()) {
                     duration.setError("Please input at least 2 conditions");
-                } else if (time.isEmpty() && endDate.isEmpty()) {
+                } else if (durationString.isEmpty() && endString.isEmpty()) {
                     duration.setError("Please input at least 2 conditions");
-                } else if (startDate.isEmpty() && endDate.isEmpty()) {
+                } else if (startString.isEmpty() && endString.isEmpty()) {
                     start.setError("Please input at least 2 conditions");
-                } else if (time.isEmpty()) {
-                    time = DestinationViewModel.calculateDuration(startDate, endDate);
+                } else if (durationString.isEmpty()) {
+                    String[] startList = startString.split("/");
+                    startDate = new DateModel(parseInt(startList[0]), parseInt(startList[1]), parseInt(startList[2]));
+
+                    String[] endList = endString.split("/");
+                    endDate = new DateModel(parseInt(endList[0]), parseInt(endList[1]), parseInt(endList[2]));
+
+                    durationInt = dateCalculator.getDuration(startDate, endDate);
+
                     emptyUpdates = "time";
-                } else if (startDate.isEmpty()) {
-                    startDate = DestinationViewModel.calculateStartDate(time, endDate);
+                } else if (startString.isEmpty()) {
+
+                    String[] endList = endString.split("/");
+                    endDate = new DateModel(parseInt(endList[0]), parseInt(endList[1]), parseInt(endList[2]));
+
+                    durationInt = parseInt(durationString);
+
+                    startDate = dateCalculator.getStartDate(endDate, durationInt);
+
                     emptyUpdates = "startDate";
-                } else if (endDate.isEmpty()) {
-                    endDate = DestinationViewModel.calculateEndDate(time, startDate);
+                } else if (endString.isEmpty()) {
+                    String[] startList = startString.split("/");
+                    startDate = new DateModel(parseInt(startList[0]), parseInt(startList[1]), parseInt(startList[2]));
+
+                    durationInt = parseInt(durationString);
+
+                    endDate = dateCalculator.getEndDate(startDate, durationInt);
+
                     emptyUpdates = "endDate";
                 }
+
                 database = FirebaseDatabase.getInstance();
                 reference = database.getReference("User Database");
                 ApplicationManagerModel manager = ApplicationManagerModel.getInstance();
                 UserModel currentUser = manager.getCurrentUser();
 
-                manager.getCurrentUser().setDuration(parseInt(time));
+                manager.getCurrentUser().setDuration(parseInt(durationString));
 
                 DatabaseReference ref = reference.child(currentUser.getUsername());
 
-                ref.child("startDate").setValue(startDate);
-                ref.child("endDate").setValue(endDate);
-                ref.child("duration").setValue(parseInt(time));
+                if (startDate != null && endDate != null) {
+                    ref.child("startDate").setValue(startDate);
+                    ref.child("endDate").setValue(endDate);
+                    ref.child("duration").setValue(durationInt);
+                }
+
 
                 Toast.makeText(CalculateVacationTimeActivity.this,
                         "Calculation successful and duration was stored!",

@@ -11,6 +11,7 @@ public class DateModel {
 
 
 
+
     public DateModel(int month, int day, int year) {
         this.month = month;
         this.day = day;
@@ -27,6 +28,18 @@ public class DateModel {
 
     public int getYear() {
         return year;
+    }
+
+    public void setDay(int day) {
+        this.day = day;
+    }
+
+    public void setMonth(int month) {
+        this.month = month;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
     }
 
 
