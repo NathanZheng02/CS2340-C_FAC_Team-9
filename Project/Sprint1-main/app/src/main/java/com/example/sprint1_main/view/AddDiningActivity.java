@@ -49,7 +49,6 @@ public class AddDiningActivity extends AppCompatActivity {
         EditText diningWebsite = findViewById(R.id.diningWebsite);
 
         Button addReservation = findViewById(R.id.button_addReservation);
-        FloatingActionButton addDining = findViewById(R.id.addDining);
 
         logistics.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,13 +95,6 @@ public class AddDiningActivity extends AppCompatActivity {
         addReservation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(AddDiningActivity.this, DiningActivity.class);
-                startActivity(intent);
-            }
-        });
-        addDining.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
                 database = FirebaseDatabase.getInstance();
                 reference = database.getReference("Dining Database");
 
@@ -123,6 +115,7 @@ public class AddDiningActivity extends AppCompatActivity {
 
                 ApplicationManagerModel manager = ApplicationManagerModel.getInstance();
 
+
                 if (manager.getCurrentDestination().getReservations() == null) {
                     manager.getCurrentDestination().setReservations(new ArrayList<>());
                 }
@@ -131,11 +124,18 @@ public class AddDiningActivity extends AppCompatActivity {
                 DiningDatabaseModel diningDatabase = DiningDatabaseModel.getInstance();
                 reference.child(location).setValue(reservation);
 
+                DatabaseReference ref2 = database.getReference("Destination Database");
+                DatabaseReference ref3 = ref2.child(manager.getCurrentDestination().getDestinationName());
+                ref3.child("reservations").setValue(manager.getCurrentDestination().getReservations());
 
-                Intent intent = new Intent(AddDiningActivity.this,  AddDiningActivity.class);
+                manager.updateUserDestinations();
+
+
+                Intent intent = new Intent(AddDiningActivity.this,  DiningActivity.class);
                 startActivity(intent);
             }
         });
+
         Log.d(TAG, "onCreate called");
 
     }

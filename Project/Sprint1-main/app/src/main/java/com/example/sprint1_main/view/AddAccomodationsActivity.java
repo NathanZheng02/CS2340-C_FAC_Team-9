@@ -174,6 +174,12 @@ public class AddAccomodationsActivity extends AppCompatActivity {
                 AccommodationDatabaseModel accommodationManager = AccommodationDatabaseModel.getInstance();
                 reference.child(accommodationName).setValue(accommodation);
 
+                DatabaseReference ref2 = database.getReference("Destination Database");
+                DatabaseReference ref3 = ref2.child(manager.getCurrentDestination().getDestinationName());
+                ref3.child("lodgings").setValue(manager.getCurrentDestination().getLodgings());
+
+                manager.updateUserDestinations();
+
 
                 Intent intent = new Intent(AddAccomodationsActivity.this, AccomodationsActivity.class);
                 startActivity(intent);
