@@ -54,6 +54,7 @@ public class LogisticsActivity extends AppCompatActivity {
 
         Spinner destinationsSpinner = (Spinner) findViewById(R.id.destinations_spinner);
 
+//        LogisticsViewModel.updateDestinations();
         List<String> dN = new ArrayList<>();
         for (DestinationModel destination : manager.getCurrentUser().getDestinations()) {
             dN.add(destination.getDestinationName());

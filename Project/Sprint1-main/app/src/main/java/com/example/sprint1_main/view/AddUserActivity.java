@@ -60,22 +60,46 @@ public class AddUserActivity extends AppCompatActivity {
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         if (snapshot.exists()) {
                             UserModel user = snapshot.child(username).getValue(UserModel.class);
-                            manager.getCurrentDestination().getContributingUsers().add(user);
-
-                            DatabaseReference ref1 =
-                                    fb.getReference("User Database").child(user.getUsername());
-                            DatabaseReference ref2 =
-                                    ref1.child("destinations");
-                            List<DestinationModel> dL = manager.getCurrentUser().getDestinations();
                             DestinationModel currDes = manager.getCurrentDestination();
-                            ref2.child("" + dL.size()).setValue(currDes);
-
 
                             DatabaseReference ref3 =
                                     fb.getReference("Destination Database").child(currDes.getDestinationName());
                             DatabaseReference ref4 =
-                                    ref3.child("contributingUsers");
-                            ref4.setValue(manager.getCurrentDestination().getContributingUsers());
+                                    ref3.child("contributingUsers").child("" + (currDes.getContributingUsers().size()-1));
+                            ref4.setValue(user);
+
+
+                            DatabaseReference ref5 =
+                                    fb.getReference("User Database").child(username);
+                            DatabaseReference ref6 =
+                                    ref5.child("destinations").child("" + (user.getDestinations().size()-1));
+                            ref6.setValue(currDes);
+
+                            manager.getCurrentDestination().getContributingUsers().add(user);
+
+
+
+
+
+
+
+
+
+
+
+//
+//                            manager.getCurrentDestination().getContributingUsers().add(user);
+//
+//                            DatabaseReference ref1 =
+//                                    fb.getReference("User Database").child(user.getUsername());
+//                            DatabaseReference ref2 =
+//                                    ref1.child("destinations");
+//                            List<DestinationModel> dL = manager.getCurrentUser().getDestinations();
+//
+//                            ref2.child("" + (dL.size()-1)).setValue(currDes);
+
+
+
 
 
                             Intent i = new Intent(AddUserActivity.this, LogisticsActivity.class);
