@@ -14,7 +14,7 @@ import com.example.sprint1_main.model.DestinationModel;
 
 import java.util.ArrayList;
 
-public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
+public class DestinationsAdapter extends RecyclerView.Adapter<DestinationsAdapter.MyViewHolder> {
 
 
 
@@ -24,7 +24,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
 
     private ArrayList<DestinationModel> destinationList;
 
-    public Adapter(Context context, ArrayList<DestinationModel> destinationList) {
+    public DestinationsAdapter(Context context, ArrayList<DestinationModel> destinationList) {
         this.context = context;
         this.destinationList = destinationList;
     }
