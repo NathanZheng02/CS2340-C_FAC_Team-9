@@ -23,6 +23,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
+
 public class AddDiningActivity extends AppCompatActivity {
 
     private static final String TAG = "AddDiningActivity";
@@ -109,16 +111,21 @@ public class AddDiningActivity extends AppCompatActivity {
                 String location = diningLocation.getText().toString().trim();
                 String website = diningWebsite.getText().toString().trim();
 
-                int month = parseInt(time.substring(0, 2));
-                int day = parseInt(time.substring(3, 5));
-                int year = parseInt(time.substring(6, 10));
-                int hour = parseInt(time.substring(11, 13));
-                int minute = parseInt(time.substring(14));
+                String[] timeList = time.split("/");
+                int month = parseInt(timeList[0]);
+                int day = parseInt(timeList[1]);
+                int year = parseInt(timeList[2]);
+                int hour = parseInt(timeList[3]);
+                int minute = parseInt(timeList[4]);
 
                 TimeModel timeModel = new TimeModel(month, day, year, hour, minute);
                 ReservationModel reservation = new ReservationModel(location, website, timeModel);
 
                 ApplicationManagerModel manager = ApplicationManagerModel.getInstance();
+                manager.setCurrentDestination(manager.getCurrentUser().getDestinations().get(0));
+                if (manager.getCurrentDestination().getReservations() == null) {
+                    manager.getCurrentDestination().setReservations(new ArrayList<>());
+                }
                 manager.getCurrentDestination().getReservations().add(reservation);
 
                 DiningDatabaseModel diningDatabase = DiningDatabaseModel.getInstance();
