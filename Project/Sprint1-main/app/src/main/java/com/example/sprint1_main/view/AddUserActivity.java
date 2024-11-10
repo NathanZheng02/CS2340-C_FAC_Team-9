@@ -48,6 +48,7 @@ public class AddUserActivity extends AppCompatActivity {
 
                 if (manager.getCurrentDestination().getContributingUsers() == null) {
                     manager.getCurrentDestination().setContributingUsers(new ArrayList<>());
+                    manager.getCurrentDestination().getContributingUsers().add(manager.getCurrentUser());
                 }
 
 
@@ -68,6 +69,13 @@ public class AddUserActivity extends AppCompatActivity {
                             List<DestinationModel> dL = manager.getCurrentUser().getDestinations();
                             DestinationModel currDes = manager.getCurrentDestination();
                             ref2.child("" + dL.size()).setValue(currDes);
+
+
+                            DatabaseReference ref3 =
+                                    fb.getReference("Destination Database").child(currDes.getDestinationName());
+                            DatabaseReference ref4 =
+                                    ref3.child("contributingUsers");
+                            ref4.setValue(manager.getCurrentDestination().getContributingUsers());
 
 
                             Intent i = new Intent(AddUserActivity.this, LogisticsActivity.class);
