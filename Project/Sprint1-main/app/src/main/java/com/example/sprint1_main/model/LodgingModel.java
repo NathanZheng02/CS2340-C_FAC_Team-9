@@ -2,6 +2,8 @@ package com.example.sprint1_main.model;
 
 public class LodgingModel {
 
+
+
     private DateModel checkInTime;
     private DateModel checkOutTime;
     private int numRooms;
@@ -24,35 +26,39 @@ public class LodgingModel {
         return checkInTime;
     }
 
-    public DateModel getCheckOutTime() {
-        return checkOutTime;
-    }
-
-    public int getNumRooms() {
-        return numRooms;
-    }
-
-    public String getRoomType() {
-        return roomType;
-    }
-
-    public String getLocation() {
-        return location;
-    }
-
     public void setCheckInTime(DateModel checkInTime) {
         this.checkInTime = checkInTime;
+    }
+
+    public DateModel getCheckOutTime() {
+        return checkOutTime;
     }
 
     public void setCheckOutTime(DateModel checkOutTime) {
         this.checkOutTime = checkOutTime;
     }
 
-    public void setRooms(int numRooms) {
+    public int getNumRooms() {
+        return numRooms;
+    }
+
+    public void setNumRooms(int numRooms) {
         this.numRooms = numRooms;
+    }
+
+    public String getRoomType() {
+        return roomType;
     }
 
     public void setRoomType(String roomType) {
         this.roomType = roomType;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 }

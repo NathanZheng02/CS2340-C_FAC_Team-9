@@ -16,6 +16,8 @@ import com.example.sprint1_main.R;
 import com.example.sprint1_main.model.ApplicationManagerModel;
 import com.example.sprint1_main.model.DateModel;
 import com.example.sprint1_main.model.DestinationModel;
+import com.example.sprint1_main.model.ReservationModel;
+import com.example.sprint1_main.model.TimeModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -23,6 +25,9 @@ import com.google.firebase.database.FirebaseDatabase;
 public class AddDiningActivity extends AppCompatActivity {
 
     private static final String TAG = "AddDiningActivity";
+
+    private FirebaseDatabase database;
+    private DatabaseReference reference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +40,11 @@ public class AddDiningActivity extends AppCompatActivity {
         ImageButton community = findViewById(R.id.button_travelCommunity);
         ImageButton home = findViewById(R.id.button_home);
         ImageButton dining = findViewById(R.id.button_diningEstablishments);
+
+        EditText diningTime = findViewById(R.id.diningTime);
+        EditText diningLocation = findViewById(R.id.diningLocation);
+        EditText diningWebsite = findViewById(R.id.diningWebsite);
+
         Button addReservation = findViewById(R.id.button_addReservation);
         FloatingActionButton addDining = findViewById(R.id.addDining);
 
@@ -90,6 +100,31 @@ public class AddDiningActivity extends AppCompatActivity {
         addDining.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                database = FirebaseDatabase.getInstance();
+                reference = database.getReference("Dining Database");
+
+                // Time represented as MM/DD/YYYY HH:MM in military time
+                String time = diningTime.getText().toString().trim();
+                String location = diningLocation.getText().toString().trim();
+                String website = diningWebsite.getText().toString().trim();
+
+                int month = parseInt(time.substring(0, 2));
+                int day = parseInt(time.substring(3, 5));
+                int year = parseInt(time.substring(6, 10));
+                int hour = parseInt(time.substring(11, 13));
+                int minute = parseInt(time.substring(14));
+
+                TimeModel timeModel = new TimeModel(month, day, year, hour, minute);
+
+                ReservationModel reservation = new ReservationModel(location, website, timeModel);
+
+                reference.child(location).setValue(reservation);
+
+                ApplicationManagerModel manager = ApplicationManagerModel.getInstance();
+                manager.getCurrentDestination().getReservations().add(reservation);
+
+                //TODO: Make data show up on Firebase
+
                 Intent intent = new Intent(AddDiningActivity.this,  AddDiningActivity.class);
                 startActivity(intent);
             }
