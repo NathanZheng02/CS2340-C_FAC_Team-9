@@ -45,6 +45,7 @@ public class AddDiningActivity extends AppCompatActivity {
         ImageButton dining = findViewById(R.id.button_diningEstablishments);
 
         EditText diningTime = findViewById(R.id.diningTime);
+        EditText diningDate = findViewById(R.id.diningDate);
         EditText diningLocation = findViewById(R.id.diningLocation);
         EditText diningWebsite = findViewById(R.id.diningWebsite);
 
@@ -100,18 +101,22 @@ public class AddDiningActivity extends AppCompatActivity {
 
                 // Time represented as MM/DD/YYYY HH:MM in military time
                 String time = diningTime.getText().toString().trim();
+                String date = diningDate.getText().toString().trim();
                 String location = diningLocation.getText().toString().trim();
                 String website = diningWebsite.getText().toString().trim();
 
-                String[] timeList = time.split("/");
-                int month = parseInt(timeList[0]);
-                int day = parseInt(timeList[1]);
-                int year = parseInt(timeList[2]);
-                int hour = parseInt(timeList[3]);
-                int minute = parseInt(timeList[4]);
+                String[] dateList = date.split("/");
+                int month = parseInt(dateList[0]);
+                int day = parseInt(dateList[1]);
+                int year = parseInt(dateList[2]);
 
-                TimeModel timeModel = new TimeModel(month, day, year, hour, minute);
-                ReservationModel reservation = new ReservationModel(location, website, timeModel);
+                String[] timeList = time.split(":");
+                int hour = parseInt(timeList[0]);
+                int minute = parseInt(timeList[1]);
+
+                TimeModel timeModel = new TimeModel(hour, minute);
+                DateModel dateModel = new DateModel(month, day, year);
+                ReservationModel reservation = new ReservationModel(location, website, dateModel, timeModel);
 
                 ApplicationManagerModel manager = ApplicationManagerModel.getInstance();
 
