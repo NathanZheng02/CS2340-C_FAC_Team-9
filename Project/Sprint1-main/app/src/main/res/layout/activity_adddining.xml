@@ -33,6 +33,15 @@
             android:textSize="20sp" />
 
         <EditText
+            android:id="@+id/diningDate"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="140dp"
+            android:backgroundTint="@color/darkgray"
+            android:hint="Date"
+            android:inputType="text" />
+
+        <EditText
             android:id="@+id/diningTime"
             android:layout_width="120dp"
             android:layout_height="wrap_content"
@@ -68,20 +77,6 @@
             app:layout_constraintEnd_toEndOf="parent" />
 
     </LinearLayout>
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/addDining"
-        android:layout_width="75dp"
-        android:layout_height="wrap_content"
-        android:clickable="true"
-        app:backgroundTint="@color/darkgray"
-        app:srcCompat="@android:drawable/ic_input_add"
-        app:layout_constraintBottom_toTopOf="@id/bottomAppBar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginBottom="15dp"
-        android:layout_marginRight="15dp"/>
 
     <com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/bottomAppBar"

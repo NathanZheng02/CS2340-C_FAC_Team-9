@@ -16,8 +16,6 @@ public class DiningDatabaseModel {
     private static volatile DiningDatabaseModel diningDatabase;
 
 
-
-
     private List<ReservationModel> reservations;
 
 
@@ -32,7 +30,6 @@ public class DiningDatabaseModel {
 
 
         if (diningDatabase == null) {
-
             diningDatabase = new DiningDatabaseModel();
         } else {
             databaseReference.addValueEventListener(new ValueEventListener() {

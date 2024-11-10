@@ -16,13 +16,21 @@ import com.example.sprint1_main.R;
 import com.example.sprint1_main.model.ApplicationManagerModel;
 import com.example.sprint1_main.model.DateModel;
 import com.example.sprint1_main.model.DestinationModel;
+import com.example.sprint1_main.model.DiningDatabaseModel;
+import com.example.sprint1_main.model.ReservationModel;
+import com.example.sprint1_main.model.TimeModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
+
 public class AddDiningActivity extends AppCompatActivity {
 
     private static final String TAG = "AddDiningActivity";
+
+    private FirebaseDatabase database;
+    private DatabaseReference reference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,8 +43,13 @@ public class AddDiningActivity extends AppCompatActivity {
         ImageButton community = findViewById(R.id.button_travelCommunity);
         ImageButton home = findViewById(R.id.button_home);
         ImageButton dining = findViewById(R.id.button_diningEstablishments);
+
+        EditText diningTime = findViewById(R.id.diningTime);
+        EditText diningDate = findViewById(R.id.diningDate);
+        EditText diningLocation = findViewById(R.id.diningLocation);
+        EditText diningWebsite = findViewById(R.id.diningWebsite);
+
         Button addReservation = findViewById(R.id.button_addReservation);
-        FloatingActionButton addDining = findViewById(R.id.addDining);
 
         logistics.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,17 +96,51 @@ public class AddDiningActivity extends AppCompatActivity {
         addReservation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(AddDiningActivity.this, DiningActivity.class);
+                database = FirebaseDatabase.getInstance();
+                reference = database.getReference("Dining Database");
+
+                // Time represented as MM/DD/YYYY HH:MM in military time
+                String time = diningTime.getText().toString().trim();
+                String date = diningDate.getText().toString().trim();
+                String location = diningLocation.getText().toString().trim();
+                String website = diningWebsite.getText().toString().trim();
+
+                String[] dateList = date.split("/");
+                int month = parseInt(dateList[0]);
+                int day = parseInt(dateList[1]);
+                int year = parseInt(dateList[2]);
+
+                String[] timeList = time.split(":");
+                int hour = parseInt(timeList[0]);
+                int minute = parseInt(timeList[1]);
+
+                TimeModel timeModel = new TimeModel(hour, minute);
+                DateModel dateModel = new DateModel(month, day, year);
+                ReservationModel reservation = new ReservationModel(location, website, dateModel, timeModel);
+
+                ApplicationManagerModel manager = ApplicationManagerModel.getInstance();
+
+
+                if (manager.getCurrentDestination().getReservations() == null) {
+                    manager.getCurrentDestination().setReservations(new ArrayList<>());
+                }
+                manager.getCurrentDestination().getReservations().add(reservation);
+
+                DiningDatabaseModel diningDatabase = DiningDatabaseModel.getInstance();
+                reference.child(location).setValue(reservation);
+
+                DatabaseReference ref2 = database.getReference("Destination Database");
+                DatabaseReference ref3 = ref2.child(manager.getCurrentDestination().getDestinationName());
+                ref3.child("reservations").setValue(manager.getCurrentDestination().getReservations());
+
+                manager.updateUserDestinations();
+
+
+                Intent intent = new Intent(AddDiningActivity.this,  DiningActivity.class);
                 startActivity(intent);
             }
         });
-        addDining.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(AddDiningActivity.this,  AddDiningActivity.class);
-                startActivity(intent);
-            }
-        });
+
         Log.d(TAG, "onCreate called");
 
     }

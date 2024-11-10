@@ -29,7 +29,6 @@ public class UserDatabaseModel {
         DatabaseReference dF = FirebaseDatabase.getInstance().getReference("User Database");
 
 
-
         if (userDatabase == null) {
             userDatabase = new UserDatabaseModel();
         } else {
