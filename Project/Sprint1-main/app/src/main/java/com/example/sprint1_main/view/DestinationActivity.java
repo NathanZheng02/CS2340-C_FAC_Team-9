@@ -12,10 +12,6 @@ import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageButton;
 
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-
 import com.example.sprint1_main.R;
 import com.example.sprint1_main.model.DestinationModel;
 import com.google.firebase.database.DataSnapshot;
@@ -30,10 +26,10 @@ public class DestinationActivity extends AppCompatActivity {
 
     private static final String TAG = "DestinationActivity";
 
-    RecyclerView recyclerView;
-    DatabaseReference database;
-    Adapter adapter;
-    ArrayList<DestinationModel> list;
+    private RecyclerView recyclerView;
+    private DatabaseReference database;
+    private Adapter adapter;
+    private ArrayList<DestinationModel> list;
 
 
     @Override
@@ -55,7 +51,7 @@ public class DestinationActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         list = new ArrayList<>();
-        adapter = new Adapter(this,list);
+        adapter = new Adapter(this, list);
         recyclerView.setAdapter(adapter);
 
         database.addValueEventListener(new ValueEventListener() {
@@ -123,8 +119,9 @@ public class DestinationActivity extends AppCompatActivity {
         vacationTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(DestinationActivity.this, CalculateVacationTimeActivity.class);
-                startActivity(intent);
+                Intent i;
+                i = new Intent(DestinationActivity.this, CalculateVacationTimeActivity.class);
+                startActivity(i);
             }
         });
         Log.d(TAG, "onCreate called");

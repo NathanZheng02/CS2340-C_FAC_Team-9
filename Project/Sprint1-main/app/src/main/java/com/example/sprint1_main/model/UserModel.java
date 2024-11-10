@@ -15,7 +15,9 @@ public class UserModel {
     private int duration;
 
 
-    public UserModel() {}
+    public UserModel() {
+
+    }
 
 
 
@@ -32,9 +34,23 @@ public class UserModel {
         this.duration = 0;
 
         //default destinations
-        this.destinations.add(new DestinationModel("Paris", new DateModel(3, 10, 2009), new DateModel(4,10,2009)));
-        this.destinations.add(new DestinationModel("Dublin", new DateModel(8, 16, 2015), new DateModel(8,20,2015)));
-        this.destinations.add(new DestinationModel("New York", new DateModel(1, 1, 2023), new DateModel(2,30,2023)));
+        DateModel date1 = new DateModel(3, 10, 2009);
+        DateModel date2 = new DateModel(4, 10, 2009);
+
+        DateModel date3 = new DateModel(8, 16, 2015);
+        DateModel date4 = new DateModel(8, 20, 2015);
+
+        DateModel date5 = new DateModel(1, 1, 2023);
+        DateModel date6 = new DateModel(2, 30, 2023);
+
+
+        DestinationModel paris = new DestinationModel("Paris", date1, date2);
+        DestinationModel dublin = new DestinationModel("Dublin", date3, date4);
+        DestinationModel newYork = new DestinationModel("New York", date5, date6);
+
+        this.destinations.add(paris);
+        this.destinations.add(dublin);
+        this.destinations.add(newYork);
     }
 
 

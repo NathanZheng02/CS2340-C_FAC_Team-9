@@ -12,7 +12,9 @@ public class DestinationModel {
     private List<UserModel> contributingUsers;
     private List<String> notes;
 
-    public DestinationModel() {}
+    public DestinationModel() {
+
+    }
 
 
 
@@ -28,38 +30,27 @@ public class DestinationModel {
     public int getDaysInMonth(int month) {
         if (month == 1) {
             return 31;
-        }
-        else if (month == 2) {
+        } else if (month == 2) {
             return 28;
-        }
-        else if (month == 3) {
+        } else if (month == 3) {
             return 31;
-        }
-        else if (month == 4) {
+        } else if (month == 4) {
             return 30;
-        }
-        else if (month == 5) {
+        } else if (month == 5) {
             return 31;
-        }
-        else if (month == 6) {
+        } else if (month == 6) {
             return 30;
-        }
-        else if (month == 7) {
+        } else if (month == 7) {
             return 31;
-        }
-        else if (month == 8) {
+        } else if (month == 8) {
             return 31;
-        }
-        else if (month == 9) {
+        } else if (month == 9) {
             return 30;
-        }
-        else if (month == 10) {
+        } else if (month == 10) {
             return 31;
-        }
-        else if (month == 11) {
+        } else if (month == 11) {
             return 30;
-        }
-        else if (month == 12) {
+        } else if (month == 12) {
             return 31;
         }
         return 0;

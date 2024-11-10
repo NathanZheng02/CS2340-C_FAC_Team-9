@@ -12,35 +12,39 @@ public class Order {
     }
 
     public double calculateTotalPrice() {
-    	double total = 0.0;
-    	for (Item item : items) {
-        	double price = item.getPrice();
-        	switch (item.getDiscountType()) {
-            	case PERCENTAGE:
-                	price -= item.getDiscountAmount() * price;
-                	break;
-            	case AMOUNT:
-                	price -= item.getDiscountAmount();
-                	break;
-            	default:
-                	// no discount
-                	break;
-        	}
-        	total += price * item.getQuantity();
-       	    if (item instanceof TaxableItem) {
-                TaxableItem taxableItem = (TaxableItem) item;
-                double tax = taxableItem.getTaxRate() / 100.0 * item.getPrice();
-                total += tax;
-            }
+        double total = 0.0;
+        for (Item item : items) {
+            double itemTotal = calculateItemTotal(item);
+            total += itemTotal;
         }
-    	if (hasGiftCard()) {
-        	total -= 10.0; // subtract $10 for gift card
-    	}
-    	if (total > 100.0) {
-        	total *= 0.9; // apply 10% discount for orders over $100
-    	}
-    	return total;
+        total = applyFinalAdjustments(total);
+        return total;
     }
+    
+    private double calculateItemTotal(Item item) {
+        double price = item.getPrice();
+        price -= item.getDiscount().getType().applyDiscount(item);
+        price *= item.getQuantity();
+        if (item instanceof TaxableItem) {
+            price += calculateTax((TaxableItem) item);
+        }
+        return price;
+    }
+    
+    private double calculateTax(TaxableItem item) {
+        return item.getTaxRate() / 100.0 * item.getPrice();
+    }
+    
+    private double applyFinalAdjustments(double total) {
+        if (hasGiftCard()) {
+            total -= 10.0;
+        }
+        if (total > 100.0) {
+            total *= 0.9;
+        }
+        return total;
+    }
+    
 
     public void sendConfirmationEmail() {
         String message = "Thank you for your order, " + customerName + "!\n\n" +
