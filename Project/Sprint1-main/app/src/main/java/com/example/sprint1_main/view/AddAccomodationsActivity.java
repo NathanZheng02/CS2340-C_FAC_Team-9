@@ -29,7 +29,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.List;
 
 public class AddAccomodationsActivity extends AppCompatActivity {
-    private static final String TAG = "AddAccomodationsActivity";
+    private static final String TAG = "AddAccommodationsActivity";
 
     private FirebaseDatabase database;
     private DatabaseReference reference;
@@ -37,10 +37,14 @@ public class AddAccomodationsActivity extends AppCompatActivity {
     private String selectedRoomType;
     private String selectedRoomNum;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_addaccomodations);
+
+        database = FirebaseDatabase.getInstance();
+        reference = database.getReference("Accommodation Database");
 
         Spinner roomTypeSpinner = findViewById(R.id.roomType);
         Spinner roomNumSpinner = findViewById(R.id.roomNum);
@@ -129,8 +133,11 @@ public class AddAccomodationsActivity extends AppCompatActivity {
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                database = FirebaseDatabase.getInstance();
-                reference = database.getReference("Accommodations Database");
+
+                Log.d(TAG, "add onClick called");
+
+
+
 
 
 
@@ -159,10 +166,10 @@ public class AddAccomodationsActivity extends AppCompatActivity {
 
                 AccommodationDatabaseModel accommodationManager = AccommodationDatabaseModel.getInstance();
 
-                List<LodgingModel> lodgings = accommodationManager.getLodgings();
-                lodgings.add(accommodation);
+//                List<LodgingModel> lodgings = accommodationManager.getLodgings();
+//                lodgings.add(accommodation);
 
-                reference.child("Lodgings").setValue(lodgings);
+                reference.child(accommodationName).setValue(accommodation);
 
 
                 Intent intent = new Intent(AddAccomodationsActivity.this, AccomodationsActivity.class);

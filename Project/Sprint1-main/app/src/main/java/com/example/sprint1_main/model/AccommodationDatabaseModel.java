@@ -32,7 +32,6 @@ public class AccommodationDatabaseModel {
 
 
         if (accommodationDatabase == null) {
-
             accommodationDatabase = new AccommodationDatabaseModel();
         } else {
             databaseReference.addValueEventListener(new ValueEventListener() {
