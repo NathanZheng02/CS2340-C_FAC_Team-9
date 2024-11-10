@@ -23,23 +23,12 @@ public class Order {
     
     private double calculateItemTotal(Item item) {
         double price = item.getPrice();
-        price -= applyDiscount(item);
+        price -= item.getDiscount().getType().applyDiscount(item);
         price *= item.getQuantity();
         if (item instanceof TaxableItem) {
             price += calculateTax((TaxableItem) item);
         }
         return price;
-    }
-    
-    private double applyDiscount(Item item) {
-        switch (item.getDiscount().getType()) {
-            case PERCENTAGE:
-                return item.getDiscount().getAmount() * item.getPrice();
-            case AMOUNT:
-                return item.getDiscount().getAmount();
-            default:
-                return 0.0;
-        }
     }
     
     private double calculateTax(TaxableItem item) {
