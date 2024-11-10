@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 
 import com.example.sprint1_main.R;
+import com.example.sprint1_main.model.ApplicationManagerModel;
 import com.example.sprint1_main.model.DestinationModel;
 import com.example.sprint1_main.model.LodgingModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -23,6 +24,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class AccomodationsActivity extends AppCompatActivity {
 
@@ -46,33 +48,21 @@ public class AccomodationsActivity extends AppCompatActivity {
 
         FloatingActionButton addAccommodation = findViewById(R.id.addAccommodation);
 
+        list = new ArrayList<>();
+
+        ApplicationManagerModel manager = ApplicationManagerModel.getInstance();
+        List<LodgingModel> lodgingsList = manager.getCurrentDestination().getLodgings();
+        for (LodgingModel lodging: lodgingsList) {
+            list.add(lodging);
+        }
+
         recyclerView = findViewById(R.id.accommodationList);
-        database = FirebaseDatabase.getInstance().getReference("Accommodation Database");
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        list = new ArrayList<>();
         adapter = new AccommodationAdapter(this, list);
         recyclerView.setAdapter(adapter);
 
-        database.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-
-                for (DataSnapshot dataSnapShot : snapshot.getChildren()) {
-
-                    LodgingModel lodging = dataSnapShot.getValue(LodgingModel.class);
-                    list.add(lodging);
-                }
-                adapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
 
         logistics.setOnClickListener(new View.OnClickListener() {
             @Override
