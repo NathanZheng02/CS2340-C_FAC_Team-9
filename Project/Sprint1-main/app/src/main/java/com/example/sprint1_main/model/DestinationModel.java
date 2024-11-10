@@ -12,6 +12,8 @@ public class DestinationModel {
     private List<UserModel> contributingUsers;
     private List<String> notes;
     private List<ReservationModel> reservations;
+    private List<LodgingModel> lodgings;
+
 
     public DestinationModel() {
 
@@ -27,6 +29,7 @@ public class DestinationModel {
         this.contributingUsers = new ArrayList<>();
         this.notes = new ArrayList<>();
         this.reservations = new ArrayList<>();
+        this.lodgings = new ArrayList<>();
     }
 
     public int getDaysInMonth(int month) {
@@ -131,5 +134,13 @@ public class DestinationModel {
 
     public void setReservations(List<ReservationModel> reservations) {
         this.reservations = reservations;
+    }
+
+    public List<LodgingModel> getLodgings() {
+        return lodgings;
+    }
+
+    public void setLodgings(List<LodgingModel> lodgings) {
+        this.lodgings = lodgings;
     }
 }

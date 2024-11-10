@@ -16,6 +16,7 @@ import com.example.sprint1_main.R;
 import com.example.sprint1_main.model.ApplicationManagerModel;
 import com.example.sprint1_main.model.DateModel;
 import com.example.sprint1_main.model.DestinationModel;
+import com.example.sprint1_main.model.DiningDatabaseModel;
 import com.example.sprint1_main.model.ReservationModel;
 import com.example.sprint1_main.model.TimeModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -115,15 +116,14 @@ public class AddDiningActivity extends AppCompatActivity {
                 int minute = parseInt(time.substring(14));
 
                 TimeModel timeModel = new TimeModel(month, day, year, hour, minute);
-
                 ReservationModel reservation = new ReservationModel(location, website, timeModel);
-
-                reference.child(location).setValue(reservation);
 
                 ApplicationManagerModel manager = ApplicationManagerModel.getInstance();
                 manager.getCurrentDestination().getReservations().add(reservation);
 
-                //TODO: Make data show up on Firebase
+                DiningDatabaseModel diningDatabase = DiningDatabaseModel.getInstance();
+                reference.child(location).setValue(reservation);
+
 
                 Intent intent = new Intent(AddDiningActivity.this,  AddDiningActivity.class);
                 startActivity(intent);
