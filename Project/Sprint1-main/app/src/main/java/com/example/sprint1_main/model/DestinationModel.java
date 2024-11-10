@@ -11,6 +11,7 @@ public class DestinationModel {
     private int estimatedDays;
     private List<UserModel> contributingUsers;
     private List<String> notes;
+    private List<ReservationModel> reservations;
 
     public DestinationModel() {
 
@@ -25,6 +26,7 @@ public class DestinationModel {
         this.estimatedDays = getDaysBetween(startDate, endDate);
         this.contributingUsers = new ArrayList<>();
         this.notes = new ArrayList<>();
+        this.reservations = new ArrayList<>();
     }
 
     public int getDaysInMonth(int month) {
@@ -122,5 +124,12 @@ public class DestinationModel {
 
     public void setEstimatedDays(int estimatedDays) {
         this.estimatedDays = estimatedDays;
+    }
+
+    // reservations getter and setter
+    public List<ReservationModel> getReservations() { return reservations; }
+
+    public void setReservations(List<ReservationModel> reservations) {
+        this.reservations = reservations;
     }
 }
