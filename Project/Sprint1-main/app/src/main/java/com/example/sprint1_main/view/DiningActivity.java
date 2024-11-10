@@ -9,6 +9,7 @@ import android.util.Log;
 import android.widget.ImageButton;
 
 import com.example.sprint1_main.R;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class DiningActivity extends AppCompatActivity {
 
@@ -24,6 +25,7 @@ public class DiningActivity extends AppCompatActivity {
         ImageButton accommodations = findViewById(R.id.button_accommodations);
         ImageButton community = findViewById(R.id.button_travelCommunity);
         ImageButton home = findViewById(R.id.button_home);
+        FloatingActionButton addDining = findViewById(R.id.addDining);
 
         logistics.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,6 +59,13 @@ public class DiningActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(DiningActivity.this, HomeActivity.class);
+                startActivity(intent);
+            }
+        });
+        addDining.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DiningActivity.this, AddDiningActivity.class);
                 startActivity(intent);
             }
         });

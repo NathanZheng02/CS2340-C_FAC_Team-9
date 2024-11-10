@@ -28,7 +28,7 @@ public class DestinationActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private DatabaseReference database;
-    private Adapter adapter;
+    private DestinationsAdapter adapter;
     private ArrayList<DestinationModel> list;
 
 
@@ -51,7 +51,7 @@ public class DestinationActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         list = new ArrayList<>();
-        adapter = new Adapter(this, list);
+        adapter = new DestinationsAdapter(this, list);
         recyclerView.setAdapter(adapter);
 
         database.addValueEventListener(new ValueEventListener() {
