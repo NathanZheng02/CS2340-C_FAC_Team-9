@@ -9,6 +9,10 @@ import android.widget.Button;
 import android.content.Intent;
 
 import com.example.sprint1_main.R;
+import com.example.sprint1_main.model.ApplicationManagerModel;
+import com.example.sprint1_main.model.DestinationDatabaseModel;
+import com.example.sprint1_main.model.DestinationModel;
+import com.example.sprint1_main.model.UserDatabaseModel;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -21,6 +25,8 @@ public class MainActivity extends AppCompatActivity {
 
         Button start = findViewById(R.id.button_start);
         Button quit = findViewById(R.id.button_quit);
+
+
 
         start.setOnClickListener(new View.OnClickListener() {
             @Override
