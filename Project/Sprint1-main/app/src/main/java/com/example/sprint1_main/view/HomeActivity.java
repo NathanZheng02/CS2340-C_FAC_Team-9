@@ -12,6 +12,13 @@ import android.widget.TextView;
 
 import com.example.sprint1_main.R;
 import com.example.sprint1_main.model.ApplicationManagerModel;
+import com.example.sprint1_main.model.DestinationDatabaseModel;
+import com.example.sprint1_main.model.DestinationModel;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -28,6 +35,18 @@ public class HomeActivity extends AppCompatActivity {
         welcome.setText("Hello " + manager.getCurrentUser().getUsername() + "!");
 
         Button logoutButton = findViewById(R.id.logoutButton);
+
+        //setting up manager and updating destinations
+        if (manager.getCurrentUser().getDestinations() != null) {
+            manager.setCurrentDestination(manager.getCurrentUser().getDestinations().get(0));
+        }
+
+
+
+
+
+
+
 
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,12 +113,15 @@ public class HomeActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         Log.d(TAG, "onStart called");
+
+
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         Log.d(TAG, "onResume called");
+
     }
 
     @Override

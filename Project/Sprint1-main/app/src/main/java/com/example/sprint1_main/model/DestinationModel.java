@@ -9,7 +9,7 @@ public class DestinationModel {
     private DateModel startDate;
     private DateModel endDate;
     private int estimatedDays;
-    private List<UserModel> contributingUsers;
+    private List<String> contributingUsers;
     private List<String> notes;
     private List<ReservationModel> reservations;
     private List<LodgingModel> lodgings;
@@ -113,11 +113,11 @@ public class DestinationModel {
         this.notes = notes;
     }
 
-    public List<UserModel> getContributingUsers() {
+    public List<String> getContributingUsers() {
         return contributingUsers;
     }
 
-    public void setContributingUsers(List<UserModel> contributingUsers) {
+    public void setContributingUsers(List<String> contributingUsers) {
         this.contributingUsers = contributingUsers;
     }
 
