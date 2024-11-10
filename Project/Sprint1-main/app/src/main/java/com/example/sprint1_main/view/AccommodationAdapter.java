@@ -64,8 +64,7 @@ public class AccommodationAdapter extends RecyclerView.Adapter<AccommodationAdap
                 + lodging.getCheckOutTime().getDay() + "/"
                 + lodging.getCheckOutTime().getYear());
         holder.roomType.setText(lodging.getRoomType());
-        holder.roomNum.setText(lodging.getNumRooms());
-
+        holder.roomNum.setText("" + lodging.getNumRooms());
     }
 
     @Override
@@ -129,9 +128,9 @@ public class AccommodationAdapter extends RecyclerView.Adapter<AccommodationAdap
             super(itemView);
 
             location = itemView.findViewById(R.id.location);
-            checkIn = itemView.findViewById(R.id.checkIn);
-            checkOut = itemView.findViewById(R.id.checkOut);
-            roomType = itemView.findViewById(R.id.roomType);
+            checkIn = itemView.findViewById(R.id.checkInDate);
+            checkOut = itemView.findViewById(R.id.checkOutDate);
+            roomType = itemView.findViewById(R.id.roomTyp);
             roomNum = itemView.findViewById(R.id.numRooms);
         }
     }

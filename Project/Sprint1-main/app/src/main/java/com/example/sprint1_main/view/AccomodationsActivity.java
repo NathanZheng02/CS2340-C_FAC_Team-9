@@ -1,6 +1,9 @@
 package com.example.sprint1_main.view;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,9 +13,23 @@ import android.widget.Button;
 import android.widget.ImageButton;
 
 import com.example.sprint1_main.R;
+import com.example.sprint1_main.model.DestinationModel;
+import com.example.sprint1_main.model.LodgingModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 public class AccomodationsActivity extends AppCompatActivity {
+
+    private RecyclerView recyclerView;
+    private DatabaseReference database;
+    private AccommodationAdapter adapter;
+    private ArrayList<LodgingModel> list;
 
     private static final String TAG = "AccomodationsActivity";
 
@@ -28,6 +45,34 @@ public class AccomodationsActivity extends AppCompatActivity {
         ImageButton home = findViewById(R.id.button_home);
 
         FloatingActionButton addAccommodation = findViewById(R.id.addAccommodation);
+
+        recyclerView = findViewById(R.id.accommodationList);
+        database = FirebaseDatabase.getInstance().getReference("Accommodation Database");
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        list = new ArrayList<>();
+        adapter = new AccommodationAdapter(this, list);
+        recyclerView.setAdapter(adapter);
+
+        database.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+
+                for (DataSnapshot dataSnapShot : snapshot.getChildren()) {
+
+                    LodgingModel lodging = dataSnapShot.getValue(LodgingModel.class);
+                    list.add(lodging);
+                }
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         logistics.setOnClickListener(new View.OnClickListener() {
             @Override
