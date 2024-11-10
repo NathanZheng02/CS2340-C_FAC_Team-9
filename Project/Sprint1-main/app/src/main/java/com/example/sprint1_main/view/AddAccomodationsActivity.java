@@ -146,29 +146,25 @@ public class AddAccomodationsActivity extends AppCompatActivity {
                 String checkOutDate = checkOutField.getText().toString().trim();
                 int roomNum = parseInt(selectedRoomNum);
                 //MM/DD/YYYY
-                int m1 = parseInt(checkInDate.substring(0, 2));
-                int d1 = parseInt(checkInDate.substring(3, 5));
-                int y1 = parseInt(checkInDate.substring(6));
+                String[] date1 = checkInDate.split("/");
+                int m1 = parseInt(date1[0]);
+                int d1 = parseInt(date1[1]);
+                int y1 = parseInt(date1[2]);
 
-                int m2 = parseInt(checkOutDate.substring(0, 2));
-                int d2 = parseInt(checkOutDate.substring(3, 5));
-                int y2 = parseInt(checkOutDate.substring(6));
+                String[] date2 = checkOutDate.split("/");
+                int m2 = parseInt(date2[0]);
+                int d2 = parseInt(date2[1]);
+                int y2 = parseInt(date2[2]);
 
                 DateModel beginning = new DateModel(m1, d1, y1);
                 DateModel ending = new DateModel(m2, d2, y2);
 
                 LodgingModel accommodation = new LodgingModel(beginning, ending, roomNum, selectedRoomType, accommodationName);
 
-
-
-
                 ApplicationManagerModel manager = ApplicationManagerModel.getInstance();
+                manager.getCurrentDestination().getLodgings().add(accommodation);
 
                 AccommodationDatabaseModel accommodationManager = AccommodationDatabaseModel.getInstance();
-
-//                List<LodgingModel> lodgings = accommodationManager.getLodgings();
-//                lodgings.add(accommodation);
-
                 reference.child(accommodationName).setValue(accommodation);
 
 

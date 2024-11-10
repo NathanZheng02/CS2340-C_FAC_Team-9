@@ -103,6 +103,8 @@ public class LogTravelActivity extends AppCompatActivity {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ApplicationManagerModel manager = ApplicationManagerModel.getInstance();
+
                 database = FirebaseDatabase.getInstance();
                 reference = database.getReference("Destination Database");
 
@@ -125,12 +127,14 @@ public class LogTravelActivity extends AppCompatActivity {
 
                 DestinationModel dest = new DestinationModel(destinationName, beginning, ending);
 
+                dest.getContributingUsers().add(manager.getCurrentUser());
+
                 reference.child(destinationName).setValue(dest);
 
 
 
 
-                ApplicationManagerModel manager = ApplicationManagerModel.getInstance();
+
 
                 manager.getCurrentUser().getDestinations().add(dest);
 

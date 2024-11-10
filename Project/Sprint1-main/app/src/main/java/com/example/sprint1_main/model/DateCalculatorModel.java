@@ -6,6 +6,17 @@ public class DateCalculatorModel {
 
     }
 
+    public boolean dateBefore(DateModel firstDate, DateModel secondDate) {
+        if (firstDate.getYear() < secondDate.getYear()) {
+            return true;
+        } else if (firstDate.getMonth() < secondDate.getMonth()) {
+            return true;
+        } else if (firstDate.getDay() < secondDate.getDay()) {
+            return true;
+        }
+        return false;
+    }
+
     public int getDuration(DateModel startDate, DateModel endDate) {
         int duration = 0;
 

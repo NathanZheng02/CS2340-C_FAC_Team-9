@@ -20,4 +20,37 @@ public class ReservationModel {
         this.reviews = new ArrayList<>();
         this.time = time;
     }
+
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getWebsite() {
+        return website;
+    }
+
+    public void setWebsite(String website) {
+        this.website = website;
+    }
+
+    public List<String> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<String> reviews) {
+        this.reviews = reviews;
+    }
+
+    public com.example.sprint1_main.model.TimeModel getTime() {
+        return time;
+    }
+
+    public void setTime(com.example.sprint1_main.model.TimeModel time) {
+        this.time = time;
+    }
 }
