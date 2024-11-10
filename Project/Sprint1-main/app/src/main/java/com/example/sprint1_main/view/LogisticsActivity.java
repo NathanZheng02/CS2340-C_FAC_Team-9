@@ -45,7 +45,12 @@ public class LogisticsActivity extends AppCompatActivity {
         UserDatabaseModel userDatabase = UserDatabaseModel.getInstance();
         DestinationDatabaseModel destinationDatabase = DestinationDatabaseModel.getInstance();
 
-        manager.setCurrentDestination(manager.getCurrentUser().getDestinations().get(0));
+        manager.updateUserDestinations();
+
+        if (manager.getCurrentUser().getDestinations().size() >= 1) {
+            manager.setCurrentDestination(manager.getCurrentUser().getDestinations().get(0));
+        }
+
 
 
         TextView notes = findViewById(R.id.notes_body);
@@ -88,9 +93,12 @@ public class LogisticsActivity extends AppCompatActivity {
         });
 
 
-        LogisticsViewModel.updateNotes(notes);
-        LogisticsViewModel.updateUsers(contributers);
-        LogisticsViewModel.updateDays(totalDays);
+        if (manager.getCurrentDestination() != null) {
+            LogisticsViewModel.updateNotes(notes);
+            LogisticsViewModel.updateUsers(contributers);
+            LogisticsViewModel.updateDays(totalDays);
+        }
+
 
 
 

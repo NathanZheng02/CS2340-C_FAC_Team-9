@@ -131,7 +131,7 @@ public class LogTravelActivity extends AppCompatActivity {
                 if (dest.getContributingUsers() == null) {
                     dest.setContributingUsers(new ArrayList<>());
                 }
-                dest.getContributingUsers().add(manager.getCurrentUser());
+                dest.getContributingUsers().add(manager.getCurrentUser().getUsername());
 
                 reference.child(destinationName).setValue(dest);
 //                reference.child(destinationName).child("contributingUsers").child("0").setValue(manager.getCurrentUser());

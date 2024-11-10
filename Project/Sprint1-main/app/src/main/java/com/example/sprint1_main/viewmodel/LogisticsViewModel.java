@@ -113,8 +113,8 @@ public class LogisticsViewModel extends ViewModel {
 
         StringBuilder userBuilder = new StringBuilder();
         if (manager.getCurrentDestination().getContributingUsers() != null) {
-            for (UserModel user : manager.getCurrentDestination().getContributingUsers()) {
-                userBuilder.append(user.getUsername());
+            for (String user : manager.getCurrentDestination().getContributingUsers()) {
+                userBuilder.append(user);
                 userBuilder.append("\n");
             }
         }
