@@ -29,6 +29,9 @@ public class LogTravelActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        ApplicationManagerModel manager = ApplicationManagerModel.getInstance();
+        Log.d(TAG, "currUser" + manager.getCurrentUser().getUsername());
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_logtravel);
 
@@ -103,10 +106,9 @@ public class LogTravelActivity extends AppCompatActivity {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ApplicationManagerModel manager = ApplicationManagerModel.getInstance();
 
-                database = FirebaseDatabase.getInstance();
-                reference = database.getReference("Destination Database");
+
+
 
 
 
@@ -127,14 +129,23 @@ public class LogTravelActivity extends AppCompatActivity {
 
                 DestinationModel dest = new DestinationModel(destinationName, beginning, ending);
 
+                //add destination to destination database
+                database = FirebaseDatabase.getInstance();
+                reference = database.getReference("Destination Database");
+
                 dest.getContributingUsers().add(manager.getCurrentUser());
+                manager.setCurrentDestination(dest);
 
                 reference.child(destinationName).setValue(dest);
 
 
-
-
-
+                //add destination to user database
+//                manager.getCurrentUser().getDestinations().add(dest);
+//
+//                DatabaseReference ref2 = database.getReference("User Database");
+//                DatabaseReference uR = ref2.child(manager.getCurrentUser().getUsername());
+//
+//                uR.child("destinations").child(destinationName).setValue(dest);
 
                 manager.getCurrentUser().getDestinations().add(dest);
 
@@ -144,6 +155,7 @@ public class LogTravelActivity extends AppCompatActivity {
                         r1.child(manager.getCurrentUser().getUsername());
                 DatabaseReference r3 = r2.child("destinations");
                 r3.child("" + manager.getCurrentUser().getDestinations().size()).setValue(dest);
+
 
                 Intent intent = new Intent(LogTravelActivity.this, DestinationActivity.class);
                 startActivity(intent);

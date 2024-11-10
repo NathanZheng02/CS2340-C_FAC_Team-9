@@ -12,6 +12,9 @@ import android.widget.TextView;
 
 import com.example.sprint1_main.R;
 import com.example.sprint1_main.model.ApplicationManagerModel;
+import com.example.sprint1_main.model.DestinationModel;
+
+import java.util.ArrayList;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -28,6 +31,13 @@ public class HomeActivity extends AppCompatActivity {
         welcome.setText("Hello " + manager.getCurrentUser().getUsername() + "!");
 
         Button logoutButton = findViewById(R.id.logoutButton);
+
+        //setting up manager
+        manager.setCurrentDestination(manager.getCurrentUser().getDestinations().get(0));
+
+
+
+
 
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override

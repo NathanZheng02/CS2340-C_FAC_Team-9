@@ -122,7 +122,7 @@ public class AddDiningActivity extends AppCompatActivity {
                 ReservationModel reservation = new ReservationModel(location, website, timeModel);
 
                 ApplicationManagerModel manager = ApplicationManagerModel.getInstance();
-                manager.setCurrentDestination(manager.getCurrentUser().getDestinations().get(0));
+
                 if (manager.getCurrentDestination().getReservations() == null) {
                     manager.getCurrentDestination().setReservations(new ArrayList<>());
                 }

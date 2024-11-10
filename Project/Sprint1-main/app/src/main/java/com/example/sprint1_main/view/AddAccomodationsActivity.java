@@ -26,6 +26,7 @@ import com.example.sprint1_main.viewmodel.LogisticsViewModel;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class AddAccomodationsActivity extends AppCompatActivity {
@@ -43,8 +44,7 @@ public class AddAccomodationsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_addaccomodations);
 
-        database = FirebaseDatabase.getInstance();
-        reference = database.getReference("Accommodation Database");
+
 
         Spinner roomTypeSpinner = findViewById(R.id.roomType);
         Spinner roomNumSpinner = findViewById(R.id.roomNum);
@@ -161,7 +161,14 @@ public class AddAccomodationsActivity extends AppCompatActivity {
 
                 LodgingModel accommodation = new LodgingModel(beginning, ending, roomNum, selectedRoomType, accommodationName);
 
+                database = FirebaseDatabase.getInstance();
+                reference = database.getReference("Accommodation Database");
+
+
                 ApplicationManagerModel manager = ApplicationManagerModel.getInstance();
+                if (manager.getCurrentDestination().getLodgings() == null) {
+                    manager.getCurrentDestination().setLodgings(new ArrayList<>());
+                }
                 manager.getCurrentDestination().getLodgings().add(accommodation);
 
                 AccommodationDatabaseModel accommodationManager = AccommodationDatabaseModel.getInstance();
