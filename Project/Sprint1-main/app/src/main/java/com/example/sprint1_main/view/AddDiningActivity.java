@@ -16,11 +16,14 @@ import com.example.sprint1_main.R;
 import com.example.sprint1_main.model.ApplicationManagerModel;
 import com.example.sprint1_main.model.DateModel;
 import com.example.sprint1_main.model.DestinationModel;
+import com.example.sprint1_main.model.DiningDatabaseModel;
 import com.example.sprint1_main.model.ReservationModel;
 import com.example.sprint1_main.model.TimeModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.ArrayList;
 
 public class AddDiningActivity extends AppCompatActivity {
 
@@ -46,7 +49,6 @@ public class AddDiningActivity extends AppCompatActivity {
         EditText diningWebsite = findViewById(R.id.diningWebsite);
 
         Button addReservation = findViewById(R.id.button_addReservation);
-        FloatingActionButton addDining = findViewById(R.id.addDining);
 
         logistics.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,13 +95,6 @@ public class AddDiningActivity extends AppCompatActivity {
         addReservation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(AddDiningActivity.this, DiningActivity.class);
-                startActivity(intent);
-            }
-        });
-        addDining.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
                 database = FirebaseDatabase.getInstance();
                 reference = database.getReference("Dining Database");
 
@@ -108,27 +103,39 @@ public class AddDiningActivity extends AppCompatActivity {
                 String location = diningLocation.getText().toString().trim();
                 String website = diningWebsite.getText().toString().trim();
 
-                int month = parseInt(time.substring(0, 2));
-                int day = parseInt(time.substring(3, 5));
-                int year = parseInt(time.substring(6, 10));
-                int hour = parseInt(time.substring(11, 13));
-                int minute = parseInt(time.substring(14));
+                String[] timeList = time.split("/");
+                int month = parseInt(timeList[0]);
+                int day = parseInt(timeList[1]);
+                int year = parseInt(timeList[2]);
+                int hour = parseInt(timeList[3]);
+                int minute = parseInt(timeList[4]);
 
                 TimeModel timeModel = new TimeModel(month, day, year, hour, minute);
-
                 ReservationModel reservation = new ReservationModel(location, website, timeModel);
 
-                reference.child(location).setValue(reservation);
-
                 ApplicationManagerModel manager = ApplicationManagerModel.getInstance();
+
+
+                if (manager.getCurrentDestination().getReservations() == null) {
+                    manager.getCurrentDestination().setReservations(new ArrayList<>());
+                }
                 manager.getCurrentDestination().getReservations().add(reservation);
 
-                //TODO: Make data show up on Firebase
+                DiningDatabaseModel diningDatabase = DiningDatabaseModel.getInstance();
+                reference.child(location).setValue(reservation);
 
-                Intent intent = new Intent(AddDiningActivity.this,  AddDiningActivity.class);
+                DatabaseReference ref2 = database.getReference("Destination Database");
+                DatabaseReference ref3 = ref2.child(manager.getCurrentDestination().getDestinationName());
+                ref3.child("reservations").setValue(manager.getCurrentDestination().getReservations());
+
+                manager.updateUserDestinations();
+
+
+                Intent intent = new Intent(AddDiningActivity.this,  DiningActivity.class);
                 startActivity(intent);
             }
         });
+
         Log.d(TAG, "onCreate called");
 
     }

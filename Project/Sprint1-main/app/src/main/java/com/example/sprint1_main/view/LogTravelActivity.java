@@ -19,6 +19,8 @@ import com.example.sprint1_main.model.DestinationModel;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
+
 public class LogTravelActivity extends AppCompatActivity {
 
 
@@ -123,16 +125,23 @@ public class LogTravelActivity extends AppCompatActivity {
                 DateModel beginning = new DateModel(m1, d1, y1);
                 DateModel ending = new DateModel(m2, d2, y2);
 
-                DestinationModel dest = new DestinationModel(destinationName, beginning, ending);
-
-                reference.child(destinationName).setValue(dest);
-
-
-
-
                 ApplicationManagerModel manager = ApplicationManagerModel.getInstance();
 
-                manager.getCurrentUser().getDestinations().add(dest);
+                DestinationModel dest = new DestinationModel(destinationName, beginning, ending);
+                if (dest.getContributingUsers() == null) {
+                    dest.setContributingUsers(new ArrayList<>());
+                }
+                dest.getContributingUsers().add(manager.getCurrentUser().getUsername());
+
+                reference.child(destinationName).setValue(dest);
+//                reference.child(destinationName).child("contributingUsers").child("0").setValue(manager.getCurrentUser());
+
+
+
+
+
+
+//
 
                 DatabaseReference r1 =
                         FirebaseDatabase.getInstance().getReference("User Database");
@@ -140,6 +149,8 @@ public class LogTravelActivity extends AppCompatActivity {
                         r1.child(manager.getCurrentUser().getUsername());
                 DatabaseReference r3 = r2.child("destinations");
                 r3.child("" + manager.getCurrentUser().getDestinations().size()).setValue(dest);
+
+                manager.getCurrentUser().getDestinations().add(dest);
 
                 Intent intent = new Intent(LogTravelActivity.this, DestinationActivity.class);
                 startActivity(intent);

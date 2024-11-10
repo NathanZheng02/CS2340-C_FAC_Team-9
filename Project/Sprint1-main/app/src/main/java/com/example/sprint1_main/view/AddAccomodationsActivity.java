@@ -26,6 +26,7 @@ import com.example.sprint1_main.viewmodel.LogisticsViewModel;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class AddAccomodationsActivity extends AppCompatActivity {
@@ -43,8 +44,7 @@ public class AddAccomodationsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_addaccomodations);
 
-        database = FirebaseDatabase.getInstance();
-        reference = database.getReference("Accommodation Database");
+
 
         Spinner roomTypeSpinner = findViewById(R.id.roomType);
         Spinner roomNumSpinner = findViewById(R.id.roomNum);
@@ -146,30 +146,39 @@ public class AddAccomodationsActivity extends AppCompatActivity {
                 String checkOutDate = checkOutField.getText().toString().trim();
                 int roomNum = parseInt(selectedRoomNum);
                 //MM/DD/YYYY
-                int m1 = parseInt(checkInDate.substring(0, 2));
-                int d1 = parseInt(checkInDate.substring(3, 5));
-                int y1 = parseInt(checkInDate.substring(6));
+                String[] date1 = checkInDate.split("/");
+                int m1 = parseInt(date1[0]);
+                int d1 = parseInt(date1[1]);
+                int y1 = parseInt(date1[2]);
 
-                int m2 = parseInt(checkOutDate.substring(0, 2));
-                int d2 = parseInt(checkOutDate.substring(3, 5));
-                int y2 = parseInt(checkOutDate.substring(6));
+                String[] date2 = checkOutDate.split("/");
+                int m2 = parseInt(date2[0]);
+                int d2 = parseInt(date2[1]);
+                int y2 = parseInt(date2[2]);
 
                 DateModel beginning = new DateModel(m1, d1, y1);
                 DateModel ending = new DateModel(m2, d2, y2);
 
                 LodgingModel accommodation = new LodgingModel(beginning, ending, roomNum, selectedRoomType, accommodationName);
 
-
+                database = FirebaseDatabase.getInstance();
+                reference = database.getReference("Accommodation Database");
 
 
                 ApplicationManagerModel manager = ApplicationManagerModel.getInstance();
+                if (manager.getCurrentDestination().getLodgings() == null) {
+                    manager.getCurrentDestination().setLodgings(new ArrayList<>());
+                }
+                manager.getCurrentDestination().getLodgings().add(accommodation);
 
                 AccommodationDatabaseModel accommodationManager = AccommodationDatabaseModel.getInstance();
-
-//                List<LodgingModel> lodgings = accommodationManager.getLodgings();
-//                lodgings.add(accommodation);
-
                 reference.child(accommodationName).setValue(accommodation);
+
+                DatabaseReference ref2 = database.getReference("Destination Database");
+                DatabaseReference ref3 = ref2.child(manager.getCurrentDestination().getDestinationName());
+                ref3.child("lodgings").setValue(manager.getCurrentDestination().getLodgings());
+
+                manager.updateUserDestinations();
 
 
                 Intent intent = new Intent(AddAccomodationsActivity.this, AccomodationsActivity.class);
