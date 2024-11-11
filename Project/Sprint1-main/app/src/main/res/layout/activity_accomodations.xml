@@ -21,6 +21,27 @@
             android:textColor="@android:color/white"
             android:textSize="20sp"
             android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/button_sortByCheckIn"
+            android:layout_width="220dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="97dp"
+            android:backgroundTint="@color/lightgray"
+            android:text="Sort By Check-In Time"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <Button
+            android:id="@+id/button_sortByCheckOut"
+            android:layout_width="220dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="97dp"
+            android:backgroundTint="@color/lightgray"
+            android:text="Sort By Check-Out Time"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/accommodationList"
             android:layout_width="match_parent"

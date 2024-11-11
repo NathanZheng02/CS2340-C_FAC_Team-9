@@ -3,7 +3,7 @@ package com.example.sprint1_main.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ReservationModel {
+public class ReservationModel implements Sortable {
 
     private String location;
     private String website;

@@ -19,7 +19,6 @@ import com.example.sprint1_main.model.DestinationModel;
 import com.example.sprint1_main.model.DiningDatabaseModel;
 import com.example.sprint1_main.model.ReservationModel;
 import com.example.sprint1_main.model.TimeModel;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -106,17 +105,26 @@ public class AddDiningActivity extends AppCompatActivity {
                 String website = diningWebsite.getText().toString().trim();
 
                 String[] dateList = date.split("/");
+                if (dateList.length != 3) {
+                    diningDate.setError("Date Must Be In Format MM/DD/YYYY");
+                    return;
+                }
                 int month = parseInt(dateList[0]);
                 int day = parseInt(dateList[1]);
                 int year = parseInt(dateList[2]);
 
                 String[] timeList = time.split(":");
+                if (timeList.length != 2) {
+                    diningTime.setError("Date Must Be In Format HH:MM");
+                    return;
+                }
                 int hour = parseInt(timeList[0]);
                 int minute = parseInt(timeList[1]);
 
                 TimeModel timeModel = new TimeModel(hour, minute);
                 DateModel dateModel = new DateModel(month, day, year);
-                ReservationModel reservation = new ReservationModel(location, website, dateModel, timeModel);
+                ReservationModel reservation = new ReservationModel(location, website,
+                        dateModel, timeModel);
 
                 ApplicationManagerModel manager = ApplicationManagerModel.getInstance();
 
@@ -124,14 +132,25 @@ public class AddDiningActivity extends AppCompatActivity {
                 if (manager.getCurrentDestination().getReservations() == null) {
                     manager.getCurrentDestination().setReservations(new ArrayList<>());
                 }
+
+                for (ReservationModel res : manager.getCurrentDestination().getReservations()) {
+                    if (res.getLocation().equals(location)) {
+                        diningLocation.setError("Location Must Not Be Added To Destination");
+                        return;
+                    }
+                }
+
                 manager.getCurrentDestination().getReservations().add(reservation);
 
                 DiningDatabaseModel diningDatabase = DiningDatabaseModel.getInstance();
                 reference.child(location).setValue(reservation);
 
                 DatabaseReference ref2 = database.getReference("Destination Database");
-                DatabaseReference ref3 = ref2.child(manager.getCurrentDestination().getDestinationName());
-                ref3.child("reservations").setValue(manager.getCurrentDestination().getReservations());
+
+                DestinationModel currDes = manager.getCurrentDestination();
+
+                DatabaseReference ref3 = ref2.child(currDes.getDestinationName());
+                ref3.child("reservations").setValue(currDes.getReservations());
 
                 manager.updateUserDestinations();
 
@@ -178,4 +197,3 @@ public class AddDiningActivity extends AppCompatActivity {
         Log.d(TAG, "onDestroy called");
     }
 }
-

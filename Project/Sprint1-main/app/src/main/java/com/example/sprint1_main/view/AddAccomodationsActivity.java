@@ -20,14 +20,11 @@ import com.example.sprint1_main.R;
 import com.example.sprint1_main.model.AccommodationDatabaseModel;
 import com.example.sprint1_main.model.ApplicationManagerModel;
 import com.example.sprint1_main.model.DateModel;
-import com.example.sprint1_main.model.DestinationModel;
 import com.example.sprint1_main.model.LodgingModel;
-import com.example.sprint1_main.viewmodel.LogisticsViewModel;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class AddAccomodationsActivity extends AppCompatActivity {
     private static final String TAG = "AddAccommodationsActivity";
@@ -38,13 +35,10 @@ public class AddAccomodationsActivity extends AppCompatActivity {
     private String selectedRoomType;
     private String selectedRoomNum;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_addaccomodations);
-
-
 
         Spinner roomTypeSpinner = findViewById(R.id.roomType);
         Spinner roomNumSpinner = findViewById(R.id.roomNum);
@@ -60,16 +54,13 @@ public class AddAccomodationsActivity extends AppCompatActivity {
 
         ArrayAdapter<CharSequence> roomTypeAdapter = ArrayAdapter.createFromResource(
                 this, R.array.room_types, android.R.layout.simple_spinner_item);
-
         roomTypeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
         roomTypeSpinner.setAdapter(roomTypeAdapter);
 
         ArrayAdapter<CharSequence> roomNumAdapter = ArrayAdapter.createFromResource(
                 this, R.array.room_numbers, android.R.layout.simple_spinner_item);
         roomNumAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         roomNumSpinner.setAdapter(roomNumAdapter);
-
 
         roomTypeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -93,7 +84,6 @@ public class AddAccomodationsActivity extends AppCompatActivity {
             }
         });
 
-
         logistics.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -104,28 +94,32 @@ public class AddAccomodationsActivity extends AppCompatActivity {
         accommodations.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(AddAccomodationsActivity.this, AccomodationsActivity.class);
+                Intent intent = new Intent(AddAccomodationsActivity.this,
+                        AccomodationsActivity.class);
                 startActivity(intent);
             }
         });
         dining.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(AddAccomodationsActivity.this, DiningActivity.class);
+                Intent intent = new Intent(AddAccomodationsActivity.this,
+                        DiningActivity.class);
                 startActivity(intent);
             }
         });
         community.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(AddAccomodationsActivity.this, TravelCommunityActivity.class);
+                Intent intent = new Intent(AddAccomodationsActivity.this,
+                        TravelCommunityActivity.class);
                 startActivity(intent);
             }
         });
         home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(AddAccomodationsActivity.this, HomeActivity.class);
+                Intent intent = new Intent(AddAccomodationsActivity.this,
+                        HomeActivity.class);
                 startActivity(intent);
             }
         });
@@ -133,25 +127,26 @@ public class AddAccomodationsActivity extends AppCompatActivity {
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Log.d(TAG, "add onClick called");
-
-
-
-
-
-
                 String accommodationName = location.getText().toString();
                 String checkInDate = checkInField.getText().toString().trim();
                 String checkOutDate = checkOutField.getText().toString().trim();
                 int roomNum = parseInt(selectedRoomNum);
-                //MM/DD/YYYY
+
                 String[] date1 = checkInDate.split("/");
+                if (date1.length != 3) {
+                    checkInField.setError("Date Must Be In Format MM/DD/YYYY");
+                    return;
+                }
                 int m1 = parseInt(date1[0]);
                 int d1 = parseInt(date1[1]);
                 int y1 = parseInt(date1[2]);
 
                 String[] date2 = checkOutDate.split("/");
+                if (date2.length != 3) {
+                    checkOutField.setError("Date Must Be In Format MM/DD/YYYY");
+                    return;
+                }
                 int m2 = parseInt(date2[0]);
                 int d2 = parseInt(date2[1]);
                 int y2 = parseInt(date2[2]);
@@ -159,31 +154,34 @@ public class AddAccomodationsActivity extends AppCompatActivity {
                 DateModel beginning = new DateModel(m1, d1, y1);
                 DateModel ending = new DateModel(m2, d2, y2);
 
-                LodgingModel accommodation = new LodgingModel(beginning, ending, roomNum, selectedRoomType, accommodationName);
+                LodgingModel accommodation = new LodgingModel(beginning, ending, roomNum,
+                        selectedRoomType, accommodationName);
 
                 database = FirebaseDatabase.getInstance();
                 reference = database.getReference("Accommodation Database");
-
 
                 ApplicationManagerModel manager = ApplicationManagerModel.getInstance();
                 if (manager.getCurrentDestination().getLodgings() == null) {
                     manager.getCurrentDestination().setLodgings(new ArrayList<>());
                 }
+
+                for (LodgingModel lodg : manager.getCurrentDestination().getLodgings()) {
+                    if (lodg.getLocation().equals(accommodationName)) {
+                        location.setError("Location Must Not Be Added To Destination");
+                        return;
+                    }
+                }
                 manager.getCurrentDestination().getLodgings().add(accommodation);
-
-                AccommodationDatabaseModel accommodationManager = AccommodationDatabaseModel.getInstance();
+                AccommodationDatabaseModel accomManager = AccommodationDatabaseModel.getInstance();
                 reference.child(accommodationName).setValue(accommodation);
-
                 DatabaseReference ref2 = database.getReference("Destination Database");
-                DatabaseReference ref3 = ref2.child(manager.getCurrentDestination().getDestinationName());
+                DatabaseReference ref3 =
+                        ref2.child(manager.getCurrentDestination().getDestinationName());
                 ref3.child("lodgings").setValue(manager.getCurrentDestination().getLodgings());
-
                 manager.updateUserDestinations();
 
-
-                Intent intent = new Intent(AddAccomodationsActivity.this, AccomodationsActivity.class);
-                startActivity(intent);
-
+                Intent i = new Intent(AddAccomodationsActivity.this, AccomodationsActivity.class);
+                startActivity(i);
             }
         });
         Log.d(TAG, "onCreate called");
