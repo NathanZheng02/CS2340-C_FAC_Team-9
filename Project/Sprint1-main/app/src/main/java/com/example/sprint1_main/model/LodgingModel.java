@@ -1,6 +1,6 @@
 package com.example.sprint1_main.model;
 
-public class LodgingModel {
+public class LodgingModel implements Sortable {
 
 
 

@@ -17,6 +17,15 @@ public class DateCalculatorModel {
         return false;
     }
 
+    public boolean timeBefore(TimeModel firstTime, TimeModel secondTime) {
+        if (firstTime.getHour() < secondTime.getHour()) {
+            return true;
+        } else if (firstTime.getMinute() < secondTime.getMinute()) {
+            return true;
+        }
+        return false;
+    }
+
     public int getDuration(DateModel startDate, DateModel endDate) {
         int duration = 0;
 

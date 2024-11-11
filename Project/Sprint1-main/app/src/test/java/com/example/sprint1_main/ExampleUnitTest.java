@@ -5,12 +5,22 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 import com.example.sprint1_main.model.ApplicationManagerModel;
+import com.example.sprint1_main.model.CheckInSortStrategy;
+import com.example.sprint1_main.model.CheckOutSortStrategy;
+import com.example.sprint1_main.model.Context;
 import com.example.sprint1_main.model.DateModel;
 import com.example.sprint1_main.model.DestinationModel;
+import com.example.sprint1_main.model.LodgingModel;
+import com.example.sprint1_main.model.ResDateSortStrategy;
+import com.example.sprint1_main.model.ResTimeSortStrategy;
+import com.example.sprint1_main.model.ReservationModel;
+import com.example.sprint1_main.model.Sortable;
+import com.example.sprint1_main.model.TimeModel;
 import com.example.sprint1_main.model.UserDatabaseModel;
 import com.example.sprint1_main.model.UserModel;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -157,6 +167,164 @@ public class ExampleUnitTest {
     public void testGetDay() {
         DateModel date = new DateModel(10, 30, 2027);
         assertEquals(30, date.getDay());
+    }
+
+
+    //Sprint 3 Tests
+
+    public void testCheckInSort() {
+        List<LodgingModel> lodgList = new ArrayList<>();
+
+        LodgingModel lodg1 = new LodgingModel(new DateModel(1,1,1), new DateModel(1,1,1), 1, "Single", "loc1");
+        LodgingModel lodg2 = new LodgingModel(new DateModel(2,2,2), new DateModel(2,2,2), 1, "Single", "loc2");
+        LodgingModel lodg3 = new LodgingModel(new DateModel(3,3,3), new DateModel(3,3,3), 1, "Single", "loc3");
+
+        lodgList.add(lodg1);
+        lodgList.add(lodg3);
+        lodgList.add(lodg2);
+
+        assertEquals("loc1", lodgList.get(0).getLocation());
+        assertEquals("loc3", lodgList.get(1).getLocation());
+        assertEquals("loc2", lodgList.get(2).getLocation());
+
+        Context context = new Context();
+
+        context.setStrategy(new CheckInSortStrategy());
+
+        List<Sortable> unsorted = new ArrayList<>();
+
+        for (LodgingModel lodging: lodgList) {
+            unsorted.add((Sortable) lodging);
+        }
+
+        List<Sortable> sorted = context.executeStrategy(unsorted);
+
+        List<LodgingModel> newLodgings = new ArrayList<>();
+        for (Sortable sortItem : sorted) {
+            newLodgings.add((LodgingModel) sortItem);
+        }
+
+        assertEquals("loc1", newLodgings.get(0).getLocation());
+        assertEquals("loc2", newLodgings.get(1).getLocation());
+        assertEquals("loc3", newLodgings.get(2).getLocation());
+
+    }
+
+
+    public void testCheckOutSort() {
+        List<LodgingModel> lodgList = new ArrayList<>();
+
+        LodgingModel lodg1 = new LodgingModel(new DateModel(1,1,1), new DateModel(1,1,1), 1, "Single", "loc1");
+        LodgingModel lodg2 = new LodgingModel(new DateModel(2,2,2), new DateModel(2,2,2), 1, "Single", "loc2");
+        LodgingModel lodg3 = new LodgingModel(new DateModel(3,3,3), new DateModel(3,3,3), 1, "Single", "loc3");
+
+        lodgList.add(lodg1);
+        lodgList.add(lodg3);
+        lodgList.add(lodg2);
+
+        assertEquals("loc1", lodgList.get(0).getLocation());
+        assertEquals("loc3", lodgList.get(1).getLocation());
+        assertEquals("loc2", lodgList.get(2).getLocation());
+
+        Context context = new Context();
+
+        context.setStrategy(new CheckOutSortStrategy());
+
+        List<Sortable> unsorted = new ArrayList<>();
+
+        for (LodgingModel lodging: lodgList) {
+            unsorted.add((Sortable) lodging);
+        }
+
+        List<Sortable> sorted = context.executeStrategy(unsorted);
+
+        List<LodgingModel> newLodgings = new ArrayList<>();
+        for (Sortable sortItem : sorted) {
+            newLodgings.add((LodgingModel) sortItem);
+        }
+
+        assertEquals("loc1", newLodgings.get(0).getLocation());
+        assertEquals("loc2", newLodgings.get(1).getLocation());
+        assertEquals("loc3", newLodgings.get(2).getLocation());
+
+    }
+
+
+    public void testResDateSort() {
+        List<ReservationModel> resList = new ArrayList<>();
+
+        ReservationModel res1 = new ReservationModel("loc1", "website", new DateModel(1,1,1), new TimeModel(1,1));
+        ReservationModel res2 = new ReservationModel();
+        ReservationModel res3 = new ReservationModel();
+
+        resList.add(res1);
+        resList.add(res3);
+        resList.add(res2);
+
+        assertEquals("loc1", resList.get(0).getLocation());
+        assertEquals("loc3", resList.get(1).getLocation());
+        assertEquals("loc2", resList.get(2).getLocation());
+
+        Context context = new Context();
+
+        context.setStrategy(new ResDateSortStrategy());
+
+        List<Sortable> unsorted = new ArrayList<>();
+
+        for (ReservationModel reservation: resList) {
+            unsorted.add((Sortable) reservation);
+        }
+
+        List<Sortable> sorted = context.executeStrategy(unsorted);
+
+        List<ReservationModel> newRes = new ArrayList<>();
+        for (Sortable sortItem : sorted) {
+            newRes.add((ReservationModel) sortItem);
+        }
+
+        assertEquals("loc1", newRes.get(0).getLocation());
+        assertEquals("loc2", newRes.get(1).getLocation());
+        assertEquals("loc3", newRes.get(2).getLocation());
+
+    }
+
+
+    public void testResTimeSort() {
+        List<ReservationModel> resList = new ArrayList<>();
+
+        ReservationModel res1 = new ReservationModel("loc1", "website", new DateModel(1,1,1), new TimeModel(1,1));
+        ReservationModel res2 = new ReservationModel();
+        ReservationModel res3 = new ReservationModel();
+
+        resList.add(res1);
+        resList.add(res3);
+        resList.add(res2);
+
+        assertEquals("loc1", resList.get(0).getLocation());
+        assertEquals("loc3", resList.get(1).getLocation());
+        assertEquals("loc2", resList.get(2).getLocation());
+
+        Context context = new Context();
+
+        context.setStrategy(new ResTimeSortStrategy());
+
+        List<Sortable> unsorted = new ArrayList<>();
+
+        for (ReservationModel reservation: resList) {
+            unsorted.add((Sortable) reservation);
+        }
+
+        List<Sortable> sorted = context.executeStrategy(unsorted);
+
+        List<ReservationModel> newRes = new ArrayList<>();
+        for (Sortable sortItem : sorted) {
+            newRes.add((ReservationModel) sortItem);
+        }
+
+        assertEquals("loc1", newRes.get(0).getLocation());
+        assertEquals("loc2", newRes.get(1).getLocation());
+        assertEquals("loc3", newRes.get(2).getLocation());
+
     }
 
 }
