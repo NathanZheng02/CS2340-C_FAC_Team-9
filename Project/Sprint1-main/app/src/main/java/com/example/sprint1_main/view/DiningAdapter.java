@@ -38,18 +38,18 @@ public class DiningAdapter extends RecyclerView.Adapter<DiningAdapter.MyViewHold
         this.context = context;
     }
 
-    public ArrayList<ReservationModel> getLodgings() {
+    public ArrayList<ReservationModel> getDinings() {
         return dinings;
     }
 
-    public void setDestinationList(ArrayList<ReservationModel> dinings) {
+    public void setDiningsList(ArrayList<ReservationModel> dinings) {
         this.dinings = dinings;
     }
 
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(context).inflate(R.layout.accommodation_item, parent, false);
+        View v = LayoutInflater.from(context).inflate(R.layout.dining_item, parent, false);
         return new MyViewHolder(v);
     }
 
