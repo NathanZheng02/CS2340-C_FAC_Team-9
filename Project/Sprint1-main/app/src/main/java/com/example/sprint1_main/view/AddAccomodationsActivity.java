@@ -7,29 +7,47 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
+
 import com.example.sprint1_main.R;
+import com.example.sprint1_main.model.AccommodationDatabaseModel;
 import com.example.sprint1_main.model.ApplicationManagerModel;
 import com.example.sprint1_main.model.DateModel;
 import com.example.sprint1_main.model.DestinationModel;
+import com.example.sprint1_main.model.LodgingModel;
+import com.example.sprint1_main.viewmodel.LogisticsViewModel;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class AddAccomodationsActivity extends AppCompatActivity {
-    private static final String TAG = "AddAccomodationsActivity";
+    private static final String TAG = "AddAccommodationsActivity";
 
     private FirebaseDatabase database;
     private DatabaseReference reference;
+
+    private String selectedRoomType;
+    private String selectedRoomNum;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_addaccomodations);
 
+
+
+        Spinner roomTypeSpinner = findViewById(R.id.roomType);
+        Spinner roomNumSpinner = findViewById(R.id.roomNum);
         ImageButton logistics = findViewById(R.id.button_logistics);
         ImageButton accommodations = findViewById(R.id.button_accommodations);
         ImageButton dining = findViewById(R.id.button_diningEstablishments);
@@ -39,6 +57,43 @@ public class AddAccomodationsActivity extends AppCompatActivity {
         EditText location = findViewById(R.id.location);
         EditText checkInField = findViewById(R.id.checkIn);
         EditText checkOutField = findViewById(R.id.checkOut);
+
+        ArrayAdapter<CharSequence> roomTypeAdapter = ArrayAdapter.createFromResource(
+                this, R.array.room_types, android.R.layout.simple_spinner_item);
+
+        roomTypeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        roomTypeSpinner.setAdapter(roomTypeAdapter);
+
+        ArrayAdapter<CharSequence> roomNumAdapter = ArrayAdapter.createFromResource(
+                this, R.array.room_numbers, android.R.layout.simple_spinner_item);
+        roomNumAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        roomNumSpinner.setAdapter(roomNumAdapter);
+
+
+        roomTypeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                selectedRoomType = (String) parent.getItemAtPosition(position);
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                //TODO auto-generated
+            }
+        });
+
+        roomNumSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                selectedRoomNum = (String) parent.getItemAtPosition(position);
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                //TODO auto-generated
+            }
+        });
+
+
         logistics.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -78,43 +133,53 @@ public class AddAccomodationsActivity extends AppCompatActivity {
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                database = FirebaseDatabase.getInstance();
-                reference = database.getReference("Accomodation Database");
+
+                Log.d(TAG, "add onClick called");
 
 
 
-                String accomodationName = location.getText().toString();
+
+
+
+                String accommodationName = location.getText().toString();
                 String checkInDate = checkInField.getText().toString().trim();
                 String checkOutDate = checkOutField.getText().toString().trim();
+                int roomNum = parseInt(selectedRoomNum);
                 //MM/DD/YYYY
-                int m1 = parseInt(checkInDate.substring(0, 2));
-                int d1 = parseInt(checkInDate.substring(3, 5));
-                int y1 = parseInt(checkInDate.substring(6));
+                String[] date1 = checkInDate.split("/");
+                int m1 = parseInt(date1[0]);
+                int d1 = parseInt(date1[1]);
+                int y1 = parseInt(date1[2]);
 
-                int m2 = parseInt(checkOutDate.substring(0, 2));
-                int d2 = parseInt(checkOutDate.substring(3, 5));
-                int y2 = parseInt(checkOutDate.substring(6));
+                String[] date2 = checkOutDate.split("/");
+                int m2 = parseInt(date2[0]);
+                int d2 = parseInt(date2[1]);
+                int y2 = parseInt(date2[2]);
 
                 DateModel beginning = new DateModel(m1, d1, y1);
                 DateModel ending = new DateModel(m2, d2, y2);
 
-                DestinationModel dest = new DestinationModel(accomodationName, beginning, ending);
+                LodgingModel accommodation = new LodgingModel(beginning, ending, roomNum, selectedRoomType, accommodationName);
 
-                reference.child(accomodationName).setValue(dest);
-
-
+                database = FirebaseDatabase.getInstance();
+                reference = database.getReference("Accommodation Database");
 
 
                 ApplicationManagerModel manager = ApplicationManagerModel.getInstance();
+                if (manager.getCurrentDestination().getLodgings() == null) {
+                    manager.getCurrentDestination().setLodgings(new ArrayList<>());
+                }
+                manager.getCurrentDestination().getLodgings().add(accommodation);
 
-                manager.getCurrentUser().getDestinations().add(dest);
+                AccommodationDatabaseModel accommodationManager = AccommodationDatabaseModel.getInstance();
+                reference.child(accommodationName).setValue(accommodation);
 
-                DatabaseReference r1 =
-                        FirebaseDatabase.getInstance().getReference("User Database");
-                DatabaseReference r2 =
-                        r1.child(manager.getCurrentUser().getUsername());
-                DatabaseReference r3 = r2.child("destinations");
-                r3.child("" + manager.getCurrentUser().getDestinations().size()).setValue(dest);
+                DatabaseReference ref2 = database.getReference("Destination Database");
+                DatabaseReference ref3 = ref2.child(manager.getCurrentDestination().getDestinationName());
+                ref3.child("lodgings").setValue(manager.getCurrentDestination().getLodgings());
+
+                manager.updateUserDestinations();
+
 
                 Intent intent = new Intent(AddAccomodationsActivity.this, AccomodationsActivity.class);
                 startActivity(intent);

@@ -1,6 +1,9 @@
 package com.example.sprint1_main.view;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,9 +13,25 @@ import android.widget.Button;
 import android.widget.ImageButton;
 
 import com.example.sprint1_main.R;
+import com.example.sprint1_main.model.ApplicationManagerModel;
+import com.example.sprint1_main.model.DestinationModel;
+import com.example.sprint1_main.model.LodgingModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class AccomodationsActivity extends AppCompatActivity {
+
+    private RecyclerView recyclerView;
+    private DatabaseReference database;
+    private AccommodationAdapter adapter;
+    private ArrayList<LodgingModel> list;
 
     private static final String TAG = "AccomodationsActivity";
 
@@ -28,6 +47,22 @@ public class AccomodationsActivity extends AppCompatActivity {
         ImageButton home = findViewById(R.id.button_home);
 
         FloatingActionButton addAccommodation = findViewById(R.id.addAccommodation);
+
+        list = new ArrayList<>();
+
+        ApplicationManagerModel manager = ApplicationManagerModel.getInstance();
+        List<LodgingModel> lodgingsList = manager.getCurrentDestination().getLodgings();
+        for (LodgingModel lodging: lodgingsList) {
+            list.add(lodging);
+        }
+
+        recyclerView = findViewById(R.id.accommodationList);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        adapter = new AccommodationAdapter(this, list);
+        recyclerView.setAdapter(adapter);
+
 
         logistics.setOnClickListener(new View.OnClickListener() {
             @Override

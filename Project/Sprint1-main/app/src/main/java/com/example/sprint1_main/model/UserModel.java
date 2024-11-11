@@ -14,7 +14,6 @@ public class UserModel {
     private List<DestinationModel> destinations;
     private int duration;
 
-
     public UserModel() {
 
     }
