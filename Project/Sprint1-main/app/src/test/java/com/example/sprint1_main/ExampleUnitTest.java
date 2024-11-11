@@ -398,4 +398,31 @@ public class ExampleUnitTest {
 
         assertEquals("www.visitnyc.com", model.getWebsite());
     }
+
+    @Test
+    public void getReservationDateTest() {
+        String location = "Vancouver, Canada";
+        String website = "www.visitcanucks.com";
+        DateModel date = new DateModel(3, 24, 2005);
+        TimeModel time = new TimeModel(8, 00);
+        ReservationModel model = new ReservationModel(location, website, date, time);
+
+        DateModel resultDate = model.getDate();
+        assertEquals(3, resultDate.getMonth());
+        assertEquals(24, resultDate.getDay());
+        assertEquals(2005, resultDate.getYear());
+    }
+
+    @Test
+    public void getReservationTimeTest() {
+        String location = "London, England";
+        String website = "www.visitlondon.com";
+        DateModel date = new DateModel(4, 3, 2024);
+        TimeModel time = new TimeModel(12, 00);
+        ReservationModel model = new ReservationModel(location, website, date, time);
+
+        TimeModel resultTime = model.getTime();
+        assertEquals(12, resultTime.getHour());
+        assertEquals(00, resultTime.getMinute());
+    }
 }
