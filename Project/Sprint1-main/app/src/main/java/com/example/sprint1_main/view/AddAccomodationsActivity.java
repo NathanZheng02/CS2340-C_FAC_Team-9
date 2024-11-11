@@ -35,7 +35,6 @@ public class AddAccomodationsActivity extends AppCompatActivity {
     private String selectedRoomType;
     private String selectedRoomNum;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,9 +54,7 @@ public class AddAccomodationsActivity extends AppCompatActivity {
 
         ArrayAdapter<CharSequence> roomTypeAdapter = ArrayAdapter.createFromResource(
                 this, R.array.room_types, android.R.layout.simple_spinner_item);
-
         roomTypeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
         roomTypeSpinner.setAdapter(roomTypeAdapter);
 
         ArrayAdapter<CharSequence> roomNumAdapter = ArrayAdapter.createFromResource(
@@ -130,20 +127,26 @@ public class AddAccomodationsActivity extends AppCompatActivity {
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Log.d(TAG, "add onClick called");
-
                 String accommodationName = location.getText().toString();
                 String checkInDate = checkInField.getText().toString().trim();
                 String checkOutDate = checkOutField.getText().toString().trim();
                 int roomNum = parseInt(selectedRoomNum);
-                //MM/DD/YYYY
+
                 String[] date1 = checkInDate.split("/");
+                if (date1.length != 3) {
+                    checkInField.setError("Date Must Be In Format MM/DD/YYYY");
+                    return;
+                }
                 int m1 = parseInt(date1[0]);
                 int d1 = parseInt(date1[1]);
                 int y1 = parseInt(date1[2]);
 
                 String[] date2 = checkOutDate.split("/");
+                if (date2.length != 3) {
+                    checkOutField.setError("Date Must Be In Format MM/DD/YYYY");
+                    return;
+                }
                 int m2 = parseInt(date2[0]);
                 int d2 = parseInt(date2[1]);
                 int y2 = parseInt(date2[2]);
@@ -157,27 +160,28 @@ public class AddAccomodationsActivity extends AppCompatActivity {
                 database = FirebaseDatabase.getInstance();
                 reference = database.getReference("Accommodation Database");
 
-
                 ApplicationManagerModel manager = ApplicationManagerModel.getInstance();
                 if (manager.getCurrentDestination().getLodgings() == null) {
                     manager.getCurrentDestination().setLodgings(new ArrayList<>());
                 }
-                manager.getCurrentDestination().getLodgings().add(accommodation);
 
+                for (LodgingModel lodg : manager.getCurrentDestination().getLodgings()) {
+                    if (lodg.getLocation().equals(accommodationName)) {
+                        location.setError("Location Must Not Be Added To Destination");
+                        return;
+                    }
+                }
+                manager.getCurrentDestination().getLodgings().add(accommodation);
                 AccommodationDatabaseModel accomManager = AccommodationDatabaseModel.getInstance();
                 reference.child(accommodationName).setValue(accommodation);
-
                 DatabaseReference ref2 = database.getReference("Destination Database");
                 DatabaseReference ref3 =
                         ref2.child(manager.getCurrentDestination().getDestinationName());
                 ref3.child("lodgings").setValue(manager.getCurrentDestination().getLodgings());
-
                 manager.updateUserDestinations();
-
 
                 Intent i = new Intent(AddAccomodationsActivity.this, AccomodationsActivity.class);
                 startActivity(i);
-
             }
         });
         Log.d(TAG, "onCreate called");

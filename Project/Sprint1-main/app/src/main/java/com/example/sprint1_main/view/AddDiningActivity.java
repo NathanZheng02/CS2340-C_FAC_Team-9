@@ -10,13 +10,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.sprint1_main.R;
 import com.example.sprint1_main.model.ApplicationManagerModel;
 import com.example.sprint1_main.model.DateModel;
+import com.example.sprint1_main.model.DestinationModel;
 import com.example.sprint1_main.model.DiningDatabaseModel;
 import com.example.sprint1_main.model.ReservationModel;
 import com.example.sprint1_main.model.TimeModel;
@@ -106,10 +105,26 @@ public class AddDiningActivity extends AppCompatActivity {
                 String website = diningWebsite.getText().toString().trim();
 
                 String[] dateList = date.split("/");
+                if (dateList.length != 3) {
+                    diningDate.setError("Date Must Be In Format MM/DD/YYYY");
+                    return;
+                }
+                int month = parseInt(dateList[0]);
+                int day = parseInt(dateList[1]);
+                int year = parseInt(dateList[2]);
 
                 String[] timeList = time.split(":");
+                if (timeList.length != 2) {
+                    diningTime.setError("Date Must Be In Format HH:MM");
+                    return;
+                }
+                int hour = parseInt(timeList[0]);
+                int minute = parseInt(timeList[1]);
 
-
+                TimeModel timeModel = new TimeModel(hour, minute);
+                DateModel dateModel = new DateModel(month, day, year);
+                ReservationModel reservation = new ReservationModel(location, website,
+                        dateModel, timeModel);
 
                 ApplicationManagerModel manager = ApplicationManagerModel.getInstance();
 
@@ -118,48 +133,30 @@ public class AddDiningActivity extends AppCompatActivity {
                     manager.getCurrentDestination().setReservations(new ArrayList<>());
                 }
 
-                for (ReservationModel res: manager.getCurrentDestination().getReservations()) {
+                for (ReservationModel res : manager.getCurrentDestination().getReservations()) {
                     if (res.getLocation().equals(location)) {
-                        diningLocation.setError("Cannot Add Existing Location");
-                    } else if (dateList.length != 3) {
-                        diningDate.setError("Date Must Be In Format MM/DD/YYYY");
-                    } else if (timeList.length != 2) {
-                        diningTime.setError("Time Must Be In Format HH:MM");
-                    } else {
-                        int month = parseInt(dateList[0]);
-                        int day = parseInt(dateList[1]);
-                        int year = parseInt(dateList[2]);
-
-                        int hour = parseInt(timeList[0]);
-                        int minute = parseInt(timeList[1]);
-
-                        TimeModel timeModel = new TimeModel(hour, minute);
-                        DateModel dateModel = new DateModel(month, day, year);
-                        ReservationModel reservation = new ReservationModel(location, website,
-                                dateModel, timeModel);
-
-                        manager.getCurrentDestination().getReservations().add(reservation);
-
-                        DiningDatabaseModel diningDatabase = DiningDatabaseModel.getInstance();
-                        reference.child(location).setValue(reservation);
-
-                        DatabaseReference ref2 = database.getReference("Destination Database");
-                        DatabaseReference ref3 =
-                                ref2.child(manager.getCurrentDestination().getDestinationName());
-                        DatabaseReference ref4 = ref3.child("reservations");
-                        ref4.setValue(manager.getCurrentDestination().getReservations());
-
-                        manager.updateUserDestinations();
-
-
-                        Intent intent = new Intent(AddDiningActivity.this,
-                                DiningActivity.class);
-                        startActivity(intent);
+                        diningLocation.setError("Location Must Not Be Added To Destination");
+                        return;
                     }
                 }
 
+                manager.getCurrentDestination().getReservations().add(reservation);
+
+                DiningDatabaseModel diningDatabase = DiningDatabaseModel.getInstance();
+                reference.child(location).setValue(reservation);
+
+                DatabaseReference ref2 = database.getReference("Destination Database");
+
+                DestinationModel currDes = manager.getCurrentDestination();
+
+                DatabaseReference ref3 = ref2.child(currDes.getDestinationName());
+                ref3.child("reservations").setValue(currDes.getReservations());
+
+                manager.updateUserDestinations();
 
 
+                Intent intent = new Intent(AddDiningActivity.this,  DiningActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -200,4 +197,3 @@ public class AddDiningActivity extends AppCompatActivity {
         Log.d(TAG, "onDestroy called");
     }
 }
-
