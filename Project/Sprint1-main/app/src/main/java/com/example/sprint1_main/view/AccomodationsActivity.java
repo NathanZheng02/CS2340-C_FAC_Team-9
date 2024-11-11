@@ -51,8 +51,10 @@ public class AccomodationsActivity extends AppCompatActivity {
 
         ApplicationManagerModel manager = ApplicationManagerModel.getInstance();
 
-        if (manager.getCurrentDestination() != null
-                && manager.getCurrentDestination().getLodgings().size() > 0) {
+        if (manager.getCurrentDestination() != null) {
+            if (manager.getCurrentDestination().getLodgings() == null) {
+                manager.getCurrentDestination().setLodgings(new ArrayList<>());
+            }
             list = new ArrayList<>();
 
             List<LodgingModel> lodgingsList = manager.getCurrentDestination().getLodgings();
