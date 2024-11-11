@@ -47,6 +47,10 @@ public class LogisticsActivity extends AppCompatActivity {
 
         manager.updateUserDestinations();
 
+        if (manager.getCurrentUser().getDestinations() == null) {
+            manager.getCurrentUser().setDestinations(new ArrayList<>());
+        }
+
         if (manager.getCurrentUser().getDestinations().size() >= 1) {
             manager.setCurrentDestination(manager.getCurrentUser().getDestinations().get(0));
         }

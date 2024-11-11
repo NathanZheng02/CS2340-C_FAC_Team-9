@@ -1,6 +1,7 @@
 package com.example.sprint1_main.view;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.sprint1_main.R;
+import com.example.sprint1_main.model.DateCalculatorModel;
+import com.example.sprint1_main.model.DateModel;
 import com.example.sprint1_main.model.ReservationModel;
 
 import java.util.ArrayList;
@@ -63,6 +66,15 @@ public class DiningAdapter extends RecyclerView.Adapter<DiningAdapter.MyViewHold
         holder.time.setText("" + dining.getTime().getHour() + ":"
                 + dining.getTime().getMinute());
         holder.website.setText("" + dining.getWebsite());
+
+
+        DateCalculatorModel calculator = new DateCalculatorModel();
+
+        DateModel currDateModel = new DateModel(11, 13, 2024);
+
+        if (!calculator.dateBefore(dining.getDate(), currDateModel)) {
+            holder.date.setTextColor(Color.parseColor("#008000"));
+        }
     }
 
     @Override

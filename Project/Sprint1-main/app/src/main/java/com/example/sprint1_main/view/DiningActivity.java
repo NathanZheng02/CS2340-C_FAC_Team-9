@@ -49,7 +49,7 @@ public class DiningActivity extends AppCompatActivity {
 
 
         if (manager.getCurrentDestination() != null
-                && manager.getCurrentDestination().getReservations().size() > 0) {
+                && manager.getCurrentDestination().getReservations() != null) {
             list = new ArrayList<>();
 
             List<ReservationModel> resList = manager.getCurrentDestination().getReservations();
