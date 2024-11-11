@@ -15,16 +15,8 @@ import android.util.Log;
 import com.example.sprint1_main.R;
 import com.example.sprint1_main.model.ApplicationManagerModel;
 
-import com.example.sprint1_main.model.DestinationDatabaseModel;
-import com.example.sprint1_main.model.DestinationModel;
-import com.example.sprint1_main.model.UserDatabaseModel;
 import com.example.sprint1_main.model.UserModel;
 import com.example.sprint1_main.viewmodel.LoginViewModel;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class LoginActivity extends AppCompatActivity {
 

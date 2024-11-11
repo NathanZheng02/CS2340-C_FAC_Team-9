@@ -13,7 +13,9 @@ import android.widget.Button;
 import android.widget.ImageButton;
 
 import com.example.sprint1_main.R;
+import com.example.sprint1_main.model.ApplicationManagerModel;
 import com.example.sprint1_main.model.DestinationModel;
+import com.example.sprint1_main.model.LodgingModel;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -21,6 +23,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class DestinationActivity extends AppCompatActivity {
 
@@ -51,27 +54,16 @@ public class DestinationActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         list = new ArrayList<>();
+
+        ApplicationManagerModel manager = ApplicationManagerModel.getInstance();
+        List<DestinationModel> destinations = manager.getCurrentUser().getDestinations();
+        for (DestinationModel destination : destinations) {
+            list.add(destination);
+        }
+
         adapter = new DestinationsAdapter(this, list);
         recyclerView.setAdapter(adapter);
 
-        database.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-
-                for (DataSnapshot dataSnapShot : snapshot.getChildren()) {
-
-                    DestinationModel destination = dataSnapShot.getValue(DestinationModel.class);
-                    list.add(destination);
-                }
-                adapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
 
 
         logistics.setOnClickListener(new View.OnClickListener() {

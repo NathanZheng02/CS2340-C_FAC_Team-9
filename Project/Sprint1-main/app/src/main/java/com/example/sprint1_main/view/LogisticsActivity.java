@@ -47,6 +47,10 @@ public class LogisticsActivity extends AppCompatActivity {
 
         manager.updateUserDestinations();
 
+        if (manager.getCurrentUser().getDestinations() == null) {
+            manager.getCurrentUser().setDestinations(new ArrayList<>());
+        }
+
         if (manager.getCurrentUser().getDestinations().size() >= 1) {
             manager.setCurrentDestination(manager.getCurrentUser().getDestinations().get(0));
         }
@@ -59,7 +63,6 @@ public class LogisticsActivity extends AppCompatActivity {
 
         Spinner destinationsSpinner = (Spinner) findViewById(R.id.destinations_spinner);
 
-//        LogisticsViewModel.updateDestinations();
         List<String> dN = new ArrayList<>();
         for (DestinationModel destination : manager.getCurrentUser().getDestinations()) {
             dN.add(destination.getDestinationName());
