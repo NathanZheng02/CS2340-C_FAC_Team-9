@@ -18,8 +18,9 @@ public class CheckInSortStrategy implements Strategy {
         for (int i = 0; i < n - 1; i++) {
             swapped = false;
             for (int j = 0; j < n - i - 1; j++) {
-                if (!calculator.dateBefore(((LodgingModel)unsorted.get(j)).getCheckInTime(), ((LodgingModel)unsorted.get(j+1)).getCheckInTime())) {
-                    Collections.swap(unsorted, j, j+1);
+                if (!calculator.dateBefore(((LodgingModel) unsorted.get(j)).getCheckInTime(),
+                        ((LodgingModel) unsorted.get(j + 1)).getCheckInTime())) {
+                    Collections.swap(unsorted, j, j + 1);
                     swapped = true;
                 }
             }

@@ -56,8 +56,7 @@ public class DateCalculatorModel {
             if (endMonth == 12) {
                 endMonth = 1;
                 endYear += 1;
-            }
-            else {
+            } else {
                 endMonth += 1;
             }
             duration -= getDaysInMonth(endMonth);
@@ -71,12 +70,10 @@ public class DateCalculatorModel {
                 if (endMonth == 12) {
                     endMonth = 1;
                     endYear += 1;
-                }
-                else {
+                } else {
                     endMonth += 1;
                 }
-            }
-            else {
+            } else {
                 endDay += 1;
             }
             duration -= 1;
@@ -101,8 +98,7 @@ public class DateCalculatorModel {
             if (startMonth == 1) {
                 startMonth = 12;
                 startYear -= 1;
-            }
-            else {
+            } else {
                 startMonth -= 1;
             }
             duration -= getDaysInMonth(startMonth);
@@ -116,13 +112,11 @@ public class DateCalculatorModel {
                 if (startMonth == 1) {
                     startMonth = 12;
                     startYear -= 1;
-                }
-                else {
+                } else {
                     startMonth -= 1;
                 }
                 startDay = getDaysInMonth(startMonth);
-            }
-            else {
+            } else {
                 startDay -= 1;
             }
             duration -= 1;

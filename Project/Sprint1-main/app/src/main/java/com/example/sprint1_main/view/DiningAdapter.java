@@ -10,7 +10,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.sprint1_main.R;
-import com.example.sprint1_main.model.LodgingModel;
 import com.example.sprint1_main.model.ReservationModel;
 
 import java.util.ArrayList;

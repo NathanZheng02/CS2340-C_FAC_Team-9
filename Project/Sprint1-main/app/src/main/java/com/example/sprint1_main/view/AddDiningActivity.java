@@ -10,16 +10,16 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.sprint1_main.R;
 import com.example.sprint1_main.model.ApplicationManagerModel;
 import com.example.sprint1_main.model.DateModel;
-import com.example.sprint1_main.model.DestinationModel;
 import com.example.sprint1_main.model.DiningDatabaseModel;
 import com.example.sprint1_main.model.ReservationModel;
 import com.example.sprint1_main.model.TimeModel;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -106,17 +106,10 @@ public class AddDiningActivity extends AppCompatActivity {
                 String website = diningWebsite.getText().toString().trim();
 
                 String[] dateList = date.split("/");
-                int month = parseInt(dateList[0]);
-                int day = parseInt(dateList[1]);
-                int year = parseInt(dateList[2]);
 
                 String[] timeList = time.split(":");
-                int hour = parseInt(timeList[0]);
-                int minute = parseInt(timeList[1]);
 
-                TimeModel timeModel = new TimeModel(hour, minute);
-                DateModel dateModel = new DateModel(month, day, year);
-                ReservationModel reservation = new ReservationModel(location, website, dateModel, timeModel);
+
 
                 ApplicationManagerModel manager = ApplicationManagerModel.getInstance();
 
@@ -124,20 +117,49 @@ public class AddDiningActivity extends AppCompatActivity {
                 if (manager.getCurrentDestination().getReservations() == null) {
                     manager.getCurrentDestination().setReservations(new ArrayList<>());
                 }
-                manager.getCurrentDestination().getReservations().add(reservation);
 
-                DiningDatabaseModel diningDatabase = DiningDatabaseModel.getInstance();
-                reference.child(location).setValue(reservation);
+                for (ReservationModel res: manager.getCurrentDestination().getReservations()) {
+                    if (res.getLocation().equals(location)) {
+                        diningLocation.setError("Cannot Add Existing Location");
+                    } else if (dateList.length != 3) {
+                        diningDate.setError("Date Must Be In Format MM/DD/YYYY");
+                    } else if (timeList.length != 2) {
+                        diningTime.setError("Time Must Be In Format HH:MM");
+                    } else {
+                        int month = parseInt(dateList[0]);
+                        int day = parseInt(dateList[1]);
+                        int year = parseInt(dateList[2]);
 
-                DatabaseReference ref2 = database.getReference("Destination Database");
-                DatabaseReference ref3 = ref2.child(manager.getCurrentDestination().getDestinationName());
-                ref3.child("reservations").setValue(manager.getCurrentDestination().getReservations());
+                        int hour = parseInt(timeList[0]);
+                        int minute = parseInt(timeList[1]);
 
-                manager.updateUserDestinations();
+                        TimeModel timeModel = new TimeModel(hour, minute);
+                        DateModel dateModel = new DateModel(month, day, year);
+                        ReservationModel reservation = new ReservationModel(location, website,
+                                dateModel, timeModel);
+
+                        manager.getCurrentDestination().getReservations().add(reservation);
+
+                        DiningDatabaseModel diningDatabase = DiningDatabaseModel.getInstance();
+                        reference.child(location).setValue(reservation);
+
+                        DatabaseReference ref2 = database.getReference("Destination Database");
+                        DatabaseReference ref3 =
+                                ref2.child(manager.getCurrentDestination().getDestinationName());
+                        DatabaseReference ref4 = ref3.child("reservations");
+                        ref4.setValue(manager.getCurrentDestination().getReservations());
+
+                        manager.updateUserDestinations();
 
 
-                Intent intent = new Intent(AddDiningActivity.this,  DiningActivity.class);
-                startActivity(intent);
+                        Intent intent = new Intent(AddDiningActivity.this,
+                                DiningActivity.class);
+                        startActivity(intent);
+                    }
+                }
+
+
+
             }
         });
 

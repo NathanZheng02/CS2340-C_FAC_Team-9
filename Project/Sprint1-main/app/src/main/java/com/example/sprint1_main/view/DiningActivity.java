@@ -13,15 +13,12 @@ import android.widget.ImageButton;
 
 import com.example.sprint1_main.R;
 import com.example.sprint1_main.model.ApplicationManagerModel;
-import com.example.sprint1_main.model.CheckInSortStrategy;
 import com.example.sprint1_main.model.Context;
-import com.example.sprint1_main.model.LodgingModel;
 import com.example.sprint1_main.model.ResDateSortStrategy;
 import com.example.sprint1_main.model.ResTimeSortStrategy;
 import com.example.sprint1_main.model.ReservationModel;
 import com.example.sprint1_main.model.Sortable;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.firebase.database.DatabaseReference;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,11 +48,12 @@ public class DiningActivity extends AppCompatActivity {
         ApplicationManagerModel manager = ApplicationManagerModel.getInstance();
 
 
-        if (manager.getCurrentDestination() != null && manager.getCurrentDestination().getReservations().size() > 0) {
+        if (manager.getCurrentDestination() != null
+                && manager.getCurrentDestination().getReservations().size() > 0) {
             list = new ArrayList<>();
 
-            List<ReservationModel> reservationList = manager.getCurrentDestination().getReservations();
-            for (ReservationModel reservation: reservationList) {
+            List<ReservationModel> resList = manager.getCurrentDestination().getReservations();
+            for (ReservationModel reservation: resList) {
                 list.add(reservation);
             }
 
@@ -77,8 +75,8 @@ public class DiningActivity extends AppCompatActivity {
 
                 List<Sortable> unsorted = new ArrayList<>();
 
-                for (ReservationModel reservation: manager.getCurrentDestination().getReservations()) {
-                    unsorted.add((Sortable) reservation);
+                for (ReservationModel res: manager.getCurrentDestination().getReservations()) {
+                    unsorted.add((Sortable) res);
                 }
 
 
@@ -107,8 +105,8 @@ public class DiningActivity extends AppCompatActivity {
 
                 List<Sortable> unsorted = new ArrayList<>();
 
-                for (ReservationModel reservation: manager.getCurrentDestination().getReservations()) {
-                    unsorted.add((Sortable) reservation);
+                for (ReservationModel res: manager.getCurrentDestination().getReservations()) {
+                    unsorted.add((Sortable) res);
                 }
 
 

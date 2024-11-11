@@ -20,14 +20,11 @@ import com.example.sprint1_main.R;
 import com.example.sprint1_main.model.AccommodationDatabaseModel;
 import com.example.sprint1_main.model.ApplicationManagerModel;
 import com.example.sprint1_main.model.DateModel;
-import com.example.sprint1_main.model.DestinationModel;
 import com.example.sprint1_main.model.LodgingModel;
-import com.example.sprint1_main.viewmodel.LogisticsViewModel;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class AddAccomodationsActivity extends AppCompatActivity {
     private static final String TAG = "AddAccommodationsActivity";
@@ -43,8 +40,6 @@ public class AddAccomodationsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_addaccomodations);
-
-
 
         Spinner roomTypeSpinner = findViewById(R.id.roomType);
         Spinner roomNumSpinner = findViewById(R.id.roomNum);
@@ -70,7 +65,6 @@ public class AddAccomodationsActivity extends AppCompatActivity {
         roomNumAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         roomNumSpinner.setAdapter(roomNumAdapter);
 
-
         roomTypeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -93,7 +87,6 @@ public class AddAccomodationsActivity extends AppCompatActivity {
             }
         });
 
-
         logistics.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -104,28 +97,32 @@ public class AddAccomodationsActivity extends AppCompatActivity {
         accommodations.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(AddAccomodationsActivity.this, AccomodationsActivity.class);
+                Intent intent = new Intent(AddAccomodationsActivity.this,
+                        AccomodationsActivity.class);
                 startActivity(intent);
             }
         });
         dining.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(AddAccomodationsActivity.this, DiningActivity.class);
+                Intent intent = new Intent(AddAccomodationsActivity.this,
+                        DiningActivity.class);
                 startActivity(intent);
             }
         });
         community.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(AddAccomodationsActivity.this, TravelCommunityActivity.class);
+                Intent intent = new Intent(AddAccomodationsActivity.this,
+                        TravelCommunityActivity.class);
                 startActivity(intent);
             }
         });
         home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(AddAccomodationsActivity.this, HomeActivity.class);
+                Intent intent = new Intent(AddAccomodationsActivity.this,
+                        HomeActivity.class);
                 startActivity(intent);
             }
         });
@@ -135,11 +132,6 @@ public class AddAccomodationsActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 Log.d(TAG, "add onClick called");
-
-
-
-
-
 
                 String accommodationName = location.getText().toString();
                 String checkInDate = checkInField.getText().toString().trim();
@@ -159,7 +151,8 @@ public class AddAccomodationsActivity extends AppCompatActivity {
                 DateModel beginning = new DateModel(m1, d1, y1);
                 DateModel ending = new DateModel(m2, d2, y2);
 
-                LodgingModel accommodation = new LodgingModel(beginning, ending, roomNum, selectedRoomType, accommodationName);
+                LodgingModel accommodation = new LodgingModel(beginning, ending, roomNum,
+                        selectedRoomType, accommodationName);
 
                 database = FirebaseDatabase.getInstance();
                 reference = database.getReference("Accommodation Database");
@@ -171,18 +164,19 @@ public class AddAccomodationsActivity extends AppCompatActivity {
                 }
                 manager.getCurrentDestination().getLodgings().add(accommodation);
 
-                AccommodationDatabaseModel accommodationManager = AccommodationDatabaseModel.getInstance();
+                AccommodationDatabaseModel accomManager = AccommodationDatabaseModel.getInstance();
                 reference.child(accommodationName).setValue(accommodation);
 
                 DatabaseReference ref2 = database.getReference("Destination Database");
-                DatabaseReference ref3 = ref2.child(manager.getCurrentDestination().getDestinationName());
+                DatabaseReference ref3 =
+                        ref2.child(manager.getCurrentDestination().getDestinationName());
                 ref3.child("lodgings").setValue(manager.getCurrentDestination().getLodgings());
 
                 manager.updateUserDestinations();
 
 
-                Intent intent = new Intent(AddAccomodationsActivity.this, AccomodationsActivity.class);
-                startActivity(intent);
+                Intent i = new Intent(AddAccomodationsActivity.this, AccomodationsActivity.class);
+                startActivity(i);
 
             }
         });

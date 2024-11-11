@@ -46,7 +46,8 @@ public class ApplicationManagerModel {
         List<DestinationModel> desList = new ArrayList<>();
 
         for (DestinationModel des : destinationDatabaseModel.getDestinations()) {
-            Query checkUserDatabase = desRef.orderByChild("destinationName").equalTo(des.getDestinationName());
+            String check = des.getDestinationName();
+            Query checkUserDatabase = desRef.orderByChild("destinationName").equalTo(check);
 
             checkUserDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
@@ -54,7 +55,8 @@ public class ApplicationManagerModel {
                     if (snapshot.exists()) {
                         ApplicationManagerModel manager = ApplicationManagerModel.getInstance();
 
-                        DestinationModel destination = snapshot.child(des.getDestinationName()).getValue(DestinationModel.class);
+                        DataSnapshot desSnap = snapshot.child(des.getDestinationName());
+                        DestinationModel destination = desSnap.getValue(DestinationModel.class);
 
                         if (destination != null && destination.getContributingUsers() != null) {
                             List<String> userList = destination.getContributingUsers();
@@ -66,7 +68,9 @@ public class ApplicationManagerModel {
                                 }
                             }
 
-                            userRef.child(manager.getCurrentUser().getUsername()).child("destinations").setValue(desList);
+                            DatabaseReference ref1 =
+                                    userRef.child(manager.getCurrentUser().getUsername());
+                            ref1.child("destinations").setValue(desList);
                             manager.getCurrentUser().setDestinations(desList);
                         }
 

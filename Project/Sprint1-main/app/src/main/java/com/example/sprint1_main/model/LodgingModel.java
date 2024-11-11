@@ -14,7 +14,8 @@ public class LodgingModel implements Sortable {
 
     }
 
-    public LodgingModel(DateModel checkInTime, DateModel checkOutTime, int numRooms, String roomType, String location) {
+    public LodgingModel(DateModel checkInTime, DateModel checkOutTime,
+                        int numRooms, String roomType, String location) {
         this.checkInTime = checkInTime;
         this.checkOutTime = checkOutTime;
         this.numRooms = numRooms;

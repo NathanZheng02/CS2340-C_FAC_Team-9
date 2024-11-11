@@ -1,6 +1,5 @@
 package com.example.sprint1_main.view;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,17 +16,10 @@ import com.example.sprint1_main.model.ApplicationManagerModel;
 import com.example.sprint1_main.model.CheckInSortStrategy;
 import com.example.sprint1_main.model.CheckOutSortStrategy;
 import com.example.sprint1_main.model.Context;
-import com.example.sprint1_main.model.DateModel;
-import com.example.sprint1_main.model.DateSortStrategy;
-import com.example.sprint1_main.model.DestinationModel;
 import com.example.sprint1_main.model.LodgingModel;
 import com.example.sprint1_main.model.Sortable;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,7 +51,8 @@ public class AccomodationsActivity extends AppCompatActivity {
 
         ApplicationManagerModel manager = ApplicationManagerModel.getInstance();
 
-        if (manager.getCurrentDestination() != null && manager.getCurrentDestination().getLodgings() > 0) {
+        if (manager.getCurrentDestination() != null
+                && manager.getCurrentDestination().getLodgings().size() > 0) {
             list = new ArrayList<>();
 
             List<LodgingModel> lodgingsList = manager.getCurrentDestination().getLodgings();
@@ -180,7 +173,8 @@ public class AccomodationsActivity extends AppCompatActivity {
         addAccommodation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(AccomodationsActivity.this, AddAccomodationsActivity.class);
+                Intent intent = new Intent(AccomodationsActivity.this,
+                        AddAccomodationsActivity.class);
                 startActivity(intent);
             }
         });
