@@ -336,6 +336,46 @@ public class ExampleUnitTest {
         DateModel date = new DateModel(10, 2, 2024);
         TimeModel time = new TimeModel(9, 00);
         ReservationModel model = new ReservationModel(location, website, date, time);
+        assertEquals(model.getDate().getMonth(), 10);
+        assertEquals(model.getDate().getDay(), 2);
+        assertEquals(model.getTime().getHour(), 9);
+    }
+
+    @Test
+    public void reservationModelTest2() {
+        String location = "Tokyo, Japan";
+        String website = "www.welcomeTokyo.org";
+        DateModel date = new DateModel(11, 10, 2024);
+        TimeModel time = new TimeModel(13, 30);
+        ReservationModel model = new ReservationModel(location, website, date, time);
+        assertEquals(model.getDate().getYear(), 2024);
+        assertEquals(model.getTime().getMinute(), 30);
+        assertEquals(model.getTime().getHour(), 13);
+    }
+
+    @Test
+    public void lodgingModelTest() {
+        DateModel checkIn = new DateModel(1, 1,2021);
+        DateModel checkOut = new DateModel(1, 3,2021);
+        int numRooms = 2;
+        String roomType = "Double";
+        String location = "Paris";
+        LodgingModel model = new LodgingModel(checkIn, checkOut, numRooms, roomType, location);
+        assertEquals(model.getNumRooms(), 2);
+        assertEquals(model.getRoomType(), "Double");
+        assertEquals(model.getLocation(), "Paris");
+    }
+
+    @Test
+    public void lodgingModelTest2() {
+        DateModel checkIn = new DateModel(3, 27,2023);
+        DateModel checkOut = new DateModel(3, 30,2023);
+        int numRooms = 1;
+        String roomType = "Double";
+        String location = "Tokyo";
+        LodgingModel model = new LodgingModel(checkIn, checkOut, numRooms, roomType, location);
+        assertEquals(model.getCheckInTime().getMonth(), model.getCheckOutTime().getMonth());
+        assertEquals(model.getCheckInTime().getDay() + 3, model.getCheckOutTime().getDay());
     }
     @Test
     public void getReservationLocationTest() {

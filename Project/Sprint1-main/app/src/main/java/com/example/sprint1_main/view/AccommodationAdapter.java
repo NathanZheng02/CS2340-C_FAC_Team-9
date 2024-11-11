@@ -73,23 +73,25 @@ public class AccommodationAdapter extends RecyclerView.Adapter<AccommodationAdap
         holder.roomType.setText(lodging.getRoomType());
         holder.roomNum.setText("" + lodging.getNumRooms());
 
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-        Date date = new Date();
-        String currDate = formatter.format(date);
-
-        String[] dateAndTime = currDate.split(" ");
-        String stringDate = dateAndTime[0];
-
-        String[] dateParts = stringDate.split("/");
-        DateModel currDateModel = new DateModel(parseInt(dateParts[1]),
-                parseInt(dateParts[0]), parseInt(dateParts[2]));
-
+//        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+//        Date date = new Date();
+//        String currDate = formatter.format(date);
+//
+//        String[] dateAndTime = currDate.split(" ");
+//        String stringDate = dateAndTime[0];
+//
+//        String[] dateParts = stringDate.split("/");
+//        DateModel currDateModel = new DateModel(parseInt(dateParts[1]),
+//                parseInt(dateParts[0]), parseInt(dateParts[2]));
+//
         DateCalculatorModel calculator = new DateCalculatorModel();
 
-        if (calculator.dateBefore(currDateModel, lodging.getCheckInTime())) {
+        DateModel currDateModel = new DateModel(11,13,2024);
+
+        if (!calculator.dateBefore(lodging.getCheckInTime(), currDateModel)) {
             holder.checkIn.setTextColor(Color.parseColor("#f42069"));
         }
-        if (calculator.dateBefore(currDateModel, lodging.getCheckOutTime())) {
+        if (!calculator.dateBefore(lodging.getCheckOutTime(), currDateModel)) {
             holder.checkOut.setTextColor(Color.parseColor("#f42069"));
         }
 
