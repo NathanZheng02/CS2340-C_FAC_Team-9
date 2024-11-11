@@ -89,10 +89,10 @@ public class AccommodationAdapter extends RecyclerView.Adapter<AccommodationAdap
         DateModel currDateModel = new DateModel(11,13,2024);
 
         if (!calculator.dateBefore(lodging.getCheckInTime(), currDateModel)) {
-            holder.checkIn.setTextColor(Color.parseColor("#f42069"));
+            holder.checkIn.setTextColor(Color.parseColor("#008000"));
         }
         if (!calculator.dateBefore(lodging.getCheckOutTime(), currDateModel)) {
-            holder.checkOut.setTextColor(Color.parseColor("#f42069"));
+            holder.checkOut.setTextColor(Color.parseColor("#008000"));
         }
 
     }
