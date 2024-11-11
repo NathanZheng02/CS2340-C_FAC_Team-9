@@ -1,6 +1,8 @@
 package com.example.sprint1_main.view;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,11 +11,21 @@ import android.util.Log;
 import android.widget.ImageButton;
 
 import com.example.sprint1_main.R;
+import com.example.sprint1_main.model.ApplicationManagerModel;
+import com.example.sprint1_main.model.LodgingModel;
+import com.example.sprint1_main.model.ReservationModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.database.DatabaseReference;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class DiningActivity extends AppCompatActivity {
 
     private static final String TAG = "DiningActivity";
+    private RecyclerView recyclerView;
+    private DiningAdapter adapter;
+    private ArrayList<ReservationModel> list;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +38,21 @@ public class DiningActivity extends AppCompatActivity {
         ImageButton community = findViewById(R.id.button_travelCommunity);
         ImageButton home = findViewById(R.id.button_home);
         FloatingActionButton addDining = findViewById(R.id.addDining);
+
+        list = new ArrayList<>();
+
+        ApplicationManagerModel manager = ApplicationManagerModel.getInstance();
+        List<ReservationModel> reservationList = manager.getCurrentDestination().getReservations();
+        for (ReservationModel reservation: reservationList) {
+            list.add(reservation);
+        }
+
+        recyclerView = findViewById(R.id.diningList);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        adapter = new DiningAdapter(this, list);
+        recyclerView.setAdapter(adapter);
 
         logistics.setOnClickListener(new View.OnClickListener() {
             @Override
