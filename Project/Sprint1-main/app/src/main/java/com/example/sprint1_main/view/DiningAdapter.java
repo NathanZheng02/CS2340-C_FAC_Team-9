@@ -70,7 +70,7 @@ public class DiningAdapter extends RecyclerView.Adapter<DiningAdapter.MyViewHold
 
         DateCalculatorModel calculator = new DateCalculatorModel();
 
-        DateModel currDateModel = new DateModel(11,13,2024);
+        DateModel currDateModel = new DateModel(11, 13, 2024);
 
         if (!calculator.dateBefore(dining.getDate(), currDateModel)) {
             holder.date.setTextColor(Color.parseColor("#008000"));
