@@ -7,6 +7,8 @@ import static org.junit.Assert.*;
 import com.example.sprint1_main.model.ApplicationManagerModel;
 import com.example.sprint1_main.model.DateModel;
 import com.example.sprint1_main.model.DestinationModel;
+import com.example.sprint1_main.model.ReservationModel;
+import com.example.sprint1_main.model.TimeModel;
 import com.example.sprint1_main.model.UserDatabaseModel;
 import com.example.sprint1_main.model.UserModel;
 
@@ -159,4 +161,13 @@ public class ExampleUnitTest {
         assertEquals(30, date.getDay());
     }
 
+    //Sprint 3 JUnit Tests
+    @Test
+    public void reservationModelTest() {
+        String location = "Paris, France";
+        String website = "www.visitparis.com";
+        DateModel date = new DateModel(10, 2, 2024);
+        TimeModel time = new TimeModel(9, 00);
+        ReservationModel model = new ReservationModel(location, website, date, time);
+    }
 }
