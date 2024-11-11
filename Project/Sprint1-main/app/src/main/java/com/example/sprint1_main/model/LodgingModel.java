@@ -1,6 +1,6 @@
 package com.example.sprint1_main.model;
 
-public class LodgingModel {
+public class LodgingModel implements Sortable {
 
 
 
@@ -14,7 +14,8 @@ public class LodgingModel {
 
     }
 
-    public LodgingModel(DateModel checkInTime, DateModel checkOutTime, int numRooms, String roomType, String location) {
+    public LodgingModel(DateModel checkInTime, DateModel checkOutTime,
+                        int numRooms, String roomType, String location) {
         this.checkInTime = checkInTime;
         this.checkOutTime = checkOutTime;
         this.numRooms = numRooms;

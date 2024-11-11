@@ -134,14 +134,8 @@ public class LogTravelActivity extends AppCompatActivity {
                 dest.getContributingUsers().add(manager.getCurrentUser().getUsername());
 
                 reference.child(destinationName).setValue(dest);
-//                reference.child(destinationName).child("contributingUsers").child("0").setValue(manager.getCurrentUser());
 
 
-
-
-
-
-//
 
                 DatabaseReference r1 =
                         FirebaseDatabase.getInstance().getReference("User Database");
