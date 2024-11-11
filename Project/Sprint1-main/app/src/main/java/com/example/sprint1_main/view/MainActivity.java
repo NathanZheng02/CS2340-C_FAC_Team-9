@@ -9,10 +9,6 @@ import android.widget.Button;
 import android.content.Intent;
 
 import com.example.sprint1_main.R;
-import com.example.sprint1_main.model.ApplicationManagerModel;
-import com.example.sprint1_main.model.DestinationDatabaseModel;
-import com.example.sprint1_main.model.DestinationModel;
-import com.example.sprint1_main.model.UserDatabaseModel;
 
 public class MainActivity extends AppCompatActivity {
 

@@ -7,7 +7,6 @@ import androidx.lifecycle.ViewModel;
 
 import com.example.sprint1_main.model.ApplicationManagerModel;
 import com.example.sprint1_main.model.DestinationModel;
-import com.example.sprint1_main.model.UserModel;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -72,42 +71,6 @@ public class LogisticsViewModel extends ViewModel {
     }
 
     public static void updateUsers(TextView contributers) {
-//        DatabaseReference dF = FirebaseDatabase.getInstance().getReference("Destination Database");
-//        ApplicationManagerModel manager = ApplicationManagerModel.getInstance();
-//
-//        String currDes = manager.getCurrentDestination().getDestinationName();
-//
-//        DatabaseReference users = dF.child(currDes).child("contributingUsers");
-//
-//        List<UserModel> userList = new ArrayList<>();
-//
-//        users.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                if (snapshot.exists()) {
-//                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-//                        UserModel user = dataSnapshot.getValue(UserModel.class);
-//                        userList.add(user);
-//                    }
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
-
-//        StringBuilder contributerBuilder = new StringBuilder();
-//        if (userList != null) {
-//            for (UserModel user : userList) {
-//                contributerBuilder.append(user.getUsername());
-//                contributerBuilder.append("\n");
-//            }
-//        }
-//
-//
-//        contributers.setText(contributerBuilder.toString());
 
         ApplicationManagerModel manager = ApplicationManagerModel.getInstance();
 

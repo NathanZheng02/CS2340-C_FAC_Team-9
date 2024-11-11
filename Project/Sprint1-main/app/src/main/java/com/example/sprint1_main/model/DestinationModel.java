@@ -130,7 +130,9 @@ public class DestinationModel {
     }
 
     // reservations getter and setter
-    public List<ReservationModel> getReservations() { return reservations; }
+    public List<ReservationModel> getReservations() {
+        return reservations;
+    }
 
     public void setReservations(List<ReservationModel> reservations) {
         this.reservations = reservations;

@@ -8,14 +8,17 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.util.Log;
+import android.widget.Button;
 import android.widget.ImageButton;
 
 import com.example.sprint1_main.R;
 import com.example.sprint1_main.model.ApplicationManagerModel;
-import com.example.sprint1_main.model.LodgingModel;
+import com.example.sprint1_main.model.Context;
+import com.example.sprint1_main.model.ResDateSortStrategy;
+import com.example.sprint1_main.model.ResTimeSortStrategy;
 import com.example.sprint1_main.model.ReservationModel;
+import com.example.sprint1_main.model.Sortable;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.firebase.database.DatabaseReference;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,20 +42,90 @@ public class DiningActivity extends AppCompatActivity {
         ImageButton home = findViewById(R.id.button_home);
         FloatingActionButton addDining = findViewById(R.id.addDining);
 
-        list = new ArrayList<>();
+        Button dateSort = findViewById(R.id.button_sortByDate);
+        Button timeSort = findViewById(R.id.button_sortByTime);
 
         ApplicationManagerModel manager = ApplicationManagerModel.getInstance();
-        List<ReservationModel> reservationList = manager.getCurrentDestination().getReservations();
-        for (ReservationModel reservation: reservationList) {
-            list.add(reservation);
+
+
+        if (manager.getCurrentDestination() != null
+                && manager.getCurrentDestination().getReservations().size() > 0) {
+            list = new ArrayList<>();
+
+            List<ReservationModel> resList = manager.getCurrentDestination().getReservations();
+            for (ReservationModel reservation: resList) {
+                list.add(reservation);
+            }
+
+            recyclerView = findViewById(R.id.diningList);
+            recyclerView.setHasFixedSize(true);
+            recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+            adapter = new DiningAdapter(this, list);
+            recyclerView.setAdapter(adapter);
         }
 
-        recyclerView = findViewById(R.id.diningList);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        adapter = new DiningAdapter(this, list);
-        recyclerView.setAdapter(adapter);
+
+        dateSort.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                ApplicationManagerModel manager = ApplicationManagerModel.getInstance();
+
+                List<Sortable> unsorted = new ArrayList<>();
+
+                for (ReservationModel res: manager.getCurrentDestination().getReservations()) {
+                    unsorted.add((Sortable) res);
+                }
+
+
+                Context context = new Context();
+
+                context.setStrategy(new ResDateSortStrategy());
+
+                List<Sortable> sorted = context.executeStrategy(unsorted);
+
+                ArrayList<ReservationModel> newReservations = new ArrayList<>();
+                for (Sortable sortItem : sorted) {
+                    newReservations.add((ReservationModel) sortItem);
+                }
+
+                adapter = new DiningAdapter(DiningActivity.this, newReservations);
+                recyclerView.setAdapter(adapter);
+            }
+        });
+
+
+        timeSort.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                ApplicationManagerModel manager = ApplicationManagerModel.getInstance();
+
+                List<Sortable> unsorted = new ArrayList<>();
+
+                for (ReservationModel res: manager.getCurrentDestination().getReservations()) {
+                    unsorted.add((Sortable) res);
+                }
+
+
+                Context context = new Context();
+
+                context.setStrategy(new ResTimeSortStrategy());
+
+                List<Sortable> sorted = context.executeStrategy(unsorted);
+
+                ArrayList<ReservationModel> newReservations = new ArrayList<>();
+                for (Sortable sortItem : sorted) {
+                    newReservations.add((ReservationModel) sortItem);
+                }
+
+                adapter = new DiningAdapter(DiningActivity.this, newReservations);
+                recyclerView.setAdapter(adapter);
+            }
+        });
+
 
         logistics.setOnClickListener(new View.OnClickListener() {
             @Override

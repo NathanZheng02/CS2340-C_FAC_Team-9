@@ -21,7 +21,6 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class AddUserActivity extends AppCompatActivity {
 
@@ -46,10 +45,6 @@ public class AddUserActivity extends AppCompatActivity {
                 FirebaseDatabase fb = FirebaseDatabase.getInstance();
                 DatabaseReference reference = fb.getReference("User Database");
 
-//                if (manager.getCurrentDestination().getContributingUsers() == null) {
-//                    manager.getCurrentDestination().setContributingUsers(new ArrayList<>());
-//                    manager.getCurrentDestination().getContributingUsers().add(manager.getCurrentUser());
-//                }
 
 
 
@@ -61,24 +56,30 @@ public class AddUserActivity extends AppCompatActivity {
                         if (snapshot.exists()) {
                             UserModel user = snapshot.child(username).getValue(UserModel.class);
 
+                            DestinationModel currDes = manager.getCurrentDestination();
+                            UserModel currUser = manager.getCurrentUser();
+
                             if (manager.getCurrentDestination().getContributingUsers() == null) {
-                                manager.getCurrentDestination().setContributingUsers(new ArrayList<>());
-                                manager.getCurrentDestination().getContributingUsers().add(manager.getCurrentUser().getUsername());
+                                currDes.setContributingUsers(new ArrayList<>());
+                                currDes.getContributingUsers().add(currUser.getUsername());
                             }
 
-                            manager.getCurrentDestination().getContributingUsers().add(user.getUsername());
+                            currDes.getContributingUsers().add(user.getUsername());
 
-                            DestinationModel currDes = manager.getCurrentDestination();
 
                             //add user to destination's users
                             DatabaseReference ref = fb.getReference("Destination Database");
                             DatabaseReference ref2 = ref.child(currDes.getDestinationName());
-                            DatabaseReference ref3 = ref2.child("contributingUsers").child("" + (currDes.getContributingUsers().size()-1));
-                            ref3.setValue(user.getUsername());
+                            DatabaseReference ref3 =
+                                    ref2.child("contributingUsers");
+                            DatabaseReference ref4 =
+                                    ref3.child("" + (currDes.getContributingUsers().size() - 1));
+                            ref4.setValue(user.getUsername());
 
                             //add destination to new user
-                            DatabaseReference ref4 = fb.getReference("User Database");
-                            DatabaseReference ref5 = ref4.child(user.getUsername()).child("destinations");
+                            DatabaseReference userRef = fb.getReference("User Database");
+                            DatabaseReference ref5 =
+                                    userRef.child(user.getUsername()).child("destinations");
 
                             DatabaseReference ref6;
                             if (user.getDestinations() != null) {
@@ -89,57 +90,9 @@ public class AddUserActivity extends AppCompatActivity {
 
                             ref6.setValue(currDes);
 
-//                            //update destination for current user
-//                            DatabaseReference ref7 = ref4.child(manager.getCurrentUser().getUsername());
-//                            int index = manager.getCurrentUser().getDestinations().indexOf(currDes);
-//                            DatabaseReference ref8 = ref7.child("destinations").child("" + index);
-//                            ref8.setValue(currDes);
 
                             manager.updateUserDestinations();
 
-
-
-
-
-
-
-
-
-//                            DatabaseReference ref3 =
-//                                    fb.getReference("Destination Database").child(currDes.getDestinationName());
-//                            DatabaseReference ref4 =
-//                                    ref3.child("contributingUsers").child("" + (currDes.getContributingUsers().size()-1));
-//                            ref4.setValue(user);
-//
-//
-//                            DatabaseReference ref5 =
-//                                    fb.getReference("User Database").child(user.getUsername());
-//                            DatabaseReference ref6 =
-//                                    ref5.child("destinations").child("" + (user.getDestinations().size()-1));
-//                            ref6.setValue(currDes);
-
-//                            manager.getCurrentDestination().getContributingUsers().add(user);
-
-
-
-
-
-
-
-
-
-
-
-//
-//                            manager.getCurrentDestination().getContributingUsers().add(user);
-//
-//                            DatabaseReference ref1 =
-//                                    fb.getReference("User Database").child(user.getUsername());
-//                            DatabaseReference ref2 =
-//                                    ref1.child("destinations");
-//                            List<DestinationModel> dL = manager.getCurrentUser().getDestinations();
-//
-//                            ref2.child("" + (dL.size()-1)).setValue(currDes);
 
 
 
