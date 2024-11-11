@@ -337,4 +337,25 @@ public class ExampleUnitTest {
         TimeModel time = new TimeModel(9, 00);
         ReservationModel model = new ReservationModel(location, website, date, time);
     }
+    @Test
+    public void getReservationLocationTest() {
+        String location = "Milan, Italy";
+        String website = "www.visitmilan.com";
+        DateModel date = new DateModel(1, 22, 2023);
+        TimeModel time = new TimeModel(4, 50);
+        ReservationModel model = new ReservationModel(location, website, date, time);
+
+        assertEquals("Milan, Italy", model.getLocation());
+    }
+
+    @Test
+    public void getReservationWebsiteTest() {
+        String location = "New York, USA";
+        String website = "www.visitnyc.com";
+        DateModel date = new DateModel(11, 15, 2019);
+        TimeModel time = new TimeModel(6, 00);
+        ReservationModel model = new ReservationModel(location, website, date, time);
+
+        assertEquals("www.visitnyc.com", model.getWebsite());
+    }
 }
