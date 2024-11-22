@@ -1,7 +1,5 @@
 package com.example.sprint1_main.view;
 
-import static java.lang.Integer.parseInt;
-
 import android.content.Context;
 import android.graphics.Color;
 import android.view.LayoutInflater;
@@ -17,9 +15,7 @@ import com.example.sprint1_main.model.DateCalculatorModel;
 import com.example.sprint1_main.model.DateModel;
 import com.example.sprint1_main.model.LodgingModel;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class AccommodationAdapter extends RecyclerView.Adapter<AccommodationAdapter.MyViewHolder> {
 
@@ -73,20 +69,9 @@ public class AccommodationAdapter extends RecyclerView.Adapter<AccommodationAdap
         holder.roomType.setText(lodging.getRoomType());
         holder.roomNum.setText("" + lodging.getNumRooms());
 
-//        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-//        Date date = new Date();
-//        String currDate = formatter.format(date);
-//
-//        String[] dateAndTime = currDate.split(" ");
-//        String stringDate = dateAndTime[0];
-//
-//        String[] dateParts = stringDate.split("/");
-//        DateModel currDateModel = new DateModel(parseInt(dateParts[1]),
-//                parseInt(dateParts[0]), parseInt(dateParts[2]));
-//
         DateCalculatorModel calculator = new DateCalculatorModel();
 
-        DateModel currDateModel = new DateModel(11,13,2024);
+        DateModel currDateModel = new DateModel(11, 13, 2024);
 
         if (!calculator.dateBefore(lodging.getCheckInTime(), currDateModel)) {
             holder.checkIn.setTextColor(Color.parseColor("#008000"));
