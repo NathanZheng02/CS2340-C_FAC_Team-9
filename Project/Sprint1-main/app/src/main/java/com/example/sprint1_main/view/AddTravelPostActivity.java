@@ -10,14 +10,13 @@ import android.widget.ImageButton;
 
 import com.example.sprint1_main.R;
 
-public class TravelCommunityActivity extends AppCompatActivity {
-
-    private static final String TAG = "TravelCommunityActivity";
+public class AddTravelPostActivity extends AppCompatActivity  {
+    private static final String TAG = "AddTravelPostActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_travelcommunity);
+        setContentView(R.layout.activity_addpost);
 
         ImageButton logistics = findViewById(R.id.button_logistics);
         ImageButton destination = findViewById(R.id.button_destination);
@@ -25,48 +24,40 @@ public class TravelCommunityActivity extends AppCompatActivity {
         ImageButton accommodations = findViewById(R.id.button_accommodations);
         ImageButton home = findViewById(R.id.button_home);
 
-        ImageButton addTravelPost = findViewById(R.id.addTravelPost);
 
         logistics.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(TravelCommunityActivity.this, LogisticsActivity.class);
+                Intent intent = new Intent(AddTravelPostActivity.this, LogisticsActivity.class);
                 startActivity(intent);
             }
         });
         destination.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(TravelCommunityActivity.this, DestinationActivity.class);
+                Intent intent = new Intent(AddTravelPostActivity.this, DestinationActivity.class);
                 startActivity(intent);
             }
         });
         dining.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(TravelCommunityActivity.this, DiningActivity.class);
+                Intent intent = new Intent(AddTravelPostActivity.this, DiningActivity.class);
                 startActivity(intent);
             }
         });
         accommodations.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(TravelCommunityActivity.this,
-                                            AccomodationsActivity.class);
+                Intent intent = new Intent(AddTravelPostActivity.this,
+                        AccomodationsActivity.class);
                 startActivity(intent);
             }
         });
         home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(TravelCommunityActivity.this, HomeActivity.class);
-                startActivity(intent);
-            }
-        });
-        addTravelPost.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(TravelCommunityActivity.this, AddTravelPostActivity.class);
+                Intent intent = new Intent(AddTravelPostActivity.this, HomeActivity.class);
                 startActivity(intent);
             }
         });
