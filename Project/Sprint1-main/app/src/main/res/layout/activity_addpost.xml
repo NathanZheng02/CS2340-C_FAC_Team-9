@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.TravelCommunityActivity">
+    tools:context=".view.AddTravelPostActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -12,28 +12,84 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/travelcommunity_header_textView"
+            android:id="@+id/addpost_header_textView"
             android:layout_width="match_parent"
             android:layout_height="56dp"
             android:background="@android:color/background_dark"
             android:gravity="center"
-            android:text="Travel Community Screen"
+            android:text="New Travel Post"
             android:textColor="@android:color/white"
             android:textSize="20sp"
             android:textStyle="bold" />
-    </LinearLayout>
 
-    <ImageButton
-        android:id="@+id/addTravelPost"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:padding="15dp"
-        android:scaleType="fitCenter"
-        android:src="@drawable/paperplane"
-        app:layout_constraintBottom_toTopOf="@+id/bottomAppBar"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp" />
+        <TextView
+            android:id="@+id/newReservation"
+            android:layout_width="292dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="75dp"
+            android:text="Enter Travel Post Information:"
+            android:textColor="@android:color/black"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/starting"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="140dp"
+            android:backgroundTint="@color/darkgray"
+            android:hint="Start"
+            android:inputType="text" />
+
+        <EditText
+            android:id="@+id/ending"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="140dp"
+            android:backgroundTint="@color/darkgray"
+            android:hint="End"
+            android:inputType="text" />
+
+        <EditText
+            android:id="@+id/destination"
+            android:layout_width="220dp"
+            android:layout_height="100dp"
+            android:layout_marginHorizontal="100dp"
+            android:hint="Destinations"
+            android:scrollbars="vertical"
+            android:gravity="top|start"
+            android:inputType="text" />
+
+        <EditText
+            android:id="@+id/accommodations"
+            android:layout_width="220dp"
+            android:layout_height="100dp"
+            android:layout_marginHorizontal="100dp"
+            android:hint="Accommodations"
+            android:scrollbars="vertical"
+            android:gravity="top|start"
+            android:inputType="text" />
+
+        <EditText
+            android:id="@+id/diningReservations"
+            android:layout_width="220dp"
+            android:layout_height="100dp"
+            android:layout_marginHorizontal="100dp"
+            android:hint="Dining Reservations"
+            android:scrollbars="vertical"
+            android:gravity="top|start"
+            android:inputType="text" />
+
+        <EditText
+            android:id="@+id/notesAboutTrip"
+            android:layout_width="220dp"
+            android:layout_height="100dp"
+            android:layout_marginHorizontal="100dp"
+            android:hint="Notes About Trip"
+            android:scrollbars="vertical"
+            android:gravity="top|start"
+            android:inputType="text" />
+
+    </LinearLayout>
 
     <com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/bottomAppBar"
