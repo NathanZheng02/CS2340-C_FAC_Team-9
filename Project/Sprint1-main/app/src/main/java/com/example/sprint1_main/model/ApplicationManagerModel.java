@@ -17,11 +17,13 @@ public class ApplicationManagerModel {
 
     private UserModel currentUser;
     private DestinationModel currentDestination;
+    private TravelModel currentTravel;
 
 
     private ApplicationManagerModel() {
         this.currentUser = new UserModel("email", "number", "name", 10, "tempUser", "password");
         this.currentDestination = null;
+        this.currentTravel = null;
     }
 
     public static ApplicationManagerModel getInstance() {
