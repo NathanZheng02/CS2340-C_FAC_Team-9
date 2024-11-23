@@ -9,7 +9,6 @@ public class TravelModel {
     private DateModel startDate;
     private DateModel endDate;
     private int duration;
-    private DateCalculatorModel dateCalculator;
     private List<DestinationModel> destinations;
     private List<String> transportation;
     private List<String> notes;
@@ -23,8 +22,12 @@ public class TravelModel {
         this.startDate = startDate;
         this.endDate = endDate;
 
-        dateCalculator = new DateCalculatorModel();
-        this.duration = dateCalculator.getDuration(startDate, endDate);
+
+        if (startDate != null && endDate != null) {
+            DateCalculatorModel calculator = new DateCalculatorModel();
+            this.duration = calculator.getDuration(startDate, endDate);
+        }
+
 
         this.destinations = new ArrayList<>();
         this.transportation = new ArrayList<>();
@@ -47,6 +50,8 @@ public class TravelModel {
 
     public void setStartDate(DateModel startDate) {
         this.startDate = startDate;
+        DateCalculatorModel calculator = new DateCalculatorModel();
+        this.duration = calculator.getDuration(startDate, endDate);
     }
 
     public DateModel getEndDate() {
@@ -55,6 +60,8 @@ public class TravelModel {
 
     public void setEndDate(DateModel endDate) {
         this.endDate = endDate;
+        DateCalculatorModel calculator = new DateCalculatorModel();
+        this.duration = calculator.getDuration(startDate, endDate);
     }
 
     public int getDuration() {
@@ -63,14 +70,6 @@ public class TravelModel {
 
     public void setDuration(int duration) {
         this.duration = duration;
-    }
-
-    public DateCalculatorModel getDateCalculator() {
-        return dateCalculator;
-    }
-
-    public void setDateCalculator(DateCalculatorModel dateCalculator) {
-        this.dateCalculator = dateCalculator;
     }
 
     public List<DestinationModel> getDestinations() {
