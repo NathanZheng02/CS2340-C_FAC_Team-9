@@ -109,4 +109,12 @@ public class ApplicationManagerModel {
     public void setCurrentDestination(DestinationModel currentDestination) {
         this.currentDestination = currentDestination;
     }
+
+    public TravelModel getCurrentTravel() {
+        return currentTravel;
+    }
+
+    public void setCurrentTravel(TravelModel currentTravel) {
+        this.currentTravel = currentTravel;
+    }
 }

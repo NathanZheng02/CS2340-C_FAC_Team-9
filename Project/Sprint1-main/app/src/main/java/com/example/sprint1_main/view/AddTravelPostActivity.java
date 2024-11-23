@@ -2,6 +2,7 @@ package com.example.sprint1_main.view;
 
 import static java.lang.Integer.parseInt;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -21,12 +22,17 @@ import com.example.sprint1_main.model.ApplicationManagerModel;
 import com.example.sprint1_main.model.DateModel;
 import com.example.sprint1_main.model.DestinationDatabaseModel;
 import com.example.sprint1_main.model.DestinationModel;
+import com.example.sprint1_main.model.TravelDatabaseModel;
 import com.example.sprint1_main.model.TravelModel;
 import com.example.sprint1_main.model.UserDatabaseModel;
 import com.example.sprint1_main.viewmodel.LogisticsViewModel;
 import com.example.sprint1_main.viewmodel.TravelPostViewModel;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,60 +55,62 @@ public class AddTravelPostActivity extends AppCompatActivity  {
 
         manager.updateUserDestinations();
 
-        if (manager.getCurrentUser().getDestinations() == null) {
-            manager.getCurrentUser().setDestinations(new ArrayList<>());
-        }
-
-        if (manager.getCurrentUser().getDestinations().size() >= 1) {
-            manager.setCurrentDestination(manager.getCurrentUser().getDestinations().get(0));
-        }
+        manager.setCurrentTravel(new TravelModel(manager.getCurrentUser(), null, null));
+        manager.getCurrentTravel().setDestinations(new ArrayList<>());
 
 
         TextView accommodationText = findViewById(R.id.accomodations);
         TextView diningText = findViewById(R.id.diningreservations);
         Button addPost = findViewById(R.id.button_addTravelPost);
+        Button addDestination = findViewById(R.id.button_addDestination);
 
         EditText startField = findViewById(R.id.starting);
         EditText endField = findViewById(R.id.ending);
         EditText noteField = findViewById(R.id.notesAboutTrip);
+        EditText destInput = findViewById(R.id.destination_input);
 
-        Spinner destinationsSpinner = (Spinner) findViewById(R.id.travel_destination_spinner);
 
 
-        List<String> dN = new ArrayList<>();
-        for (DestinationModel destination : manager.getCurrentUser().getDestinations()) {
-            dN.add(destination.getDestinationName());
-        }
 
-        ArrayAdapter<String> a = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_item, dN);
 
-        destinationsSpinner.setAdapter(a);
-
-        //TODO: change spinner for textbox lookup (see adduseractivity)
-
-        destinationsSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        addDestination.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Log.v("destination name", (String) parent.getItemAtPosition(position));
+            public void onClick(View view) {
+                String destName = destInput.getText().toString();
 
-                for (DestinationModel d : manager.getCurrentUser().getDestinations()) {
-                    String check = (String) parent.getItemAtPosition(position);
-                    if (d.getDestinationName().equals(check)) {
-                        manager.setCurrentDestination(d);
-                        TravelPostViewModel.updateAccommodations(accommodationText);
-                        TravelPostViewModel.updateDining(diningText);
-                        break;
+                FirebaseDatabase fb = FirebaseDatabase.getInstance();
+                DatabaseReference reference = fb.getReference("Destination Database");
+
+                Query checkUserDatabase = reference.orderByChild("destinationName").equalTo(destName);
+
+                checkUserDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.exists()) {
+                            DestinationModel destination = snapshot.child(destName).getValue(DestinationModel.class);
+
+                            if (manager.getCurrentUser().getDestinations().contains(destination)) {
+                                manager.getCurrentTravel().getDestinations().add(destination);
+
+                                TravelPostViewModel.updateAccommodations(accommodationText);
+                                TravelPostViewModel.updateDining(diningText);
+                            } else {
+                                destInput.setError("Destination Does Not Belong To User");
+                            }
+
+
+                        } else {
+                            destInput.setError("Destination Does Not Exist");
+                        }
                     }
-                }
-            }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                //TODO auto-generated
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
             }
         });
-
 
 
         addPost.setOnClickListener(new View.OnClickListener() {
@@ -137,15 +145,20 @@ public class AddTravelPostActivity extends AppCompatActivity  {
                 DateModel start = new DateModel(m1, d1, y1);
                 DateModel end = new DateModel(m2, d2, y2);
 
-                TravelModel travelPost = new TravelModel(manager.getCurrentUser(), start, end);
+                manager.getCurrentTravel().setStartDate(start);
+                manager.getCurrentTravel().setEndDate(end);
                 if (!note.equals("")) {
-                    travelPost.getNotes().add(note);
+                    manager.getCurrentTravel().getNotes().add(note);
                 }
 
-                //TODO: finish firebase connection
+                TravelDatabaseModel travelDatabase = TravelDatabaseModel.getInstance();
 
-//                database = FirebaseDatabase.getInstance();
-//                reference = database.getReference("Travel Post Database");
+                TravelModel travel = manager.getCurrentTravel();
+
+                database = FirebaseDatabase.getInstance();
+                reference = database.getReference("Travel Post Database");
+
+                reference.child("" + travelDatabase.getTravels().size()).setValue(travel);
 
             }
         });
