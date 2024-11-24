@@ -19,6 +19,7 @@ import android.widget.TextView;
 
 import com.example.sprint1_main.R;
 import com.example.sprint1_main.model.ApplicationManagerModel;
+import com.example.sprint1_main.model.DateCalculatorModel;
 import com.example.sprint1_main.model.DateModel;
 import com.example.sprint1_main.model.DestinationDatabaseModel;
 import com.example.sprint1_main.model.DestinationModel;
@@ -125,6 +126,11 @@ public class AddTravelPostActivity extends AppCompatActivity  {
             public void onClick(View view) {
                 Log.d(TAG, "Add Travel Post onClick Called");
 
+                if (manager.getCurrentTravel().getDestinations().size() < 1) {
+                    destInput.setError("Must Add At Least One Destination");
+                    return;
+                }
+
                 String startText = startField.getText().toString().trim();
                 String endText = endField.getText().toString().trim();
                 String note = noteField.getText().toString();
@@ -151,6 +157,12 @@ public class AddTravelPostActivity extends AppCompatActivity  {
 
                 DateModel start = new DateModel(m1, d1, y1);
                 DateModel end = new DateModel(m2, d2, y2);
+
+                DateCalculatorModel calculator = new DateCalculatorModel();
+                if (!calculator.dateBefore(start, end)) {
+                    startField.setError("Start Date Must Be Before End Date");
+                    return;
+                }
 
                 manager.getCurrentTravel().setStartDate(start);
                 manager.getCurrentTravel().setEndDate(end);
