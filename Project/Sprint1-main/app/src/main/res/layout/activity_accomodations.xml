@@ -21,7 +21,53 @@
             android:textColor="@android:color/white"
             android:textSize="20sp"
             android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/button_sortByCheckIn"
+            android:layout_width="220dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="97dp"
+            android:backgroundTint="@color/lightgray"
+            android:text="Sort By Check-In Time"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <Button
+            android:id="@+id/button_sortByCheckOut"
+            android:layout_width="220dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="97dp"
+            android:backgroundTint="@color/lightgray"
+            android:text="Sort By Check-Out Time"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/accommodationList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:paddingBottom="80dp"
+            android:clipToPadding="false"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+
     </LinearLayout>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/addAccommodation"
+        android:layout_width="75dp"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        app:backgroundTint="@color/darkgray"
+        app:srcCompat="@android:drawable/ic_input_add"
+        app:layout_constraintBottom_toTopOf="@id/bottomAppBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginBottom="15dp"
+        android:layout_marginRight="15dp"/>
 
     <com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/bottomAppBar"

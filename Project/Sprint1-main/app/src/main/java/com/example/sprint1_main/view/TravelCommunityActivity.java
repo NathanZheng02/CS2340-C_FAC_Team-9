@@ -25,6 +25,8 @@ public class TravelCommunityActivity extends AppCompatActivity {
         ImageButton accommodations = findViewById(R.id.button_accommodations);
         ImageButton home = findViewById(R.id.button_home);
 
+        ImageButton addTravelPost = findViewById(R.id.addTravelPost);
+
         logistics.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -58,6 +60,13 @@ public class TravelCommunityActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(TravelCommunityActivity.this, HomeActivity.class);
+                startActivity(intent);
+            }
+        });
+        addTravelPost.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(TravelCommunityActivity.this, AddTravelPostActivity.class);
                 startActivity(intent);
             }
         });

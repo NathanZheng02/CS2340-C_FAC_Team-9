@@ -14,8 +14,9 @@ public class UserModel {
     private List<DestinationModel> destinations;
     private int duration;
 
+    public UserModel() {
 
-    public UserModel() {}
+    }
 
 
 
@@ -30,11 +31,6 @@ public class UserModel {
         this.loginStatus = false;
         this.destinations = new ArrayList<>();
         this.duration = 0;
-
-        //default destinations
-        this.destinations.add(new DestinationModel("Paris", new DateModel(3, 10, 2009), new DateModel(4,10,2009)));
-        this.destinations.add(new DestinationModel("Dublin", new DateModel(8, 16, 2015), new DateModel(8,20,2015)));
-        this.destinations.add(new DestinationModel("New York", new DateModel(1, 1, 2023), new DateModel(2,30,2023)));
     }
 
 

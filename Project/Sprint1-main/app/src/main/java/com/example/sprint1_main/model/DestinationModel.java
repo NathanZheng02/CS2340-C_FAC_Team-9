@@ -9,10 +9,15 @@ public class DestinationModel {
     private DateModel startDate;
     private DateModel endDate;
     private int estimatedDays;
-    private List<UserModel> contributingUsers;
+    private List<String> contributingUsers;
     private List<String> notes;
+    private List<ReservationModel> reservations;
+    private List<LodgingModel> lodgings;
 
-    public DestinationModel() {}
+
+    public DestinationModel() {
+
+    }
 
 
 
@@ -23,43 +28,34 @@ public class DestinationModel {
         this.estimatedDays = getDaysBetween(startDate, endDate);
         this.contributingUsers = new ArrayList<>();
         this.notes = new ArrayList<>();
+        this.reservations = new ArrayList<>();
+        this.lodgings = new ArrayList<>();
     }
 
     public int getDaysInMonth(int month) {
         if (month == 1) {
             return 31;
-        }
-        else if (month == 2) {
+        } else if (month == 2) {
             return 28;
-        }
-        else if (month == 3) {
+        } else if (month == 3) {
             return 31;
-        }
-        else if (month == 4) {
+        } else if (month == 4) {
             return 30;
-        }
-        else if (month == 5) {
+        } else if (month == 5) {
             return 31;
-        }
-        else if (month == 6) {
+        } else if (month == 6) {
             return 30;
-        }
-        else if (month == 7) {
+        } else if (month == 7) {
             return 31;
-        }
-        else if (month == 8) {
+        } else if (month == 8) {
             return 31;
-        }
-        else if (month == 9) {
+        } else if (month == 9) {
             return 30;
-        }
-        else if (month == 10) {
+        } else if (month == 10) {
             return 31;
-        }
-        else if (month == 11) {
+        } else if (month == 11) {
             return 30;
-        }
-        else if (month == 12) {
+        } else if (month == 12) {
             return 31;
         }
         return 0;
@@ -117,11 +113,11 @@ public class DestinationModel {
         this.notes = notes;
     }
 
-    public List<UserModel> getContributingUsers() {
+    public List<String> getContributingUsers() {
         return contributingUsers;
     }
 
-    public void setContributingUsers(List<UserModel> contributingUsers) {
+    public void setContributingUsers(List<String> contributingUsers) {
         this.contributingUsers = contributingUsers;
     }
 
@@ -131,5 +127,22 @@ public class DestinationModel {
 
     public void setEstimatedDays(int estimatedDays) {
         this.estimatedDays = estimatedDays;
+    }
+
+    // reservations getter and setter
+    public List<ReservationModel> getReservations() {
+        return reservations;
+    }
+
+    public void setReservations(List<ReservationModel> reservations) {
+        this.reservations = reservations;
+    }
+
+    public List<LodgingModel> getLodgings() {
+        return lodgings;
+    }
+
+    public void setLodgings(List<LodgingModel> lodgings) {
+        this.lodgings = lodgings;
     }
 }

@@ -1,6 +1,5 @@
 package com.example.sprint1_main.view;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -12,28 +11,23 @@ import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageButton;
 
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-
 import com.example.sprint1_main.R;
+import com.example.sprint1_main.model.ApplicationManagerModel;
 import com.example.sprint1_main.model.DestinationModel;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class DestinationActivity extends AppCompatActivity {
 
     private static final String TAG = "DestinationActivity";
 
-    RecyclerView recyclerView;
-    DatabaseReference database;
-    Adapter adapter;
-    ArrayList<DestinationModel> list;
+    private RecyclerView recyclerView;
+    private DatabaseReference database;
+    private DestinationsAdapter adapter;
+    private ArrayList<DestinationModel> list;
 
 
     @Override
@@ -55,27 +49,16 @@ public class DestinationActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         list = new ArrayList<>();
-        adapter = new Adapter(this,list);
+
+        ApplicationManagerModel manager = ApplicationManagerModel.getInstance();
+        List<DestinationModel> destinations = manager.getCurrentUser().getDestinations();
+        for (DestinationModel destination : destinations) {
+            list.add(destination);
+        }
+
+        adapter = new DestinationsAdapter(this, list);
         recyclerView.setAdapter(adapter);
 
-        database.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-
-                for (DataSnapshot dataSnapShot : snapshot.getChildren()) {
-
-                    DestinationModel destination = dataSnapShot.getValue(DestinationModel.class);
-                    list.add(destination);
-                }
-                adapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
 
 
         logistics.setOnClickListener(new View.OnClickListener() {
@@ -123,8 +106,9 @@ public class DestinationActivity extends AppCompatActivity {
         vacationTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(DestinationActivity.this, CalculateVacationTimeActivity.class);
-                startActivity(intent);
+                Intent i;
+                i = new Intent(DestinationActivity.this, CalculateVacationTimeActivity.class);
+                startActivity(i);
             }
         });
         Log.d(TAG, "onCreate called");

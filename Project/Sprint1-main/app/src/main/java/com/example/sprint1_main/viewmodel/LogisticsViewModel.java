@@ -1,13 +1,20 @@
 package com.example.sprint1_main.viewmodel;
 
-import android.widget.EditText;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 
 import com.example.sprint1_main.model.ApplicationManagerModel;
 import com.example.sprint1_main.model.DestinationModel;
-import com.example.sprint1_main.model.UserModel;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class LogisticsViewModel extends ViewModel {
 
@@ -21,33 +28,34 @@ public class LogisticsViewModel extends ViewModel {
     public static void updateNotes(TextView notes) {
         ApplicationManagerModel manager = ApplicationManagerModel.getInstance();
 
-        StringBuilder notes_builder = new StringBuilder();
+        StringBuilder notesBuilder = new StringBuilder();
         if (manager.getCurrentDestination().getNotes() != null) {
             for (String note : manager.getCurrentDestination().getNotes()) {
-                notes_builder.append(note);
-                notes_builder.append("\n");
+                notesBuilder.append(note);
+                notesBuilder.append("\n");
             }
         }
 
 
-        notes.setText(notes_builder.toString());
+        notes.setText(notesBuilder.toString());
 
         return;
     }
 
     public static void updateUsers(TextView contributers) {
+
         ApplicationManagerModel manager = ApplicationManagerModel.getInstance();
 
-        StringBuilder contributer_builder = new StringBuilder();
+        StringBuilder userBuilder = new StringBuilder();
         if (manager.getCurrentDestination().getContributingUsers() != null) {
-            for (UserModel user : manager.getCurrentDestination().getContributingUsers()) {
-                contributer_builder.append(user.getUsername());
-                contributer_builder.append("\n");
+            for (String user : manager.getCurrentDestination().getContributingUsers()) {
+                userBuilder.append(user);
+                userBuilder.append("\n");
             }
         }
 
 
-        contributers.setText(contributer_builder.toString());
+        contributers.setText(userBuilder.toString());
 
         return;
     }
@@ -56,8 +64,8 @@ public class LogisticsViewModel extends ViewModel {
 
         int days = getDays();
 
-        String days_string = "Total Days on Vacation: " + days;
-        totalDays.setText(days_string);
+        String daysString = "Total Days on Vacation: " + days;
+        totalDays.setText(daysString);
     }
 
     public static int getDays() {

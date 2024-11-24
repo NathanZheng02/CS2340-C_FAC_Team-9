@@ -2,8 +2,11 @@ package com.example.sprint1_main.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageButton;
 
 import com.example.sprint1_main.R;
 
@@ -15,11 +18,52 @@ public class TransportationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_transportation);
+
+        ImageButton logistics = findViewById(R.id.button_logistics);
+        ImageButton destination = findViewById(R.id.button_destination);
+        ImageButton dining = findViewById(R.id.button_diningEstablishments);
+        ImageButton accommodations = findViewById(R.id.button_accommodations);
+        ImageButton home = findViewById(R.id.button_home);
+
+        logistics.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(TransportationActivity.this, LogisticsActivity.class);
+                startActivity(intent);
+            }
+        });
+        destination.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(TransportationActivity.this, DestinationActivity.class);
+                startActivity(intent);
+            }
+        });
+        dining.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(TransportationActivity.this, DiningActivity.class);
+                startActivity(intent);
+            }
+        });
+        accommodations.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(TransportationActivity.this,
+                        AccomodationsActivity.class);
+                startActivity(intent);
+            }
+        });
+        home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(TransportationActivity.this, HomeActivity.class);
+                startActivity(intent);
+            }
+        });
+
         Log.d(TAG, "onCreate called");
-
     }
-
-
 
 
     @Override

@@ -22,6 +22,8 @@ public class MainActivity extends AppCompatActivity {
         Button start = findViewById(R.id.button_start);
         Button quit = findViewById(R.id.button_quit);
 
+
+
         start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

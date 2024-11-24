@@ -15,11 +15,11 @@ import android.widget.ImageButton;
 import com.example.sprint1_main.R;
 import com.example.sprint1_main.model.ApplicationManagerModel;
 import com.example.sprint1_main.model.DateModel;
-import com.example.sprint1_main.model.UserModel;
 import com.example.sprint1_main.model.DestinationModel;
-import com.example.sprint1_main.view.LoginActivity;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.ArrayList;
 
 public class LogTravelActivity extends AppCompatActivity {
 
@@ -91,8 +91,8 @@ public class LogTravelActivity extends AppCompatActivity {
         calcVacation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LogTravelActivity.this, CalculateVacationTimeActivity.class);
-                startActivity(intent);
+                Intent i = new Intent(LogTravelActivity.this, CalculateVacationTimeActivity.class);
+                startActivity(i);
             }
         });
         cancel.setOnClickListener(new View.OnClickListener() {
@@ -114,24 +114,41 @@ public class LogTravelActivity extends AppCompatActivity {
                 String startDate = startDateField.getText().toString().trim();
                 String endDate = endDateField.getText().toString().trim();
                 //MM/DD/YYYY
-                DateModel beginning = new DateModel(parseInt(startDate.substring(0, 2)), parseInt(startDate.substring(3, 5)), parseInt(startDate.substring(6)));
-                DateModel ending = new DateModel(parseInt(endDate.substring(0, 2)), parseInt(endDate.substring(3, 5)), parseInt(endDate.substring(6)));
+                int m1 = parseInt(startDate.substring(0, 2));
+                int d1 = parseInt(startDate.substring(3, 5));
+                int y1 = parseInt(startDate.substring(6));
 
-                DestinationModel destination = new DestinationModel(destinationName, beginning, ending);
+                int m2 = parseInt(endDate.substring(0, 2));
+                int d2 = parseInt(endDate.substring(3, 5));
+                int y2 = parseInt(endDate.substring(6));
 
-                reference.child(destinationName).setValue(destination);
-
-
-
+                DateModel beginning = new DateModel(m1, d1, y1);
+                DateModel ending = new DateModel(m2, d2, y2);
 
                 ApplicationManagerModel manager = ApplicationManagerModel.getInstance();
 
-                manager.getCurrentUser().getDestinations().add(destination);
+                DestinationModel dest = new DestinationModel(destinationName, beginning, ending);
+                if (dest.getContributingUsers() == null) {
+                    dest.setContributingUsers(new ArrayList<>());
+                }
+                dest.getContributingUsers().add(manager.getCurrentUser().getUsername());
 
-                FirebaseDatabase.getInstance().getReference("User Database").child(manager.getCurrentUser().getUsername()).child("destinations").child("" + manager.getCurrentUser().getDestinations().size()).setValue(destination);
+                reference.child(destinationName).setValue(dest);
+
+
+
+                DatabaseReference r1 =
+                        FirebaseDatabase.getInstance().getReference("User Database");
+                DatabaseReference r2 =
+                        r1.child(manager.getCurrentUser().getUsername());
+                DatabaseReference r3 = r2.child("destinations");
+                r3.child("" + manager.getCurrentUser().getDestinations().size()).setValue(dest);
+
+                manager.getCurrentUser().getDestinations().add(dest);
 
                 Intent intent = new Intent(LogTravelActivity.this, DestinationActivity.class);
                 startActivity(intent);
+
             }
         });
         Log.d(TAG, "onCreate called");
