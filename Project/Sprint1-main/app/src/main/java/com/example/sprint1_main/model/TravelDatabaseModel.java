@@ -27,7 +27,7 @@ public class TravelDatabaseModel {
     public static TravelDatabaseModel getInstance() {
 
         FirebaseDatabase firebase = FirebaseDatabase.getInstance();
-        DatabaseReference databaseReference = firebase.getReference("Travel Database");
+        DatabaseReference databaseReference = firebase.getReference("Travel Post Database");
 
 
         if (travelDatabase == null) {

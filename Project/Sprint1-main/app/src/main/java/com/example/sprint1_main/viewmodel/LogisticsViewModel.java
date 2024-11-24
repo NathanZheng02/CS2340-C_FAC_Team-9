@@ -25,34 +25,6 @@ public class LogisticsViewModel extends ViewModel {
 
     }
 
-    public static void updateDestinations() {
-        DatabaseReference dF = FirebaseDatabase.getInstance().getReference("User Database");
-        ApplicationManagerModel manager = ApplicationManagerModel.getInstance();
-
-        DatabaseReference destinations = dF.child("destinations");
-
-        List<DestinationModel> desList = new ArrayList<>();
-
-        destinations.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()) {
-                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                        DestinationModel des = dataSnapshot.getValue(DestinationModel.class);
-                        desList.add(des);
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
-        manager.getCurrentUser().setDestinations(desList);
-    }
-
     public static void updateNotes(TextView notes) {
         ApplicationManagerModel manager = ApplicationManagerModel.getInstance();
 
