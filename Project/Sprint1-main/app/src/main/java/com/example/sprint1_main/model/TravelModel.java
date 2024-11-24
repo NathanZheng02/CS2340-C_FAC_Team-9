@@ -5,7 +5,10 @@ import java.util.List;
 
 public class TravelModel {
 
-    private UserModel user;
+
+
+
+    private List<String> users;
     private DateModel startDate;
     private DateModel endDate;
     private int duration;
@@ -13,12 +16,14 @@ public class TravelModel {
     private List<String> transportation;
     private List<String> notes;
 
+
     public TravelModel() {
 
     }
 
     public TravelModel(UserModel user, DateModel startDate, DateModel endDate) {
-        this.user = user;
+        this.users = new ArrayList<>();
+        this.users.add(user.getUsername());
         this.startDate = startDate;
         this.endDate = endDate;
 
@@ -36,12 +41,13 @@ public class TravelModel {
 
 
 
-    public UserModel getUser() {
-        return user;
+
+    public List<String> getUsers() {
+        return users;
     }
 
-    public void setUser(UserModel user) {
-        this.user = user;
+    public void setUsers(List<String> users) {
+        this.users = users;
     }
 
     public DateModel getStartDate() {

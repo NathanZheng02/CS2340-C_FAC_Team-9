@@ -13,6 +13,7 @@ public class UserModel {
     private boolean loginStatus;
     private List<DestinationModel> destinations;
     private int duration;
+    private List<TravelModel> travels;
 
     public UserModel() {
 
@@ -31,6 +32,7 @@ public class UserModel {
         this.loginStatus = false;
         this.destinations = new ArrayList<>();
         this.duration = 0;
+        this.travels = new ArrayList<>();
     }
 
 
@@ -108,6 +110,14 @@ public class UserModel {
 
     public void setDuration(int duration) {
         this.duration = duration;
+    }
+
+    public List<TravelModel> getTravels() {
+        return travels;
+    }
+
+    public void setTravels(List<TravelModel> travels) {
+        this.travels = travels;
     }
 
 }
