@@ -51,6 +51,8 @@
             android:name=".view.AddUserActivity"/>
         <activity
             android:name=".view.AddAccomodationsActivity"/>
+        <activity
+            android:name=".view.AddTravelPostActivity"/>
     </application>
 
 </manifest>
