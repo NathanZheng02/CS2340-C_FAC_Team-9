@@ -34,28 +34,6 @@ public class DestinationDatabaseModel {
 
             destinationDatabase = new DestinationDatabaseModel();
 
-            DateModel date1 = new DateModel(3, 10, 2009);
-            DateModel date2 = new DateModel(4, 10, 2009);
-
-            DateModel date3 = new DateModel(8, 16, 2015);
-            DateModel date4 = new DateModel(8, 20, 2015);
-
-            DateModel date5 = new DateModel(1, 1, 2023);
-            DateModel date6 = new DateModel(2, 30, 2023);
-
-
-            DestinationModel paris = new DestinationModel("Paris", date1, date2);
-            DestinationModel dublin = new DestinationModel("Dublin", date3, date4);
-            DestinationModel newYork = new DestinationModel("New York", date5, date6);
-
-            destinationDatabase.getDestinations().add(paris);
-            destinationDatabase.getDestinations().add(dublin);
-            destinationDatabase.getDestinations().add(newYork);
-
-            databaseReference.child("Paris").setValue(paris);
-            databaseReference.child("Dublin").setValue(dublin);
-            databaseReference.child("New York").setValue(newYork);
-
         } else {
             databaseReference.addValueEventListener(new ValueEventListener() {
                 @Override
