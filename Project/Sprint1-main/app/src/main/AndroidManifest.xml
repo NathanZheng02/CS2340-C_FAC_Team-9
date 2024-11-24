@@ -53,6 +53,8 @@
             android:name=".view.AddAccomodationsActivity"/>
         <activity
             android:name=".view.AddTravelPostActivity"/>
+        <activity
+            android:name=".view.SpecificTravelPostActivity"/>
     </application>
 
 </manifest>
