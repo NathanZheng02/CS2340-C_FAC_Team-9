@@ -89,12 +89,19 @@ public class AddTravelPostActivity extends AppCompatActivity  {
                         if (snapshot.exists()) {
                             DestinationModel destination = snapshot.child(destName).getValue(DestinationModel.class);
 
-                            if (manager.getCurrentUser().getDestinations().contains(destination)) {
-                                manager.getCurrentTravel().getDestinations().add(destination);
+                            boolean hasDest = false;
 
-                                TravelPostViewModel.updateAccommodations(accommodationText);
-                                TravelPostViewModel.updateDining(diningText);
-                            } else {
+                            for (DestinationModel dest : manager.getCurrentUser().getDestinations()) {
+                                if (dest.getDestinationName().equals(destName)) {
+                                    manager.getCurrentTravel().getDestinations().add(destination);
+
+                                    TravelPostViewModel.updateAccommodations(accommodationText);
+                                    TravelPostViewModel.updateDining(diningText);
+                                    hasDest = true;
+                                }
+                            }
+
+                            if (!hasDest) {
                                 destInput.setError("Destination Does Not Belong To User");
                             }
 
