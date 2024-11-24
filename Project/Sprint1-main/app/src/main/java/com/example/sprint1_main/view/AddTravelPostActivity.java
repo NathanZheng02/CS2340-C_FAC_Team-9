@@ -55,7 +55,7 @@ public class AddTravelPostActivity extends AppCompatActivity  {
 
         manager.updateUserDestinations();
 
-        manager.setCurrentTravel(new TravelModel(manager.getCurrentUser(), null, null));
+        manager.setCurrentTravel(new TravelModel(manager.getCurrentUser(), new DateModel(0,0,0), new DateModel(0,0,0)));
         manager.getCurrentTravel().setDestinations(new ArrayList<>());
 
 
@@ -167,6 +167,8 @@ public class AddTravelPostActivity extends AppCompatActivity  {
 
                 reference.child("" + travelDatabase.getTravels().size()).setValue(travel);
 
+                Intent i = new Intent(AddTravelPostActivity.this, TravelCommunityActivity.class);
+                startActivity(i);
             }
         });
 
