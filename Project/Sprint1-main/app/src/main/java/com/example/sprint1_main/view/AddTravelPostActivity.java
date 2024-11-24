@@ -55,7 +55,7 @@ public class AddTravelPostActivity extends AppCompatActivity  {
 
         manager.updateUserDestinations();
 
-        manager.setCurrentTravel(new TravelModel(manager.getCurrentUser(), null, null));
+        manager.setCurrentTravel(new TravelModel(manager.getCurrentUser(), new DateModel(0,0,0), new DateModel(0,0,0)));
         manager.getCurrentTravel().setDestinations(new ArrayList<>());
 
 
@@ -89,12 +89,19 @@ public class AddTravelPostActivity extends AppCompatActivity  {
                         if (snapshot.exists()) {
                             DestinationModel destination = snapshot.child(destName).getValue(DestinationModel.class);
 
-                            if (manager.getCurrentUser().getDestinations().contains(destination)) {
-                                manager.getCurrentTravel().getDestinations().add(destination);
+                            boolean hasDest = false;
 
-                                TravelPostViewModel.updateAccommodations(accommodationText);
-                                TravelPostViewModel.updateDining(diningText);
-                            } else {
+                            for (DestinationModel dest : manager.getCurrentUser().getDestinations()) {
+                                if (dest.getDestinationName().equals(destName)) {
+                                    manager.getCurrentTravel().getDestinations().add(destination);
+
+                                    TravelPostViewModel.updateAccommodations(accommodationText);
+                                    TravelPostViewModel.updateDining(diningText);
+                                    hasDest = true;
+                                }
+                            }
+
+                            if (!hasDest) {
                                 destInput.setError("Destination Does Not Belong To User");
                             }
 
@@ -160,6 +167,8 @@ public class AddTravelPostActivity extends AppCompatActivity  {
 
                 reference.child("" + travelDatabase.getTravels().size()).setValue(travel);
 
+                Intent i = new Intent(AddTravelPostActivity.this, TravelCommunityActivity.class);
+                startActivity(i);
             }
         });
 
