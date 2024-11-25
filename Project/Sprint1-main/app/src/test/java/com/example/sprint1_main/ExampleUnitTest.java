@@ -462,4 +462,64 @@ public class ExampleUnitTest {
         assertEquals(travel.getStartDate().getYear(), 2011);
         assertEquals(travel.getEndDate().getYear(), 2012);
     }
+
+    @Test
+    public void travelModelSmallListTest() {
+        UserModel user1 = new UserModel("alice@example.com", "555-0001", "Alice", 25, "alice25", "pass1");
+        UserModel user2 = new UserModel("bob@example.com", "555-0002", "Bob", 28, "bob28", "pass2");
+
+        TravelModel trip1 = new TravelModel(user1, new DateModel(5, 10, 2024),
+                new DateModel(5, 20, 2024));
+        TravelModel trip2 = new TravelModel(user2, new DateModel(6, 15, 2024),
+                new DateModel(6, 25, 2024));
+
+        List<TravelModel> travelPosts = new ArrayList<>();
+        travelPosts.add(trip1);
+        travelPosts.add(trip2);
+
+        assertEquals(2, travelPosts.size());
+        assertEquals("Alice", travelPosts.get(0).getUser().getName());
+        assertEquals(5, travelPosts.get(0).getStartDate().getMonth());
+        assertEquals("Bob", travelPosts.get(1).getUser().getName());
+        assertEquals(6, travelPosts.get(1).getStartDate().getMonth());
+    }
+
+    @Test
+    public void travelModelLargerListTest() {
+        UserModel user1 = new UserModel("alice@example.com", "555-0001", "Alice", 25, "alice25", "pass1");
+        UserModel user2 = new UserModel("bob@example.com", "555-0002", "Bob", 28, "bob28", "pass2");
+        UserModel user3 = new UserModel("carol@example.com", "555-0003", "Carol", 30, "carol30", "pass3");
+        UserModel user4 = new UserModel("dave@example.com", "555-0004", "Dave", 27, "dave27", "pass4");
+        UserModel user5 = new UserModel("eve@example.com", "555-0005", "Eve", 26, "eve26", "pass5");
+
+        TravelModel trip1 = new TravelModel(user1, new DateModel(5, 10, 2024), new DateModel(5, 20, 2024));
+        TravelModel trip2 = new TravelModel(user2, new DateModel(6, 15, 2024), new DateModel(6, 25, 2024));
+        TravelModel trip3 = new TravelModel(user3, new DateModel(7, 5, 2024), new DateModel(7, 15, 2024));
+        TravelModel trip4 = new TravelModel(user4, new DateModel(8, 10, 2024), new DateModel(8, 20, 2024));
+        TravelModel trip5 = new TravelModel(user5, new DateModel(9, 25, 2024), new DateModel(10, 5, 2024));
+
+        List<TravelModel> travelPosts = new ArrayList<>();
+        travelPosts.add(trip1);
+        travelPosts.add(trip2);
+        travelPosts.add(trip3);
+        travelPosts.add(trip4);
+        travelPosts.add(trip5);
+
+        assertEquals(5, travelPosts.size());
+
+        assertEquals(10, travelPosts.get(0).getStartDate().getDay());
+        assertEquals(5, travelPosts.get(0).getEndDate().getMonth());
+
+        assertEquals(15, travelPosts.get(1).getStartDate().getDay());
+        assertEquals(6, travelPosts.get(1).getEndDate().getMonth());
+
+        assertEquals(5, travelPosts.get(2).getStartDate().getDay());
+        assertEquals(7, travelPosts.get(2).getEndDate().getMonth());
+
+        assertEquals(10, travelPosts.get(3).getStartDate().getDay());
+        assertEquals(8, travelPosts.get(3).getEndDate().getMonth());
+
+        assertEquals(25, travelPosts.get(4).getStartDate().getDay());
+        assertEquals(10, travelPosts.get(4).getEndDate().getMonth());
+    }
 }
