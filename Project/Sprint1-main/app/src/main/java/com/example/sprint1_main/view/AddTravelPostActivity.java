@@ -26,7 +26,7 @@ import com.example.sprint1_main.model.DestinationModel;
 import com.example.sprint1_main.model.TravelDatabaseModel;
 import com.example.sprint1_main.model.TravelModel;
 import com.example.sprint1_main.model.UserDatabaseModel;
-import com.example.sprint1_main.viewmodel.LogisticsViewModel;
+import com.example.sprint1_main.model.UserModel;
 import com.example.sprint1_main.viewmodel.TravelPostViewModel;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -50,35 +50,28 @@ public class AddTravelPostActivity extends AppCompatActivity  {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_addpost);
-
-
         ApplicationManagerModel manager = ApplicationManagerModel.getInstance();
         UserDatabaseModel userDatabase = UserDatabaseModel.getInstance();
         DestinationDatabaseModel destinationDatabase = DestinationDatabaseModel.getInstance();
-
         manager.updateUserDestinations();
-
-        manager.setCurrentTravel(new TravelModel(manager.getCurrentUser(), new DateModel(0,0,0), new DateModel(0,0,0)));
+        manager.setCurrentTravel(new TravelModel(manager.getCurrentUser(),
+                new DateModel(0, 0, 0), new DateModel(0, 0, 0)));
         manager.getCurrentTravel().setDestinations(new ArrayList<>());
-
 
         Spinner transportationSpinner = findViewById(R.id.transportation);
         TextView accommodationText = findViewById(R.id.accomodations);
         TextView diningText = findViewById(R.id.diningreservations);
         Button addPost = findViewById(R.id.button_addTravelPost);
         Button addDestination = findViewById(R.id.button_addDestination);
-
         EditText startField = findViewById(R.id.starting);
         EditText endField = findViewById(R.id.ending);
         EditText noteField = findViewById(R.id.notesAboutTrip);
         EditText destInput = findViewById(R.id.destination_input);
 
-
-
-        ArrayAdapter<CharSequence> transportationAdapter = ArrayAdapter.createFromResource(
+        ArrayAdapter<CharSequence> tranAdapter = ArrayAdapter.createFromResource(
                 this, R.array.transportation_type, android.R.layout.simple_spinner_item);
-        transportationAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        transportationSpinner.setAdapter(transportationAdapter);
+        tranAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        transportationSpinner.setAdapter(tranAdapter);
 
         transportationSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -91,126 +84,61 @@ public class AddTravelPostActivity extends AppCompatActivity  {
             }
         });
 
-
         addDestination.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String destName = destInput.getText().toString();
-
+                String dName = destInput.getText().toString();
                 FirebaseDatabase fb = FirebaseDatabase.getInstance();
                 DatabaseReference reference = fb.getReference("Destination Database");
-
-                Query checkUserDatabase = reference.orderByChild("destinationName").equalTo(destName);
+                Query checkUserDatabase = reference.orderByChild("destinationName").equalTo(dName);
 
                 checkUserDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         if (snapshot.exists()) {
-                            DestinationModel destination = snapshot.child(destName).getValue(DestinationModel.class);
-
+                            DataSnapshot s1 = snapshot.child(dName);
+                            DestinationModel destination = s1.getValue(DestinationModel.class);
                             boolean hasDest = false;
-
-                            for (DestinationModel dest : manager.getCurrentUser().getDestinations()) {
-                                if (dest.getDestinationName().equals(destName)) {
+                            UserModel currUse = manager.getCurrentUser();
+                            for (DestinationModel dest : currUse.getDestinations()) {
+                                if (dest.getDestinationName().equals(dName)) {
                                     manager.getCurrentTravel().getDestinations().add(destination);
-
                                     TravelPostViewModel.updateAccommodations(accommodationText);
                                     TravelPostViewModel.updateDining(diningText);
                                     hasDest = true;
                                 }
                             }
-
                             if (!hasDest) {
                                 destInput.setError("Destination Does Not Belong To User");
                             }
-
-
                         } else {
                             destInput.setError("Destination Does Not Exist");
                         }
                     }
-
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
-
                     }
                 });
             }
         });
-
 
         addPost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Log.d(TAG, "Add Travel Post onClick Called");
 
-                if (manager.getCurrentTravel().getDestinations().size() < 1) {
-                    destInput.setError("Must Add At Least One Destination");
-                    return;
-                }
-
-                String startText = startField.getText().toString().trim();
-                String endText = endField.getText().toString().trim();
-                String note = noteField.getText().toString();
-
-
-
-                String[] startArr = startText.split("/");
-                if (startArr.length != 3) {
-                    startField.setError("Date Must Be In Format MM/DD/YYYY");
-                    return;
-                }
-                int m1 = parseInt(startArr[0]);
-                int d1 = parseInt(startArr[1]);
-                int y1 = parseInt(startArr[2]);
-
-                String[] endArr = endText.split("/");
-                if (endArr.length != 3) {
-                    endField.setError("Date Must Be In Format MM/DD/YYYY");
-                    return;
-                }
-                int m2 = parseInt(endArr[0]);
-                int d2 = parseInt(endArr[1]);
-                int y2 = parseInt(endArr[2]);
-
-                DateModel start = new DateModel(m1, d1, y1);
-                DateModel end = new DateModel(m2, d2, y2);
-
-                DateCalculatorModel calculator = new DateCalculatorModel();
-                if (!calculator.dateBefore(start, end)) {
-                    startField.setError("Start Date Must Be Before End Date");
-                    return;
-                }
-
-                manager.getCurrentTravel().setStartDate(start);
-                manager.getCurrentTravel().setEndDate(end);
-                if (!note.equals("")) {
-                    manager.getCurrentTravel().getNotes().add(note);
-                }
-
-                TravelDatabaseModel travelDatabase = TravelDatabaseModel.getInstance();
-
-                TravelModel travel = manager.getCurrentTravel();
-
-                database = FirebaseDatabase.getInstance();
-                reference = database.getReference("Travel Post Database");
-
-                reference.child("" + travelDatabase.getTravels().size()).setValue(travel);
+                checkDates(manager, destInput, startField, endField, noteField);
 
                 Intent i = new Intent(AddTravelPostActivity.this, TravelCommunityActivity.class);
                 startActivity(i);
             }
         });
 
-
-
-
         ImageButton logistics = findViewById(R.id.button_logistics);
         ImageButton destination = findViewById(R.id.button_destination);
         ImageButton dining = findViewById(R.id.button_diningEstablishments);
         ImageButton accommodations = findViewById(R.id.button_accommodations);
         ImageButton home = findViewById(R.id.button_home);
-
 
         logistics.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -250,6 +178,53 @@ public class AddTravelPostActivity extends AppCompatActivity  {
         });
         Log.d(TAG, "onCreate called");
 
+    }
+
+    private void checkDates(ApplicationManagerModel manager, EditText destInput,
+                            EditText startField, EditText endField, EditText noteField) {
+        if (manager.getCurrentTravel().getDestinations().size() < 1) {
+            destInput.setError("Must Add At Least One Destination");
+            return;
+        }
+        String startText = startField.getText().toString().trim();
+        String endText = endField.getText().toString().trim();
+        String note = noteField.getText().toString();
+
+        String[] startArr = startText.split("/");
+        if (startArr.length != 3) {
+            startField.setError("Date Must Be In Format MM/DD/YYYY");
+            return;
+        }
+        int m1 = parseInt(startArr[0]);
+        int d1 = parseInt(startArr[1]);
+        int y1 = parseInt(startArr[2]);
+        String[] endArr = endText.split("/");
+        if (endArr.length != 3) {
+            endField.setError("Date Must Be In Format MM/DD/YYYY");
+            return;
+        }
+        int m2 = parseInt(endArr[0]);
+        int d2 = parseInt(endArr[1]);
+        int y2 = parseInt(endArr[2]);
+        DateModel start = new DateModel(m1, d1, y1);
+        DateModel end = new DateModel(m2, d2, y2);
+        DateCalculatorModel calculator = new DateCalculatorModel();
+        if (!calculator.dateBefore(start, end)) {
+            startField.setError("Start Date Must Be Before End Date");
+            return;
+        }
+        manager.getCurrentTravel().setStartDate(start);
+        manager.getCurrentTravel().setEndDate(end);
+        if (!note.equals("")) {
+            manager.getCurrentTravel().getNotes().add(note);
+        }
+        manager.getCurrentTravel().setTransportation(selectedTransportation);
+        TravelDatabaseModel travelDatabase = TravelDatabaseModel.getInstance();
+        List<TravelModel> newTravels = travelDatabase.getTravels();
+        newTravels.add(manager.getCurrentTravel());
+        database = FirebaseDatabase.getInstance();
+        reference = database.getReference("Travel Post Database");
+        reference.setValue(newTravels);
     }
 
 

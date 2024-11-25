@@ -11,11 +11,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.sprint1_main.R;
-import com.example.sprint1_main.model.ApplicationManagerModel;
 import com.example.sprint1_main.model.DestinationModel;
-import com.example.sprint1_main.model.TravelDatabaseModel;
 import com.example.sprint1_main.model.TravelModel;
-import com.example.sprint1_main.model.UserModel;
 
 import java.util.ArrayList;
 
@@ -23,7 +20,7 @@ public class TravelCommunityAdapter extends ArrayAdapter<TravelModel> {
 
 
     public TravelCommunityAdapter(Context context, ArrayList<TravelModel> travelArrayList) {
-        super(context, R.layout.list_item,travelArrayList);
+        super(context, R.layout.list_item, travelArrayList);
 
     }
 
@@ -35,14 +32,15 @@ public class TravelCommunityAdapter extends ArrayAdapter<TravelModel> {
         String destinations = "";
 
         if (convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.list_item,parent,false);
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.list_item,
+                    parent, false);
         }
 
         TextView userName = convertView.findViewById(R.id.username);
         TextView dest = convertView.findViewById(R.id.destination);
         TextView duration = convertView.findViewById(R.id.duration);
 
-        userName.setText(travel.getUser().getUsername());
+        userName.setText(travel.getUsers().toString());
         for (DestinationModel destination: travel.getDestinations()) {
             destinations += destination.getDestinationName();
         }

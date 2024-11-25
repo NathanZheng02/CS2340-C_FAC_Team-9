@@ -430,6 +430,16 @@ public class ExampleUnitTest {
     }
 
     @Test
+    public void travelCalulatorTest() { //tests duration calculator in the TravelModel class
+        DateModel start = new DateModel(11, 24, 2024);
+        DateModel end = new DateModel(12, 24, 2024);
+        UserModel user = new UserModel("testing1", "555-1234", "John Doe", 30, "johnDoe", "123");
+
+        TravelModel travel = new TravelModel(user, start, end);
+
+        assertEquals(30, travel.getDuration());
+    }
+
     public void travelModelTest() {
         UserModel newUser = new UserModel("UserName@email.com", "123-456-7890",
                 "UserName", 18, "goodUserName", "goodPassword");
@@ -614,5 +624,56 @@ public class ExampleUnitTest {
         assertEquals(applicationManager.getCurrentTravel(), travel2);
         applicationManager.setCurrentUser(user);
         assertEquals(applicationManager.getCurrentTravel(), travel2);
+
+    public void testOverlappingTravelDates() {
+        TravelModel trip1 = new TravelModel(
+                new UserModel("user1@example.com", "555-1234", "User One", 30, "user1", "pass1"),
+                new DateModel(6, 1, 2024),
+                new DateModel(6, 10, 2024)
+        );
+
+        TravelModel trip2 = new TravelModel(
+                new UserModel("user2@example.com", "555-5678", "User Two", 35, "user2", "pass2"),
+                new DateModel(6, 5, 2024),
+                new DateModel(6, 15, 2024)
+        );
+
+        boolean overlap = trip1.getStartDate().getYear() == trip2.getStartDate().getYear() &&
+                trip1.getEndDate().getMonth() >= trip2.getStartDate().getMonth() &&
+                trip1.getEndDate().getDay() >= trip2.getStartDate().getDay();
+
+        assertTrue("Trips should overlap", overlap);
+
+        boolean noOverlap = trip1.getEndDate().getMonth() < trip2.getStartDate().getMonth() ||
+                (trip1.getEndDate().getMonth() == trip2.getStartDate().getMonth() &&
+                        trip1.getEndDate().getDay() < trip2.getStartDate().getDay());
+
+        assertFalse("Trips should not be entirely separate", noOverlap);
+    }
+
+    @Test
+    public void testMultiThreadedNotesAccess() throws InterruptedException {
+        TravelModel travel = new TravelModel(
+                new UserModel("user@example.com", "555-1234", "Multi Thread User", 29, "threaduser", "threadpass"),
+                new DateModel(8, 1, 2024),
+                new DateModel(8, 10, 2024)
+        );
+
+        Thread thread1 = new Thread(() -> travel.getNotes().add("Thread 1: Pack sunscreen."));
+        Thread thread2 = new Thread(() -> travel.getNotes().add("Thread 2: Check flight tickets."));
+        Thread thread3 = new Thread(() -> travel.getNotes().add("Thread 3: Arrange airport pickup."));
+
+        thread1.start();
+        thread2.start();
+        thread3.start();
+
+        thread1.join();
+        thread2.join();
+        thread3.join();
+
+        assertEquals(3, travel.getNotes().size());
+        assertTrue(travel.getNotes().contains("Thread 1: Pack sunscreen."));
+        assertTrue(travel.getNotes().contains("Thread 2: Check flight tickets."));
+        assertTrue(travel.getNotes().contains("Thread 3: Arrange airport pickup."));
     }
 }

@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.example.sprint1_main.R;
 import com.example.sprint1_main.model.ApplicationManagerModel;
+import com.example.sprint1_main.model.TravelDatabaseModel;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -30,9 +31,12 @@ public class HomeActivity extends AppCompatActivity {
         Button logoutButton = findViewById(R.id.logoutButton);
 
         //setting up manager and updating destinations
-        if (manager.getCurrentUser().getDestinations() != null) {
+        if (manager.getCurrentUser().getDestinations() != null
+                && manager.getCurrentUser().getDestinations().size() > 0) {
             manager.setCurrentDestination(manager.getCurrentUser().getDestinations().get(0));
         }
+
+        TravelDatabaseModel travelDatabaseModel = TravelDatabaseModel.getInstance();
 
 
 
