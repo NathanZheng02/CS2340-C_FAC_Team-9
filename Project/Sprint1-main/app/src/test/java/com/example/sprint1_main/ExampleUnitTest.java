@@ -429,6 +429,16 @@ public class ExampleUnitTest {
     }
 
     @Test
+    public void travelCalulatorTest() { //tests duration calculator in the TravelModel class
+        DateModel start = new DateModel(11, 24, 2024);
+        DateModel end = new DateModel(12, 24, 2024);
+        UserModel user = new UserModel("testing1", "555-1234", "John Doe", 30, "johnDoe", "123");
+
+        TravelModel travel = new TravelModel(user, start, end);
+
+        assertEquals(30, travel.getDuration());
+    }
+
     public void travelModelTest() {
         UserModel newUser = new UserModel("UserName@email.com", "123-456-7890",
                 "UserName", 18, "goodUserName", "goodPassword");
