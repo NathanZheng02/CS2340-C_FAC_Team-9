@@ -1,6 +1,8 @@
 package com.example.sprint1_main.model;
 
-public class DateCalculatorModel {
+import java.io.Serializable;
+
+public class DateCalculatorModel implements Serializable {
 
     public DateCalculatorModel() {
 
