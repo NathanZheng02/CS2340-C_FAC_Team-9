@@ -81,8 +81,8 @@ public class TravelCommunityActivity extends AppCompatActivity {
         TravelDatabaseModel travelDatabase = TravelDatabaseModel.getInstance();
         DestinationDatabaseModel destinationDatabase = DestinationDatabaseModel.getInstance();
 
-        travelPostData.setValues(userDatabase.getUsers(), travelDatabase.getTravels(),
-                destinationDatabase.getDestinations());
+//        travelPostData.setValues(userDatabase.getUsers(), travelDatabase.getTravels(),
+//                destinationDatabase.getDestinations());
 
 
 

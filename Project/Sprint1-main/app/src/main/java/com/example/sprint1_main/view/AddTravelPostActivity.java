@@ -160,6 +160,7 @@ public class AddTravelPostActivity extends AppCompatActivity  {
                 if (!note.equals("")) {
                     manager.getCurrentTravel().getNotes().add(note);
                 }
+                manager.getCurrentTravel().setTransportation(selectedTransportation);
                 TravelDatabaseModel travelDatabase = TravelDatabaseModel.getInstance();
                 List<TravelModel> newTravels = travelDatabase.getTravels();
                 newTravels.add(manager.getCurrentTravel());

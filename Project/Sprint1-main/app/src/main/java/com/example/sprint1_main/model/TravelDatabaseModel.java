@@ -50,15 +50,18 @@ public class TravelDatabaseModel {
             TravelModel trav1 = new TravelModel(defUser, new DateModel(1, 1, 1),
                     new DateModel(1, 1, 1));
             trav1.getDestinations().add(defDest1);
+            trav1.setTransportation("Walking");
 
             TravelModel trav2 = new TravelModel(defUser, new DateModel(1, 1, 1),
                     new DateModel(1, 1, 1));
             trav2.getDestinations().add(defDest2);
+            trav2.setTransportation("Walking");
 
             TravelModel trav3 = new TravelModel(defUser, new DateModel(1, 1, 1),
                     new DateModel(1, 1, 1));
             trav3.getDestinations().add(defDest3);
             trav3.getDestinations().add(defDest4);
+            trav3.setTransportation("Walking");
 
             travelDatabase.travels.add(trav1);
             travelDatabase.travels.add(trav2);

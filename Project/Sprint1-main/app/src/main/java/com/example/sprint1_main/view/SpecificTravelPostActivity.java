@@ -66,6 +66,11 @@ public class SpecificTravelPostActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String username = userInput.getText().toString();
 
+                if (!travel.getUsers().contains(manager.getCurrentUser().getUsername())) {
+                    userInput.setError("You Have Not Been Added To This Post");
+                    return;
+                }
+
                 FirebaseDatabase fb = FirebaseDatabase.getInstance();
                 DatabaseReference userRef = fb.getReference("User Database");
                 DatabaseReference travRef = fb.getReference("Travel Post Database");
@@ -80,7 +85,7 @@ public class SpecificTravelPostActivity extends AppCompatActivity {
                             currUsers.add(username);
 
                             travRef.child(travel.getPostNum()
-                                    + "").child("contributingUsers").setValue(currUsers);
+                                    + "").child("users").setValue(currUsers);
 
                             usernameTextView.setText("Users: " + travel.getUsers().toString());
 
@@ -101,12 +106,10 @@ public class SpecificTravelPostActivity extends AppCompatActivity {
 
         if (travel != null) {
 
-            StringBuilder userBuilder = new StringBuilder();
-            userBuilder.append("Users: ");
+
             if (travel.getUsers() != null && travel.getUsers().size() > 0) {
                 usernameTextView.setText("Users: " + travel.getUsers().toString());
             }
-            usernameTextView.setText(userBuilder.toString());
 
             startDateTextView.setText("Start Date: " + travel.getStartDate().toString());
             endDateTextView.setText("End Date: " + travel.getEndDate().toString());
@@ -143,6 +146,8 @@ public class SpecificTravelPostActivity extends AppCompatActivity {
                 destinationsBuilder.append(dest.getDestinationName()).append("\n");
             }
             destinationsTextView.setText(destinationsBuilder.toString());
+
+            transportationTextView.setText("Transportation: " + travel.getTransportation());
         }
 
         logistics.setOnClickListener(new View.OnClickListener() {
