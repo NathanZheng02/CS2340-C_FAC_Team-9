@@ -13,13 +13,19 @@ public class TravelUpdater implements Observer {
     }
 
     @Override
-    public void update(List<UserModel> users, List<TravelModel> travels, List<DestinationModel> destinations) {
+    public void update(List<UserModel> users, List<TravelModel> travels,
+                       List<DestinationModel> destinations) {
         List<DestinationModel> updateDest = new ArrayList<>();
+
+        if (destinations == null || destinations.size() == 0) {
+            return;
+        }
 
         for (TravelModel travel : travels) {
             for (DestinationModel d : travel.getDestinations()) {
                 for (DestinationModel dest : destinations) {
-                    if (dest.getDestinationName().equals(d.getDestinationName())) {
+                    if (dest.getDestinationName() != null
+                            && dest.getDestinationName().equals(d.getDestinationName())) {
                         updateDest.add(dest);
                     }
                 }

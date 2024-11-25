@@ -28,7 +28,8 @@ public class TravelPostData {
         }
     }
 
-    public void setValues(List<UserModel> users, List<TravelModel> travels, List<DestinationModel> destinations) {
+    public void setValues(List<UserModel> users, List<TravelModel> travels,
+                          List<DestinationModel> destinations) {
         this.users = users;
         this.travels = travels;
         this.destinations = destinations;

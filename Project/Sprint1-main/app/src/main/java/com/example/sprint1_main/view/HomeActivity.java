@@ -31,7 +31,8 @@ public class HomeActivity extends AppCompatActivity {
         Button logoutButton = findViewById(R.id.logoutButton);
 
         //setting up manager and updating destinations
-        if (manager.getCurrentUser().getDestinations() != null && manager.getCurrentUser().getDestinations().size() > 0) {
+        if (manager.getCurrentUser().getDestinations() != null
+                && manager.getCurrentUser().getDestinations().size() > 0) {
             manager.setCurrentDestination(manager.getCurrentUser().getDestinations().get(0));
         }
 
