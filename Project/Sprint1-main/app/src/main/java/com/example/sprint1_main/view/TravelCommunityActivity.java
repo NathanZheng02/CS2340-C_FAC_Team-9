@@ -10,7 +10,6 @@ import android.widget.AdapterView;
 import android.widget.ImageButton;
 
 import com.example.sprint1_main.R;
-import com.example.sprint1_main.databinding.ActivityMainBinding;
 import com.example.sprint1_main.databinding.ActivityTravelcommunityBinding;
 import com.example.sprint1_main.model.DestinationModel;
 import com.example.sprint1_main.model.LodgingModel;
@@ -20,19 +19,26 @@ import com.example.sprint1_main.model.TravelModel;
 
 import java.util.ArrayList;
 import java.util.List;
+import com.example.sprint1_main.model.DestinationDatabaseModel;
+import com.example.sprint1_main.model.TravelPostData;
+import com.example.sprint1_main.model.TravelUpdater;
+import com.example.sprint1_main.model.UserDatabaseModel;
+import com.example.sprint1_main.model.UserUpdater;
 
 public class TravelCommunityActivity extends AppCompatActivity {
 
     private static final String TAG = "TravelCommunityActivity";
 
-    ActivityTravelcommunityBinding binding;
-    ArrayList<TravelModel> travelList;
-    ArrayList<ReservationModel> dinings;
-    ArrayList<LodgingModel> accommodations;
-    ArrayList<DestinationModel> destinations;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        ActivityTravelcommunityBinding binding;
+        ArrayList<TravelModel> travelList;
+        ArrayList<ReservationModel> dinings;
+        ArrayList<LodgingModel> accommodations;
+        ArrayList<DestinationModel> destinations;
 
 
 
@@ -51,7 +57,8 @@ public class TravelCommunityActivity extends AppCompatActivity {
             }
         }
 
-        TravelCommunityAdapter listAdapter = new TravelCommunityAdapter(TravelCommunityActivity.this, travelList);
+        TravelCommunityAdapter listAdapter =
+                new TravelCommunityAdapter(TravelCommunityActivity.this, travelList);
 
         binding.listview.setAdapter(listAdapter);
         binding.listview.setClickable(true);
@@ -59,11 +66,27 @@ public class TravelCommunityActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 TravelModel selectedTravel = travelList.get(position);
-                Intent i = new Intent(TravelCommunityActivity.this, SpecificTravelPostActivity.class);
+                Intent i = new Intent(TravelCommunityActivity.this,
+                        SpecificTravelPostActivity.class);
                 i.putExtra("travelDetails", selectedTravel);
                 startActivity(i);
             }
         });
+
+
+        TravelPostData travelPostData = new TravelPostData();
+
+        UserUpdater userUpdater = new UserUpdater(travelPostData);
+        TravelUpdater travelUpdater = new TravelUpdater(travelPostData);
+
+        UserDatabaseModel userDatabase = UserDatabaseModel.getInstance();
+        TravelDatabaseModel travelDatabase = TravelDatabaseModel.getInstance();
+        DestinationDatabaseModel destinationDatabase = DestinationDatabaseModel.getInstance();
+
+        travelPostData.setValues(userDatabase.getUsers(), travelDatabase.getTravels(),
+                destinationDatabase.getDestinations());
+
+
 
         ImageButton logistics = findViewById(R.id.button_logistics);
         ImageButton destination = findViewById(R.id.button_destination);
@@ -98,7 +121,7 @@ public class TravelCommunityActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(TravelCommunityActivity.this,
-                                            AccomodationsActivity.class);
+                        AccomodationsActivity.class);
                 startActivity(intent);
             }
         });
@@ -112,7 +135,8 @@ public class TravelCommunityActivity extends AppCompatActivity {
         addTravelPost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(TravelCommunityActivity.this, AddTravelPostActivity.class);
+                Intent intent = new Intent(TravelCommunityActivity.this,
+                        AddTravelPostActivity.class);
                 startActivity(intent);
             }
         });
