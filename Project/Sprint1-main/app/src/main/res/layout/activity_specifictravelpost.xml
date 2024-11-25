@@ -34,6 +34,24 @@
             android:textSize="20sp" />
 
         <TextView
+            android:id="@+id/startDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:text="Start:"
+            android:textColor="@android:color/black"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/endDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:text="End:"
+            android:textColor="@android:color/black"
+            android:textSize="20sp" />
+
+        <TextView
             android:id="@+id/destinationsLabel"
             android:layout_width="292dp"
             android:layout_height="70dp"
