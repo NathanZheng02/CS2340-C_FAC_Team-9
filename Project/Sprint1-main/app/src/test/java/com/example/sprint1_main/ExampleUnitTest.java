@@ -17,6 +17,7 @@ import com.example.sprint1_main.model.ReservationModel;
 import com.example.sprint1_main.model.Sortable;
 import com.example.sprint1_main.model.ReservationModel;
 import com.example.sprint1_main.model.TimeModel;
+import com.example.sprint1_main.model.TravelDatabaseModel;
 import com.example.sprint1_main.model.TravelModel;
 import com.example.sprint1_main.model.UserDatabaseModel;
 import com.example.sprint1_main.model.UserModel;
@@ -521,5 +522,59 @@ public class ExampleUnitTest {
 
         assertEquals(25, travelPosts.get(4).getStartDate().getDay());
         assertEquals(10, travelPosts.get(4).getEndDate().getMonth());
+    }
+
+    @Test
+    public void travelModelEmailYearTest() {
+        UserModel user = new UserModel("test.email@email.com", "111-222-3333",
+                "Test User", 20, "testUser", "securePass123");
+        DateModel startDate = new DateModel(3, 15, 2020);
+        DateModel endDate = new DateModel(4, 10, 2020);
+        TravelModel travel = new TravelModel(user, startDate, endDate);
+
+        assertEquals("test.email@email.com", travel.getUser().getEmail());
+        assertEquals(2020, travel.getStartDate().getYear());
+        assertEquals(2020, travel.getEndDate().getYear());
+    }
+    @Test
+    public void travelModelUsernameDayTest() {
+        UserModel user = new UserModel("example.user@email.com", "999-888-7777",
+                "Example User", 25, "exampleUser", "password456");
+        DateModel startDate = new DateModel(10, 5, 2023);
+        DateModel endDate = new DateModel(10, 15, 2023);
+        TravelModel travel = new TravelModel(user, startDate, endDate);
+
+        assertEquals("exampleUser", travel.getUser().getUsername());
+        assertEquals(5, travel.getStartDate().getDay());
+        assertEquals(15, travel.getEndDate().getDay());
+    }
+
+    @Test
+    public void travelModelNameMonthTest() {
+        UserModel user = new UserModel("user.name@email.com", "444-555-6666",
+                "User Name", 30, "userName30", "pass1234");
+        DateModel startDate = new DateModel(11, 1, 2025);
+        DateModel endDate = new DateModel(12, 15, 2025);
+        TravelModel travel = new TravelModel(user, startDate, endDate);
+
+        assertEquals("User Name", travel.getUser().getName());
+        assertEquals(11, travel.getStartDate().getMonth());
+        assertEquals(12, travel.getEndDate().getMonth());
+    }
+    @Test
+    public void travelModelPhoneDateTest() {
+        UserModel user = new UserModel("testuser@email.com", "333-444-5555",
+                "Test User", 35, "testUser35", "safePassword");
+        DateModel startDate = new DateModel(2, 20, 2022);
+        DateModel endDate = new DateModel(3, 1, 2022);
+        TravelModel travel = new TravelModel(user, startDate, endDate);
+
+        assertEquals("333-444-5555", travel.getUser().getPhoneNumber());
+        assertEquals(2, travel.getStartDate().getMonth());
+        assertEquals(20, travel.getStartDate().getDay());
+        assertEquals(2022, travel.getStartDate().getYear());
+        assertEquals(3, travel.getEndDate().getMonth());
+        assertEquals(1, travel.getEndDate().getDay());
+        assertEquals(2022, travel.getEndDate().getYear());
     }
 }
