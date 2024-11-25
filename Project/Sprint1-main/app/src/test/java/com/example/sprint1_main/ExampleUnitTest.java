@@ -17,6 +17,7 @@ import com.example.sprint1_main.model.ReservationModel;
 import com.example.sprint1_main.model.Sortable;
 import com.example.sprint1_main.model.ReservationModel;
 import com.example.sprint1_main.model.TimeModel;
+import com.example.sprint1_main.model.TravelModel;
 import com.example.sprint1_main.model.UserDatabaseModel;
 import com.example.sprint1_main.model.UserModel;
 
@@ -423,6 +424,4 @@ public class ExampleUnitTest {
 
         TimeModel resultTime = model.getTime();
         assertEquals(12, resultTime.getHour());
-        assertEquals(00, resultTime.getMinute());
-    }
-}
+      
