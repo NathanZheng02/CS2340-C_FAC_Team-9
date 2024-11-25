@@ -17,6 +17,7 @@ public class TravelModel implements Serializable {
     private List<String> notes;
     private int postNum;
 
+
     public TravelModel() {
 
     }
