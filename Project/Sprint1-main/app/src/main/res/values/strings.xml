@@ -14,4 +14,11 @@
         <item>4</item>
         <item>5</item>
     </string-array>
+
+    <string-array name="transportation_type">
+        <item>Walking</item>
+        <item>Biking</item>
+        <item>Car</item>
+        <item>Bus</item>
+    </string-array>
 </resources>
