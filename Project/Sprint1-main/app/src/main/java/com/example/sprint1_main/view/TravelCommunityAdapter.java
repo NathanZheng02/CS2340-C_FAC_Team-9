@@ -42,7 +42,7 @@ public class TravelCommunityAdapter extends ArrayAdapter<TravelModel> {
         TextView dest = convertView.findViewById(R.id.destination);
         TextView duration = convertView.findViewById(R.id.duration);
 
-        userName.setText(travel.getUser().getUsername());
+        userName.setText(travel.getUsers().toString());
         for (DestinationModel destination: travel.getDestinations()) {
             destinations += destination.getDestinationName();
         }

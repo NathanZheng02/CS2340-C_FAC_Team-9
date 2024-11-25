@@ -161,10 +161,11 @@ public class AddTravelPostActivity extends AppCompatActivity  {
                     manager.getCurrentTravel().getNotes().add(note);
                 }
                 TravelDatabaseModel travelDatabase = TravelDatabaseModel.getInstance();
-                TravelModel travel = manager.getCurrentTravel();
+                List<TravelModel> newTravels = travelDatabase.getTravels();
+                newTravels.add(manager.getCurrentTravel());
                 database = FirebaseDatabase.getInstance();
                 reference = database.getReference("Travel Post Database");
-                reference.child("" + travelDatabase.getTravels().size()).setValue(travel);
+                reference.setValue(newTravels);
                 Intent i = new Intent(AddTravelPostActivity.this, TravelCommunityActivity.class);
                 startActivity(i);
             }

@@ -23,34 +23,7 @@ public class TravelDatabaseModel {
     private TravelDatabaseModel() {
         this.travels = new ArrayList<>();
 
-        UserModel defUser = new UserModel("1", "1", "1", 1,
-                "defUser", "password");
 
-        DestinationModel defDest1 = new DestinationModel("Paris",
-                new DateModel(1, 1, 1), new DateModel(1, 1, 1));
-        DestinationModel defDest2 = new DestinationModel("London",
-                new DateModel(1, 1, 1), new DateModel(1, 1, 1));
-        DestinationModel defDest3 = new DestinationModel("Berlin",
-                new DateModel(1, 1, 1), new DateModel(1, 1, 1));
-        DestinationModel defDest4 = new DestinationModel("New York",
-                new DateModel(1, 1, 1), new DateModel(1, 1, 1));
-
-        TravelModel trav1 = new TravelModel(defUser, new DateModel(1, 1, 1),
-                new DateModel(1, 1, 1));
-        trav1.getDestinations().add(defDest1);
-
-        TravelModel trav2 = new TravelModel(defUser, new DateModel(1, 1, 1),
-                new DateModel(1, 1, 1));
-        trav2.getDestinations().add(defDest2);
-
-        TravelModel trav3 = new TravelModel(defUser, new DateModel(1, 1, 1),
-                new DateModel(1, 1, 1));
-        trav3.getDestinations().add(defDest3);
-        trav3.getDestinations().add(defDest4);
-
-        this.travels.add(trav1);
-        this.travels.add(trav2);
-        this.travels.add(trav3);
     }
 
     public static TravelDatabaseModel getInstance() {
@@ -62,7 +35,38 @@ public class TravelDatabaseModel {
         if (travelDatabase == null) {
             travelDatabase = new TravelDatabaseModel();
 
-            databaseReference.setValue(travelDatabase.getTravels());
+            UserModel defUser = new UserModel("1", "1", "1", 1,
+                    "defUser", "password");
+
+            DestinationModel defDest1 = new DestinationModel("Paris",
+                    new DateModel(1, 1, 1), new DateModel(1, 1, 1));
+            DestinationModel defDest2 = new DestinationModel("London",
+                    new DateModel(1, 1, 1), new DateModel(1, 1, 1));
+            DestinationModel defDest3 = new DestinationModel("Berlin",
+                    new DateModel(1, 1, 1), new DateModel(1, 1, 1));
+            DestinationModel defDest4 = new DestinationModel("New York",
+                    new DateModel(1, 1, 1), new DateModel(1, 1, 1));
+
+            TravelModel trav1 = new TravelModel(defUser, new DateModel(1, 1, 1),
+                    new DateModel(1, 1, 1));
+            trav1.getDestinations().add(defDest1);
+
+            TravelModel trav2 = new TravelModel(defUser, new DateModel(1, 1, 1),
+                    new DateModel(1, 1, 1));
+            trav2.getDestinations().add(defDest2);
+
+            TravelModel trav3 = new TravelModel(defUser, new DateModel(1, 1, 1),
+                    new DateModel(1, 1, 1));
+            trav3.getDestinations().add(defDest3);
+            trav3.getDestinations().add(defDest4);
+
+            travelDatabase.travels.add(trav1);
+            travelDatabase.travels.add(trav2);
+            travelDatabase.travels.add(trav3);
+
+            databaseReference.child("0").setValue(trav1);
+            databaseReference.child("1").setValue(trav2);
+            databaseReference.child("2").setValue(trav3);
 
         } else {
             databaseReference.addValueEventListener(new ValueEventListener() {
