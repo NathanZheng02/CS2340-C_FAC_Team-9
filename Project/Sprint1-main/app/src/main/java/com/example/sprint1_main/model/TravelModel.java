@@ -1,10 +1,10 @@
 package com.example.sprint1_main.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TravelModel {
-
+public class TravelModel implements Serializable {
 
 
 
@@ -15,6 +15,7 @@ public class TravelModel {
     private List<DestinationModel> destinations;
     private List<String> transportation;
     private List<String> notes;
+    private int postNum;
 
 
     public TravelModel() {
@@ -37,10 +38,20 @@ public class TravelModel {
         this.destinations = new ArrayList<>();
         this.transportation = new ArrayList<>();
         this.notes = new ArrayList<>();
+
+        TravelDatabaseModel travelDatabase = TravelDatabaseModel.getInstance();
+        this.postNum = travelDatabase.getTravels().size();
     }
 
 
 
+    public int getPostNum() {
+        return postNum;
+    }
+
+    public void setPostNum(int postNum) {
+        this.postNum = postNum;
+    }
 
     public List<String> getUsers() {
         return users;
@@ -56,8 +67,11 @@ public class TravelModel {
 
     public void setStartDate(DateModel startDate) {
         this.startDate = startDate;
-        DateCalculatorModel calculator = new DateCalculatorModel();
-        this.duration = calculator.getDuration(startDate, endDate);
+        if (this.startDate != null && this.endDate != null) {
+            DateCalculatorModel calculator = new DateCalculatorModel();
+            this.duration = calculator.getDuration(startDate, endDate);
+        }
+
     }
 
     public DateModel getEndDate() {
@@ -66,8 +80,10 @@ public class TravelModel {
 
     public void setEndDate(DateModel endDate) {
         this.endDate = endDate;
-        DateCalculatorModel calculator = new DateCalculatorModel();
-        this.duration = calculator.getDuration(startDate, endDate);
+        if (this.startDate != null && this.endDate != null) {
+            DateCalculatorModel calculator = new DateCalculatorModel();
+            this.duration = calculator.getDuration(startDate, endDate);
+        }
     }
 
     public int getDuration() {

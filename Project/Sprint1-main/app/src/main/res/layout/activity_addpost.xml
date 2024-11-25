@@ -93,12 +93,29 @@
             android:textColor="@android:color/black"
             android:textSize="20sp" />
 
+        <TextView
+            android:id="@+id/transportationText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="75dp"
+            android:layout_marginBottom="20dp"
+            android:gravity="center"
+            android:text="Transportation:"
+            android:textColor="@android:color/black"
+            android:textSize="20sp" />
+
+        <Spinner
+            android:id="@+id/transportation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="140dp" />
+
         <EditText
             android:id="@+id/notesAboutTrip"
             android:layout_width="220dp"
             android:layout_height="100dp"
             android:layout_marginHorizontal="100dp"
-            android:hint="Notes About Trip"
+            android:hint="Give Rating"
             android:scrollbars="vertical"
             android:gravity="top|start"
             android:inputType="text" />

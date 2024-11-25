@@ -19,6 +19,7 @@ import android.widget.TextView;
 
 import com.example.sprint1_main.R;
 import com.example.sprint1_main.model.ApplicationManagerModel;
+import com.example.sprint1_main.model.DateCalculatorModel;
 import com.example.sprint1_main.model.DateModel;
 import com.example.sprint1_main.model.DestinationDatabaseModel;
 import com.example.sprint1_main.model.DestinationModel;
@@ -43,44 +44,52 @@ public class AddTravelPostActivity extends AppCompatActivity  {
     private FirebaseDatabase database;
     private DatabaseReference reference;
 
+    private String selectedTransportation;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_addpost);
-
-
         ApplicationManagerModel manager = ApplicationManagerModel.getInstance();
         UserDatabaseModel userDatabase = UserDatabaseModel.getInstance();
         DestinationDatabaseModel destinationDatabase = DestinationDatabaseModel.getInstance();
-
         manager.updateUserDestinations();
-
-        manager.setCurrentTravel(new TravelModel(manager.getCurrentUser(), new DateModel(0,0,0), new DateModel(0,0,0)));
+        manager.setCurrentTravel(new TravelModel(manager.getCurrentUser(),
+                new DateModel(0, 0, 0), new DateModel(0, 0, 0)));
         manager.getCurrentTravel().setDestinations(new ArrayList<>());
 
-
+        Spinner transportationSpinner = findViewById(R.id.transportation);
         TextView accommodationText = findViewById(R.id.accomodations);
         TextView diningText = findViewById(R.id.diningreservations);
         Button addPost = findViewById(R.id.button_addTravelPost);
         Button addDestination = findViewById(R.id.button_addDestination);
-
         EditText startField = findViewById(R.id.starting);
         EditText endField = findViewById(R.id.ending);
         EditText noteField = findViewById(R.id.notesAboutTrip);
         EditText destInput = findViewById(R.id.destination_input);
 
+        ArrayAdapter<CharSequence> transportationAdapter = ArrayAdapter.createFromResource(
+                this, R.array.transportation_type, android.R.layout.simple_spinner_item);
+        transportationAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        transportationSpinner.setAdapter(transportationAdapter);
 
-
-
+        transportationSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                selectedTransportation = (String) parent.getItemAtPosition(position);
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                //TODO auto-generated
+            }
+        });
 
         addDestination.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String destName = destInput.getText().toString();
-
                 FirebaseDatabase fb = FirebaseDatabase.getInstance();
                 DatabaseReference reference = fb.getReference("Destination Database");
-
                 Query checkUserDatabase = reference.orderByChild("destinationName").equalTo(destName);
 
                 checkUserDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -88,48 +97,40 @@ public class AddTravelPostActivity extends AppCompatActivity  {
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         if (snapshot.exists()) {
                             DestinationModel destination = snapshot.child(destName).getValue(DestinationModel.class);
-
                             boolean hasDest = false;
-
                             for (DestinationModel dest : manager.getCurrentUser().getDestinations()) {
                                 if (dest.getDestinationName().equals(destName)) {
                                     manager.getCurrentTravel().getDestinations().add(destination);
-
                                     TravelPostViewModel.updateAccommodations(accommodationText);
                                     TravelPostViewModel.updateDining(diningText);
                                     hasDest = true;
                                 }
                             }
-
                             if (!hasDest) {
                                 destInput.setError("Destination Does Not Belong To User");
                             }
-
-
                         } else {
                             destInput.setError("Destination Does Not Exist");
                         }
                     }
-
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
-
                     }
                 });
             }
         });
 
-
         addPost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Log.d(TAG, "Add Travel Post onClick Called");
-
+                if (manager.getCurrentTravel().getDestinations().size() < 1) {
+                    destInput.setError("Must Add At Least One Destination");
+                    return;
+                }
                 String startText = startField.getText().toString().trim();
                 String endText = endField.getText().toString().trim();
                 String note = noteField.getText().toString();
-
-
 
                 String[] startArr = startText.split("/");
                 if (startArr.length != 3) {
@@ -139,7 +140,6 @@ public class AddTravelPostActivity extends AppCompatActivity  {
                 int m1 = parseInt(startArr[0]);
                 int d1 = parseInt(startArr[1]);
                 int y1 = parseInt(startArr[2]);
-
                 String[] endArr = endText.split("/");
                 if (endArr.length != 3) {
                     endField.setError("Date Must Be In Format MM/DD/YYYY");
@@ -148,39 +148,33 @@ public class AddTravelPostActivity extends AppCompatActivity  {
                 int m2 = parseInt(endArr[0]);
                 int d2 = parseInt(endArr[1]);
                 int y2 = parseInt(endArr[2]);
-
                 DateModel start = new DateModel(m1, d1, y1);
                 DateModel end = new DateModel(m2, d2, y2);
-
+                DateCalculatorModel calculator = new DateCalculatorModel();
+                if (!calculator.dateBefore(start, end)) {
+                    startField.setError("Start Date Must Be Before End Date");
+                    return;
+                }
                 manager.getCurrentTravel().setStartDate(start);
                 manager.getCurrentTravel().setEndDate(end);
                 if (!note.equals("")) {
                     manager.getCurrentTravel().getNotes().add(note);
                 }
-
                 TravelDatabaseModel travelDatabase = TravelDatabaseModel.getInstance();
-
                 TravelModel travel = manager.getCurrentTravel();
-
                 database = FirebaseDatabase.getInstance();
                 reference = database.getReference("Travel Post Database");
-
                 reference.child("" + travelDatabase.getTravels().size()).setValue(travel);
-
                 Intent i = new Intent(AddTravelPostActivity.this, TravelCommunityActivity.class);
                 startActivity(i);
             }
         });
-
-
-
 
         ImageButton logistics = findViewById(R.id.button_logistics);
         ImageButton destination = findViewById(R.id.button_destination);
         ImageButton dining = findViewById(R.id.button_diningEstablishments);
         ImageButton accommodations = findViewById(R.id.button_accommodations);
         ImageButton home = findViewById(R.id.button_home);
-
 
         logistics.setOnClickListener(new View.OnClickListener() {
             @Override
