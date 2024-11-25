@@ -21,6 +21,7 @@ import com.example.sprint1_main.model.TravelDatabaseModel;
 import com.example.sprint1_main.model.TravelModel;
 import com.example.sprint1_main.model.UserDatabaseModel;
 import com.example.sprint1_main.model.UserModel;
+import com.example.sprint1_main.viewmodel.TravelPostViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -576,5 +577,42 @@ public class ExampleUnitTest {
         assertEquals(3, travel.getEndDate().getMonth());
         assertEquals(1, travel.getEndDate().getDay());
         assertEquals(2022, travel.getEndDate().getYear());
+    }
+
+    @Test
+    public void testTravelModelDatabase() {
+        ApplicationManagerModel applicationManager = ApplicationManagerModel.getInstance();
+        UserModel user = new UserModel("testuser@email.com", "333-444-5555",
+                "Test User", 35, "testUser35", "safePassword");
+        applicationManager.setCurrentUser(user);
+        DateModel startDate = new DateModel(2, 20, 2022);
+        DateModel endDate = new DateModel(3, 1, 2022);
+        TravelModel travel = new TravelModel(user, startDate, endDate);
+        applicationManager.setCurrentTravel(travel);
+        assertEquals(applicationManager.getCurrentTravel(), travel);
+    }
+
+    @Test
+    public void testTravelChangeUsers() {
+        ApplicationManagerModel applicationManager = ApplicationManagerModel.getInstance();
+        UserModel user = new UserModel("testuser@email.com", "333-444-5555",
+                "Test User", 35, "testUser35", "safePassword");
+        applicationManager.setCurrentUser(user);
+        DateModel startDate = new DateModel(2, 20, 2022);
+        DateModel endDate = new DateModel(3, 1, 2022);
+        TravelModel travel = new TravelModel(user, startDate, endDate);
+        applicationManager.setCurrentTravel(travel);
+
+        UserModel secondUser = new UserModel("secondUser@email.com", "444-444-5555",
+                "Second User", 30, "secondUser35", "notSafePassword");
+        applicationManager.setCurrentUser(secondUser);
+        startDate = new DateModel(4, 20, 2022);
+        endDate = new DateModel(5, 1, 2022);
+        TravelModel travel2 = new TravelModel(secondUser, startDate, endDate);
+        applicationManager.setCurrentTravel(travel2);
+
+        assertEquals(applicationManager.getCurrentTravel(), travel2);
+        applicationManager.setCurrentUser(user);
+        assertEquals(applicationManager.getCurrentTravel(), travel2);
     }
 }
