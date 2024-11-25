@@ -15,6 +15,7 @@ public class TravelModel implements Serializable {
     private List<DestinationModel> destinations;
     private List<String> notes;
     private int postNum;
+    private String transportation;
 
 
     public TravelModel() {
@@ -107,5 +108,13 @@ public class TravelModel implements Serializable {
 
     public void setNotes(List<String> notes) {
         this.notes = notes;
+    }
+
+    public String getTransportation() {
+        return transportation;
+    }
+
+    public void setTransportation(String transportation) {
+        this.transportation = transportation;
     }
 }

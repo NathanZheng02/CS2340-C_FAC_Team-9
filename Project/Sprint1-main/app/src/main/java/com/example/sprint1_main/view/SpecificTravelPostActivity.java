@@ -15,7 +15,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.sprint1_main.R;
 import com.example.sprint1_main.model.ApplicationManagerModel;
 import com.example.sprint1_main.model.TravelModel;
-import com.example.sprint1_main.model.UserModel;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -27,7 +26,6 @@ import java.util.List;
 import com.example.sprint1_main.model.DestinationModel;
 import com.example.sprint1_main.model.LodgingModel;
 import com.example.sprint1_main.model.ReservationModel;
-import com.example.sprint1_main.model.TravelModel;
 
 public class SpecificTravelPostActivity extends AppCompatActivity {
     private static final String TAG = "SpecificTravelPostActivity";
@@ -45,10 +43,8 @@ public class SpecificTravelPostActivity extends AppCompatActivity {
         ImageButton accommodations = findViewById(R.id.button_accommodations);
         ImageButton home = findViewById(R.id.button_home);
         Button goBack = findViewById(R.id.goBack);
-
         EditText userInput = findViewById(R.id.share_user_input);
         Button addUser = findViewById(R.id.share_user_Button);
-
         TextView usernameTextView = findViewById(R.id.userLabel);
         TextView startDateTextView = findViewById(R.id.startDate);
         TextView endDateTextView = findViewById(R.id.endDate);
@@ -60,18 +56,18 @@ public class SpecificTravelPostActivity extends AppCompatActivity {
 
         ApplicationManagerModel manager = ApplicationManagerModel.getInstance();
 
-
         addUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String username = userInput.getText().toString();
-
+                if (!travel.getUsers().contains(manager.getCurrentUser().getUsername())) {
+                    userInput.setError("You Have Not Been Added To This Post");
+                    return;
+                }
                 FirebaseDatabase fb = FirebaseDatabase.getInstance();
                 DatabaseReference userRef = fb.getReference("User Database");
                 DatabaseReference travRef = fb.getReference("Travel Post Database");
-
                 Query checkUserDatabase = userRef.orderByChild("username").equalTo(username);
-
                 checkUserDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -80,15 +76,13 @@ public class SpecificTravelPostActivity extends AppCompatActivity {
                             currUsers.add(username);
 
                             travRef.child(travel.getPostNum()
-                                    + "").child("contributingUsers").setValue(currUsers);
+                                    + "").child("users").setValue(currUsers);
 
                             usernameTextView.setText("Users: " + travel.getUsers().toString());
-
                         } else {
                             userInput.setError("User Does Not Exist");
                         }
                     }
-
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
 
@@ -96,18 +90,10 @@ public class SpecificTravelPostActivity extends AppCompatActivity {
                 });
             }
         });
-
-
-
         if (travel != null) {
-
-            StringBuilder userBuilder = new StringBuilder();
-            userBuilder.append("Users: ");
             if (travel.getUsers() != null && travel.getUsers().size() > 0) {
                 usernameTextView.setText("Users: " + travel.getUsers().toString());
             }
-            usernameTextView.setText(userBuilder.toString());
-
             startDateTextView.setText("Start Date: " + travel.getStartDate().toString());
             endDateTextView.setText("End Date: " + travel.getEndDate().toString());
 
@@ -143,6 +129,8 @@ public class SpecificTravelPostActivity extends AppCompatActivity {
                 destinationsBuilder.append(dest.getDestinationName()).append("\n");
             }
             destinationsTextView.setText(destinationsBuilder.toString());
+
+            transportationTextView.setText("Transportation: " + travel.getTransportation());
         }
 
         logistics.setOnClickListener(new View.OnClickListener() {

@@ -16,18 +16,24 @@ public class UserUpdater implements Observer {
     }
 
     @Override
-    public void update(List<UserModel> users, List<TravelModel> travels, List<DestinationModel> destinations) {
+    public void update(List<UserModel> users, List<TravelModel> travels,
+                       List<DestinationModel> destinations) {
 
         for (TravelModel trav : travels) {
             for (DestinationModel dest : trav.getDestinations()) {
                 for (String u : trav.getUsers()) {
-                    if (!dest.getContributingUsers().contains(u)) {
+                    if (dest.getContributingUsers() == null) {
+                        dest.setContributingUsers(new ArrayList<>());
+                    }
+                    if (!u.equals("defUser") && !dest.getContributingUsers().contains(u)) {
                         dest.getContributingUsers().add(u);
 
                         FirebaseDatabase database = FirebaseDatabase.getInstance();
                         DatabaseReference desRef = database.getReference("Destination Database");
 
-                        desRef.child(dest.getDestinationName()).child("contributingUsers").setValue(dest.getContributingUsers());
+                        DatabaseReference ref1 =
+                                desRef.child(dest.getDestinationName()).child("contributingUsers");
+                        ref1.setValue(dest.getContributingUsers());
 
                     }
                 }
