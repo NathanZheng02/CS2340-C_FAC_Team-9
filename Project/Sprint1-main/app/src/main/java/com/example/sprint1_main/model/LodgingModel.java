@@ -1,6 +1,8 @@
 package com.example.sprint1_main.model;
 
-public class LodgingModel implements Sortable {
+import java.io.Serializable;
+
+public class LodgingModel implements Sortable, Serializable {
 
 
 

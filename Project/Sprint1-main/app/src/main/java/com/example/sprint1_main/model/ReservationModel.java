@@ -1,9 +1,10 @@
 package com.example.sprint1_main.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ReservationModel implements Sortable {
+public class ReservationModel implements Sortable, Serializable {
 
     private String location;
     private String website;

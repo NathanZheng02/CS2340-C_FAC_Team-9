@@ -1,6 +1,8 @@
 package com.example.sprint1_main.model;
 
-public class DateModel {
+import java.io.Serializable;
+
+public class DateModel implements Serializable {
     private int day;
     private int month;
     private int year;
@@ -42,5 +44,9 @@ public class DateModel {
         this.year = year;
     }
 
+    @Override
+    public String toString() {
+        return month + "/" + day + "/" + year; // Format as needed
+    }
 
 }

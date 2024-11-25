@@ -1,9 +1,10 @@
 package com.example.sprint1_main.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserModel {
+public class UserModel implements Serializable {
     private String email;
     private String phoneNumber;
     private String name;

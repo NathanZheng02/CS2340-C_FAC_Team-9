@@ -17,6 +17,7 @@ import com.example.sprint1_main.model.ReservationModel;
 import com.example.sprint1_main.model.Sortable;
 import com.example.sprint1_main.model.ReservationModel;
 import com.example.sprint1_main.model.TimeModel;
+import com.example.sprint1_main.model.TravelModel;
 import com.example.sprint1_main.model.UserDatabaseModel;
 import com.example.sprint1_main.model.UserModel;
 
@@ -424,5 +425,41 @@ public class ExampleUnitTest {
         TimeModel resultTime = model.getTime();
         assertEquals(12, resultTime.getHour());
         assertEquals(00, resultTime.getMinute());
+    }
+
+    @Test
+    public void travelModelTest() {
+        UserModel newUser = new UserModel("UserName@email.com", "123-456-7890",
+                "UserName", 18, "goodUserName", "goodPassword");
+        DateModel startDate = new DateModel(12, 24, 2011);
+        DateModel endDate = new DateModel(1, 2, 2012);
+        TravelModel travel = new TravelModel(newUser, startDate, endDate);
+        assertEquals(travel.getUser().getName(), "UserName");
+        assertEquals(travel.getStartDate().getMonth(), 12);
+        assertEquals(travel.getEndDate().getMonth(), 1);
+    }
+
+    @Test
+    public void travelModelTest2() {
+        UserModel newUser = new UserModel("UserName@email.com", "123-456-7890",
+                "UserName", 18, "goodUserName", "goodPassword");
+        DateModel startDate = new DateModel(12, 24, 2011);
+        DateModel endDate = new DateModel(1, 2, 2012);
+        TravelModel travel = new TravelModel(newUser, startDate, endDate);
+        assertEquals(travel.getUser().getPhoneNumber(), "123-456-7890");
+        assertEquals(travel.getStartDate().getDay(), 24);
+        assertEquals(travel.getEndDate().getDay(), 2);
+    }
+
+    @Test
+    public void travelModelTest3() {
+        UserModel newUser = new UserModel("UserName@email.com", "123-456-7890",
+                "UserName", 18, "goodUserName", "goodPassword");
+        DateModel startDate = new DateModel(12, 24, 2011);
+        DateModel endDate = new DateModel(1, 2, 2012);
+        TravelModel travel = new TravelModel(newUser, startDate, endDate);
+        assertEquals(travel.getUser().getPassword(), "goodPassword");
+        assertEquals(travel.getStartDate().getYear(), 2011);
+        assertEquals(travel.getEndDate().getYear(), 2012);
     }
 }

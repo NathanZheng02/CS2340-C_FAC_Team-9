@@ -1,9 +1,10 @@
 package com.example.sprint1_main.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DestinationModel {
+public class DestinationModel implements Serializable {
 
     private String destinationName;
     private DateModel startDate;
