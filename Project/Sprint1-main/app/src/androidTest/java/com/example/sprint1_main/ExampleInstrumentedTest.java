@@ -10,6 +10,8 @@ import org.junit.runner.RunWith;
 
 import static org.junit.Assert.*;
 
+import com.example.sprint1_main.model.TravelDatabaseModel;
+
 /**
  * Instrumented test, which will execute on an Android device.
  *
@@ -22,5 +24,13 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
         assertEquals("com.example.sprint1_main", appContext.getPackageName());
+    }
+
+    @Test
+    public void travelDatabaseSingletonTest() { //tests TravelDatabaseModel singleton
+        TravelDatabaseModel model1 = TravelDatabaseModel.getInstance();
+        TravelDatabaseModel model2 = TravelDatabaseModel.getInstance();
+
+        assertEquals(model1, model2);
     }
 }

@@ -17,6 +17,8 @@ import com.example.sprint1_main.model.ReservationModel;
 import com.example.sprint1_main.model.Sortable;
 import com.example.sprint1_main.model.ReservationModel;
 import com.example.sprint1_main.model.TimeModel;
+import com.example.sprint1_main.model.TravelDatabaseModel;
+import com.example.sprint1_main.model.TravelModel;
 import com.example.sprint1_main.model.UserDatabaseModel;
 import com.example.sprint1_main.model.UserModel;
 
@@ -425,4 +427,16 @@ public class ExampleUnitTest {
         assertEquals(12, resultTime.getHour());
         assertEquals(00, resultTime.getMinute());
     }
+
+    @Test
+    public void travelCalulatorTest() { //tests duration calculator in the TravelModel class
+        DateModel start = new DateModel(11, 24, 2024);
+        DateModel end = new DateModel(12, 24, 2024);
+        UserModel user = new UserModel("testing1", "555-1234", "John Doe", 30, "johnDoe", "123");
+
+        TravelModel travel = new TravelModel(user, start, end);
+
+        assertEquals(30, travel.getDuration());
+    }
+
 }
