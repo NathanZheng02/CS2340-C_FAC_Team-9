@@ -1,6 +1,8 @@
 package com.example.sprint1_main.model;
 
-public class TimeModel {
+import java.io.Serializable;
+
+public class TimeModel implements Serializable {
 
 
     private int hour;
