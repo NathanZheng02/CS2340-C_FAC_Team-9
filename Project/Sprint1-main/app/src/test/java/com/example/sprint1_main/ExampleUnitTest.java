@@ -439,4 +439,205 @@ public class ExampleUnitTest {
         assertEquals(30, travel.getDuration());
     }
 
+    public void travelModelTest() {
+        UserModel newUser = new UserModel("UserName@email.com", "123-456-7890",
+                "UserName", 18, "goodUserName", "goodPassword");
+        DateModel startDate = new DateModel(12, 24, 2011);
+        DateModel endDate = new DateModel(1, 2, 2012);
+        TravelModel travel = new TravelModel(newUser, startDate, endDate);
+        assertEquals(travel.getUser().getName(), "UserName");
+        assertEquals(travel.getStartDate().getMonth(), 12);
+        assertEquals(travel.getEndDate().getMonth(), 1);
+    }
+
+    @Test
+    public void travelModelTest2() {
+        UserModel newUser = new UserModel("UserName@email.com", "123-456-7890",
+                "UserName", 18, "goodUserName", "goodPassword");
+        DateModel startDate = new DateModel(12, 24, 2011);
+        DateModel endDate = new DateModel(1, 2, 2012);
+        TravelModel travel = new TravelModel(newUser, startDate, endDate);
+        assertEquals(travel.getUser().getPhoneNumber(), "123-456-7890");
+        assertEquals(travel.getStartDate().getDay(), 24);
+        assertEquals(travel.getEndDate().getDay(), 2);
+    }
+
+    @Test
+    public void travelModelTest3() {
+        UserModel newUser = new UserModel("UserName@email.com", "123-456-7890",
+                "UserName", 18, "goodUserName", "goodPassword");
+        DateModel startDate = new DateModel(12, 24, 2011);
+        DateModel endDate = new DateModel(1, 2, 2012);
+        TravelModel travel = new TravelModel(newUser, startDate, endDate);
+        assertEquals(travel.getUser().getPassword(), "goodPassword");
+        assertEquals(travel.getStartDate().getYear(), 2011);
+        assertEquals(travel.getEndDate().getYear(), 2012);
+    }
+
+    @Test
+    public void travelModelSmallListTest() {
+        UserModel user1 = new UserModel("alice@example.com", "555-0001", "Alice", 25, "alice25", "pass1");
+        UserModel user2 = new UserModel("bob@example.com", "555-0002", "Bob", 28, "bob28", "pass2");
+
+        TravelModel trip1 = new TravelModel(user1, new DateModel(5, 10, 2024),
+                new DateModel(5, 20, 2024));
+        TravelModel trip2 = new TravelModel(user2, new DateModel(6, 15, 2024),
+                new DateModel(6, 25, 2024));
+
+        List<TravelModel> travelPosts = new ArrayList<>();
+        travelPosts.add(trip1);
+        travelPosts.add(trip2);
+
+        assertEquals(2, travelPosts.size());
+        assertEquals("Alice", travelPosts.get(0).getUser().getName());
+        assertEquals(5, travelPosts.get(0).getStartDate().getMonth());
+        assertEquals("Bob", travelPosts.get(1).getUser().getName());
+        assertEquals(6, travelPosts.get(1).getStartDate().getMonth());
+    }
+
+    @Test
+    public void travelModelLargerListTest() {
+        UserModel user1 = new UserModel("alice@example.com", "555-0001", "Alice", 25, "alice25", "pass1");
+        UserModel user2 = new UserModel("bob@example.com", "555-0002", "Bob", 28, "bob28", "pass2");
+        UserModel user3 = new UserModel("carol@example.com", "555-0003", "Carol", 30, "carol30", "pass3");
+        UserModel user4 = new UserModel("dave@example.com", "555-0004", "Dave", 27, "dave27", "pass4");
+        UserModel user5 = new UserModel("eve@example.com", "555-0005", "Eve", 26, "eve26", "pass5");
+
+        TravelModel trip1 = new TravelModel(user1, new DateModel(5, 10, 2024), new DateModel(5, 20, 2024));
+        TravelModel trip2 = new TravelModel(user2, new DateModel(6, 15, 2024), new DateModel(6, 25, 2024));
+        TravelModel trip3 = new TravelModel(user3, new DateModel(7, 5, 2024), new DateModel(7, 15, 2024));
+        TravelModel trip4 = new TravelModel(user4, new DateModel(8, 10, 2024), new DateModel(8, 20, 2024));
+        TravelModel trip5 = new TravelModel(user5, new DateModel(9, 25, 2024), new DateModel(10, 5, 2024));
+
+        List<TravelModel> travelPosts = new ArrayList<>();
+        travelPosts.add(trip1);
+        travelPosts.add(trip2);
+        travelPosts.add(trip3);
+        travelPosts.add(trip4);
+        travelPosts.add(trip5);
+
+        assertEquals(5, travelPosts.size());
+
+        assertEquals(10, travelPosts.get(0).getStartDate().getDay());
+        assertEquals(5, travelPosts.get(0).getEndDate().getMonth());
+
+        assertEquals(15, travelPosts.get(1).getStartDate().getDay());
+        assertEquals(6, travelPosts.get(1).getEndDate().getMonth());
+
+        assertEquals(5, travelPosts.get(2).getStartDate().getDay());
+        assertEquals(7, travelPosts.get(2).getEndDate().getMonth());
+
+        assertEquals(10, travelPosts.get(3).getStartDate().getDay());
+        assertEquals(8, travelPosts.get(3).getEndDate().getMonth());
+
+        assertEquals(25, travelPosts.get(4).getStartDate().getDay());
+        assertEquals(10, travelPosts.get(4).getEndDate().getMonth());
+    }
+
+    @Test
+    public void travelModelEmailYearTest() {
+        UserModel user = new UserModel("test.email@email.com", "111-222-3333",
+                "Test User", 20, "testUser", "securePass123");
+        DateModel startDate = new DateModel(3, 15, 2020);
+        DateModel endDate = new DateModel(4, 10, 2020);
+        TravelModel travel = new TravelModel(user, startDate, endDate);
+
+        assertEquals("test.email@email.com", travel.getUser().getEmail());
+        assertEquals(2020, travel.getStartDate().getYear());
+        assertEquals(2020, travel.getEndDate().getYear());
+    }
+    @Test
+    public void travelModelUsernameDayTest() {
+        UserModel user = new UserModel("example.user@email.com", "999-888-7777",
+                "Example User", 25, "exampleUser", "password456");
+        DateModel startDate = new DateModel(10, 5, 2023);
+        DateModel endDate = new DateModel(10, 15, 2023);
+        TravelModel travel = new TravelModel(user, startDate, endDate);
+
+        assertEquals("exampleUser", travel.getUser().getUsername());
+        assertEquals(5, travel.getStartDate().getDay());
+        assertEquals(15, travel.getEndDate().getDay());
+    }
+
+    @Test
+    public void travelModelNameMonthTest() {
+        UserModel user = new UserModel("user.name@email.com", "444-555-6666",
+                "User Name", 30, "userName30", "pass1234");
+        DateModel startDate = new DateModel(11, 1, 2025);
+        DateModel endDate = new DateModel(12, 15, 2025);
+        TravelModel travel = new TravelModel(user, startDate, endDate);
+
+        assertEquals("User Name", travel.getUser().getName());
+        assertEquals(11, travel.getStartDate().getMonth());
+        assertEquals(12, travel.getEndDate().getMonth());
+    }
+    @Test
+    public void travelModelPhoneDateTest() {
+        UserModel user = new UserModel("testuser@email.com", "333-444-5555",
+                "Test User", 35, "testUser35", "safePassword");
+        DateModel startDate = new DateModel(2, 20, 2022);
+        DateModel endDate = new DateModel(3, 1, 2022);
+        TravelModel travel = new TravelModel(user, startDate, endDate);
+
+        assertEquals("333-444-5555", travel.getUser().getPhoneNumber());
+        assertEquals(2, travel.getStartDate().getMonth());
+        assertEquals(20, travel.getStartDate().getDay());
+        assertEquals(2022, travel.getStartDate().getYear());
+        assertEquals(3, travel.getEndDate().getMonth());
+        assertEquals(1, travel.getEndDate().getDay());
+        assertEquals(2022, travel.getEndDate().getYear());
+    }
+
+    @Test
+    public void testOverlappingTravelDates() {
+        TravelModel trip1 = new TravelModel(
+                new UserModel("user1@example.com", "555-1234", "User One", 30, "user1", "pass1"),
+                new DateModel(6, 1, 2024),
+                new DateModel(6, 10, 2024)
+        );
+
+        TravelModel trip2 = new TravelModel(
+                new UserModel("user2@example.com", "555-5678", "User Two", 35, "user2", "pass2"),
+                new DateModel(6, 5, 2024),
+                new DateModel(6, 15, 2024)
+        );
+
+        boolean overlap = trip1.getStartDate().getYear() == trip2.getStartDate().getYear() &&
+                trip1.getEndDate().getMonth() >= trip2.getStartDate().getMonth() &&
+                trip1.getEndDate().getDay() >= trip2.getStartDate().getDay();
+
+        assertTrue("Trips should overlap", overlap);
+
+        boolean noOverlap = trip1.getEndDate().getMonth() < trip2.getStartDate().getMonth() ||
+                (trip1.getEndDate().getMonth() == trip2.getStartDate().getMonth() &&
+                        trip1.getEndDate().getDay() < trip2.getStartDate().getDay());
+
+        assertFalse("Trips should not be entirely separate", noOverlap);
+    }
+
+    @Test
+    public void testMultiThreadedNotesAccess() throws InterruptedException {
+        TravelModel travel = new TravelModel(
+                new UserModel("user@example.com", "555-1234", "Multi Thread User", 29, "threaduser", "threadpass"),
+                new DateModel(8, 1, 2024),
+                new DateModel(8, 10, 2024)
+        );
+
+        Thread thread1 = new Thread(() -> travel.getNotes().add("Thread 1: Pack sunscreen."));
+        Thread thread2 = new Thread(() -> travel.getNotes().add("Thread 2: Check flight tickets."));
+        Thread thread3 = new Thread(() -> travel.getNotes().add("Thread 3: Arrange airport pickup."));
+
+        thread1.start();
+        thread2.start();
+        thread3.start();
+
+        thread1.join();
+        thread2.join();
+        thread3.join();
+
+        assertEquals(3, travel.getNotes().size());
+        assertTrue(travel.getNotes().contains("Thread 1: Pack sunscreen."));
+        assertTrue(travel.getNotes().contains("Thread 2: Check flight tickets."));
+        assertTrue(travel.getNotes().contains("Thread 3: Arrange airport pickup."));
+    }
 }
