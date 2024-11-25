@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,6 +24,10 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
+import com.example.sprint1_main.model.DestinationModel;
+import com.example.sprint1_main.model.LodgingModel;
+import com.example.sprint1_main.model.ReservationModel;
+import com.example.sprint1_main.model.TravelModel;
 
 public class SpecificTravelPostActivity extends AppCompatActivity {
     private static final String TAG = "SpecificTravelPostActivity";
@@ -31,6 +36,8 @@ public class SpecificTravelPostActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_specifictravelpost);
+
+        TravelModel travel = (TravelModel) getIntent().getSerializableExtra("travelDetails");
 
         ImageButton logistics = findViewById(R.id.button_logistics);
         ImageButton destination = findViewById(R.id.button_destination);
@@ -80,6 +87,49 @@ public class SpecificTravelPostActivity extends AppCompatActivity {
             }
         });
 
+        TextView usernameTextView = findViewById(R.id.userLabel);
+        TextView startDateTextView = findViewById(R.id.startDate);
+        TextView endDateTextView = findViewById(R.id.endDate);
+        TextView destinationsTextView = findViewById(R.id.destinationsLabel);
+        TextView transportationTextView = findViewById(R.id.transportationsLabel);
+        TextView accommodationsTextView = findViewById(R.id.accommodationsLabel);
+        TextView reservationsTextView = findViewById(R.id.reservationsLabel);
+        TextView notesTextView = findViewById(R.id.notesLabel);
+
+        if (travel != null) {
+
+
+            usernameTextView.setText("Users: " + travel.getUsers().toString());
+            startDateTextView.setText("Start Date: " + travel.getStartDate().toString());
+            endDateTextView.setText("End Date: " + travel.getEndDate().toString());
+
+            StringBuilder accommodationsBuilder = new StringBuilder();
+            accommodationsBuilder.append("Accommodations: ");
+            for (DestinationModel dest : travel.getDestinations()) {
+                for (LodgingModel accommodation : dest.getLodgings()) {
+                    accommodationsBuilder.append(accommodation.getLocation()).append("\n");
+                }
+            }
+            accommodationsTextView.setText(accommodationsBuilder.toString());
+
+            StringBuilder reservationsBuilder = new StringBuilder();
+            reservationsBuilder.append("Dining Reservations: ");
+            for (DestinationModel dest : travel.getDestinations()) {
+                for (ReservationModel reservation : dest.getReservations()) {
+                    reservationsBuilder.append(reservation.getLocation()).append("\n");
+                }
+            }
+            reservationsTextView.setText(reservationsBuilder.toString());
+
+            notesTextView.setText("Notes: " + travel.getNotes().toString());
+
+            StringBuilder destinationsBuilder = new StringBuilder();
+            destinationsBuilder.append("Destinations: ");
+            for (DestinationModel dest : travel.getDestinations()) {
+                destinationsBuilder.append(dest.getDestinationName()).append("\n");
+            }
+            destinationsTextView.setText(destinationsBuilder.toString());
+        }
 
         logistics.setOnClickListener(new View.OnClickListener() {
             @Override

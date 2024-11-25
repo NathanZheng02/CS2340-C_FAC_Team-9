@@ -1,9 +1,10 @@
 package com.example.sprint1_main.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TravelModel {
+public class TravelModel implements Serializable {
 
 
 
@@ -65,8 +66,11 @@ public class TravelModel {
 
     public void setStartDate(DateModel startDate) {
         this.startDate = startDate;
-        DateCalculatorModel calculator = new DateCalculatorModel();
-        this.duration = calculator.getDuration(startDate, endDate);
+        if (this.startDate != null && this.endDate != null) {
+            DateCalculatorModel calculator = new DateCalculatorModel();
+            this.duration = calculator.getDuration(startDate, endDate);
+        }
+
     }
 
     public DateModel getEndDate() {
@@ -75,8 +79,10 @@ public class TravelModel {
 
     public void setEndDate(DateModel endDate) {
         this.endDate = endDate;
-        DateCalculatorModel calculator = new DateCalculatorModel();
-        this.duration = calculator.getDuration(startDate, endDate);
+        if (this.startDate != null && this.endDate != null) {
+            DateCalculatorModel calculator = new DateCalculatorModel();
+            this.duration = calculator.getDuration(startDate, endDate);
+        }
     }
 
     public int getDuration() {

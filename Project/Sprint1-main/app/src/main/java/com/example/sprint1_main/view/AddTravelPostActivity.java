@@ -44,6 +44,8 @@ public class AddTravelPostActivity extends AppCompatActivity  {
     private FirebaseDatabase database;
     private DatabaseReference reference;
 
+    private String selectedTransportation;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,6 +57,8 @@ public class AddTravelPostActivity extends AppCompatActivity  {
         manager.setCurrentTravel(new TravelModel(manager.getCurrentUser(),
                 new DateModel(0, 0, 0), new DateModel(0, 0, 0)));
         manager.getCurrentTravel().setDestinations(new ArrayList<>());
+
+        Spinner transportationSpinner = findViewById(R.id.transportation);
         TextView accommodationText = findViewById(R.id.accomodations);
         TextView diningText = findViewById(R.id.diningreservations);
         Button addPost = findViewById(R.id.button_addTravelPost);
@@ -63,6 +67,22 @@ public class AddTravelPostActivity extends AppCompatActivity  {
         EditText endField = findViewById(R.id.ending);
         EditText noteField = findViewById(R.id.notesAboutTrip);
         EditText destInput = findViewById(R.id.destination_input);
+
+        ArrayAdapter<CharSequence> transportationAdapter = ArrayAdapter.createFromResource(
+                this, R.array.transportation_type, android.R.layout.simple_spinner_item);
+        transportationAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        transportationSpinner.setAdapter(transportationAdapter);
+
+        transportationSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                selectedTransportation = (String) parent.getItemAtPosition(position);
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                //TODO auto-generated
+            }
+        });
 
         addDestination.setOnClickListener(new View.OnClickListener() {
             @Override
