@@ -113,14 +113,25 @@ public class LogTravelActivity extends AppCompatActivity {
                 String destinationName = destination.getText().toString();
                 String startDate = startDateField.getText().toString().trim();
                 String endDate = endDateField.getText().toString().trim();
-                //MM/DD/YYYY
-                int m1 = parseInt(startDate.substring(0, 2));
-                int d1 = parseInt(startDate.substring(3, 5));
-                int y1 = parseInt(startDate.substring(6));
 
-                int m2 = parseInt(endDate.substring(0, 2));
-                int d2 = parseInt(endDate.substring(3, 5));
-                int y2 = parseInt(endDate.substring(6));
+
+                String[] startArr = startDate.split("/");
+                if (startArr.length != 3) {
+                    startDateField.setError("Date Must Be In Format MM/DD/YYYY");
+                    return;
+                }
+                int m1 = parseInt(startArr[0]);
+                int d1 = parseInt(startArr[1]);
+                int y1 = parseInt(startArr[2]);
+
+                String[] endArr = endDate.split("/");
+                if (endArr.length != 3) {
+                    endDateField.setError("Date Must Be In Format MM/DD/YYYY");
+                    return;
+                }
+                int m2 = parseInt(endArr[0]);
+                int d2 = parseInt(endArr[1]);
+                int y2 = parseInt(endArr[2]);
 
                 DateModel beginning = new DateModel(m1, d1, y1);
                 DateModel ending = new DateModel(m2, d2, y2);

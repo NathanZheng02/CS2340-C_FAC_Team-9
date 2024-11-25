@@ -20,6 +20,12 @@ import com.example.sprint1_main.model.TravelModel;
 
 import java.util.ArrayList;
 import java.util.List;
+import com.example.sprint1_main.model.DestinationDatabaseModel;
+import com.example.sprint1_main.model.TravelDatabaseModel;
+import com.example.sprint1_main.model.TravelPostData;
+import com.example.sprint1_main.model.TravelUpdater;
+import com.example.sprint1_main.model.UserDatabaseModel;
+import com.example.sprint1_main.model.UserUpdater;
 
 public class TravelCommunityActivity extends AppCompatActivity {
 
@@ -64,6 +70,21 @@ public class TravelCommunityActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
+
+
+        TravelPostData travelPostData = new TravelPostData();
+
+        UserUpdater userUpdater = new UserUpdater(travelPostData);
+        TravelUpdater travelUpdater = new TravelUpdater(travelPostData);
+
+        UserDatabaseModel userDatabase = UserDatabaseModel.getInstance();
+        TravelDatabaseModel travelDatabase = TravelDatabaseModel.getInstance();
+        DestinationDatabaseModel destinationDatabase = DestinationDatabaseModel.getInstance();
+
+        travelPostData.setValues(userDatabase.getUsers(), travelDatabase.getTravels(),
+                destinationDatabase.getDestinations());
+
+
 
         ImageButton logistics = findViewById(R.id.button_logistics);
         ImageButton destination = findViewById(R.id.button_destination);
