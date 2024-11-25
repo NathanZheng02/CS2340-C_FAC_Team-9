@@ -52,8 +52,10 @@ public class DestinationActivity extends AppCompatActivity {
 
         ApplicationManagerModel manager = ApplicationManagerModel.getInstance();
         List<DestinationModel> destinations = manager.getCurrentUser().getDestinations();
-        for (DestinationModel destination : destinations) {
-            list.add(destination);
+        if (destinations != null && destinations.size() > 0) {
+            for (DestinationModel destination : destinations) {
+                list.add(destination);
+            }
         }
 
         adapter = new DestinationsAdapter(this, list);

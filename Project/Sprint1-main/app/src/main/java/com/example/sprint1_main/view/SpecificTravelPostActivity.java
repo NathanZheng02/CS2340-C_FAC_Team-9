@@ -49,6 +49,15 @@ public class SpecificTravelPostActivity extends AppCompatActivity {
         EditText userInput = findViewById(R.id.share_user_input);
         Button addUser = findViewById(R.id.share_user_Button);
 
+        TextView usernameTextView = findViewById(R.id.userLabel);
+        TextView startDateTextView = findViewById(R.id.startDate);
+        TextView endDateTextView = findViewById(R.id.endDate);
+        TextView destinationsTextView = findViewById(R.id.destinationsLabel);
+        TextView transportationTextView = findViewById(R.id.transportationsLabel);
+        TextView accommodationsTextView = findViewById(R.id.accommodationsLabel);
+        TextView reservationsTextView = findViewById(R.id.reservationsLabel);
+        TextView notesTextView = findViewById(R.id.notesLabel);
+
         ApplicationManagerModel manager = ApplicationManagerModel.getInstance();
 
 
@@ -67,12 +76,13 @@ public class SpecificTravelPostActivity extends AppCompatActivity {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         if (snapshot.exists()) {
-                            TravelModel currTrav = manager.getCurrentTravel();
-                            List<String> currUsers = currTrav.getUsers();
+                            List<String> currUsers = travel.getUsers();
                             currUsers.add(username);
 
-                            travRef.child(currTrav.getPostNum()
+                            travRef.child(travel.getPostNum()
                                     + "").child("contributingUsers").setValue(currUsers);
+
+                            usernameTextView.setText("Users: " + travel.getUsers().toString());
 
                         } else {
                             userInput.setError("User Does Not Exist");
@@ -87,27 +97,27 @@ public class SpecificTravelPostActivity extends AppCompatActivity {
             }
         });
 
-        TextView usernameTextView = findViewById(R.id.userLabel);
-        TextView startDateTextView = findViewById(R.id.startDate);
-        TextView endDateTextView = findViewById(R.id.endDate);
-        TextView destinationsTextView = findViewById(R.id.destinationsLabel);
-        TextView transportationTextView = findViewById(R.id.transportationsLabel);
-        TextView accommodationsTextView = findViewById(R.id.accommodationsLabel);
-        TextView reservationsTextView = findViewById(R.id.reservationsLabel);
-        TextView notesTextView = findViewById(R.id.notesLabel);
+
 
         if (travel != null) {
 
+            StringBuilder userBuilder = new StringBuilder();
+            userBuilder.append("Users: ");
+            if (travel.getUsers() != null && travel.getUsers().size() > 0) {
+                usernameTextView.setText("Users: " + travel.getUsers().toString());
+            }
+            usernameTextView.setText(userBuilder.toString());
 
-            usernameTextView.setText("Users: " + travel.getUsers().toString());
             startDateTextView.setText("Start Date: " + travel.getStartDate().toString());
             endDateTextView.setText("End Date: " + travel.getEndDate().toString());
 
             StringBuilder accommodationsBuilder = new StringBuilder();
             accommodationsBuilder.append("Accommodations: ");
             for (DestinationModel dest : travel.getDestinations()) {
-                for (LodgingModel accommodation : dest.getLodgings()) {
-                    accommodationsBuilder.append(accommodation.getLocation()).append("\n");
+                if (dest.getLodgings() != null && dest.getLodgings().size() > 0) {
+                    for (LodgingModel accommodation : dest.getLodgings()) {
+                        accommodationsBuilder.append(accommodation.getLocation()).append("\n");
+                    }
                 }
             }
             accommodationsTextView.setText(accommodationsBuilder.toString());
@@ -115,13 +125,17 @@ public class SpecificTravelPostActivity extends AppCompatActivity {
             StringBuilder reservationsBuilder = new StringBuilder();
             reservationsBuilder.append("Dining Reservations: ");
             for (DestinationModel dest : travel.getDestinations()) {
-                for (ReservationModel reservation : dest.getReservations()) {
-                    reservationsBuilder.append(reservation.getLocation()).append("\n");
+                if (dest.getReservations() != null && dest.getReservations().size() > 0) {
+                    for (ReservationModel reservation : dest.getReservations()) {
+                        reservationsBuilder.append(reservation.getLocation()).append("\n");
+                    }
                 }
             }
             reservationsTextView.setText(reservationsBuilder.toString());
 
-            notesTextView.setText("Notes: " + travel.getNotes().toString());
+            if (travel.getNotes() != null && travel.getNotes().size() > 0) {
+                notesTextView.setText("Notes: " + travel.getNotes().toString());
+            }
 
             StringBuilder destinationsBuilder = new StringBuilder();
             destinationsBuilder.append("Destinations: ");

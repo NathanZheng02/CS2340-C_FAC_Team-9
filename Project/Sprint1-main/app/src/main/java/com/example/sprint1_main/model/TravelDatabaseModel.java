@@ -64,7 +64,9 @@ public class TravelDatabaseModel {
             travelDatabase.travels.add(trav2);
             travelDatabase.travels.add(trav3);
 
-            databaseReference.setValue(travelDatabase.getTravels());
+            databaseReference.child("0").setValue(trav1);
+            databaseReference.child("1").setValue(trav2);
+            databaseReference.child("2").setValue(trav3);
 
         } else {
             databaseReference.addValueEventListener(new ValueEventListener() {

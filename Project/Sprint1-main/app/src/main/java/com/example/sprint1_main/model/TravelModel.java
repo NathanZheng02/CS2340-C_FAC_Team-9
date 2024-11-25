@@ -13,7 +13,6 @@ public class TravelModel implements Serializable {
     private DateModel endDate;
     private int duration;
     private List<DestinationModel> destinations;
-    private List<String> transportation;
     private List<String> notes;
     private int postNum;
 
@@ -35,7 +34,6 @@ public class TravelModel implements Serializable {
 
 
         this.destinations = new ArrayList<>();
-        this.transportation = new ArrayList<>();
         this.notes = new ArrayList<>();
 
         TravelDatabaseModel travelDatabase = TravelDatabaseModel.getInstance();
@@ -101,13 +99,6 @@ public class TravelModel implements Serializable {
         this.destinations = destinations;
     }
 
-    public List<String> getTransportation() {
-        return transportation;
-    }
-
-    public void setTransportation(List<String> transportation) {
-        this.transportation = transportation;
-    }
 
     public List<String> getNotes() {
         return notes;
